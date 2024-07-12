@@ -1,7 +1,7 @@
-name: flutter_form_validator
-description: flutter_form_validator is a comprehensive Flutter package designed to simplify form validation. It provides a robust set of validation functions for various form fields, including email, phone, password, name, and age. The package supports phone number validation according to different countries' phone number formats, making it versatile for international applications.
+name: best_form_validator
+description: best_form_validator is a comprehensive Flutter package designed to simplify form validation. It provides a robust set of validation functions for various form fields, including email, phone, password, name, and age. The package supports phone number validation according to different countries' phone number formats, making it versatile for international applications.
 version: 1.0.0
-repository: https://github.com/my_org/my_repo
+repository: https://github.com/greelogix/flutter_form_validator
 
 environment:
   sdk: ^3.4.3

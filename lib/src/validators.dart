@@ -1,4 +1,4 @@
-import 'package:flutter_form_validator/flutter_form_validator.dart';
+import 'package:best_form_validator/best_form_validator.dart';
 
 /// Checks if you are awesome. Spoiler: you are.
 class Validators {

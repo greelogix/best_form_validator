@@ -1,5 +1,5 @@
+import 'package:best_form_validator/best_form_validator.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_form_validator/flutter_form_validator.dart';
 import 'package:test/test.dart';
 
 void main() {
