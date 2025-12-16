@@ -6,7 +6,7 @@ void main() {
   group('Validators', () {
     setUp(() async {
       WidgetsFlutterBinding.ensureInitialized();
-      await PhoneValidator.loadRegexMap();
+      await PhoneValidator.loadRegexMapTest();
     });
     test('validateEmail returns error when email is empty', () {
       final result = Validators.validateEmail('');
