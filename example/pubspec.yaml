@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   best_form_validator:
     path: ../
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
