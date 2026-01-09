@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:best_form_validator/best_form_validator.dart';
 
-/// Comprehensive example demonstrating all validators in best_form_validator package
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // IMPORTANT: Load phone regex patterns before using phone validation
+  // Initialize standard regex patterns for phone validation
   await Validators.loadPhoneRegex();
-
   runApp(const MyApp());
 }
 
@@ -17,714 +14,371 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Best Form Validator Example',
+      title: 'Validation Tester',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          filled: true,
+          fillColor: Colors.grey.shade50,
+        ),
       ),
-      home: const ExampleHomePage(),
+      home: const ValidationShowcasePage(),
     );
   }
 }
 
-class ExampleHomePage extends StatelessWidget {
-  const ExampleHomePage({super.key});
+class ValidationShowcasePage extends StatefulWidget {
+  const ValidationShowcasePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Best Form Validator Examples'),
-        centerTitle: true,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          const Text(
-            'Choose an Example',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 20),
-          _buildExampleCard(
-            context,
-            title: 'Registration Form',
-            description: 'Complete registration form with all validators',
-            icon: Icons.person_add,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => const RegistrationFormExample()),
-            ),
-          ),
-          _buildExampleCard(
-            context,
-            title: 'Login Form',
-            description: 'Simple login form with email and password',
-            icon: Icons.login,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const LoginFormExample()),
-            ),
-          ),
-          _buildExampleCard(
-            context,
-            title: 'Individual Validators',
-            description: 'Test each validator separately',
-            icon: Icons.checklist,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => const IndividualValidatorsExample()),
-            ),
-          ),
-          _buildExampleCard(
-            context,
-            title: 'Programmatic Validation',
-            description: 'Use validators in code without forms',
-            icon: Icons.code,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => const ProgrammaticValidationExample()),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildExampleCard(
-    BuildContext context, {
-    required String title,
-    required String description,
-    required IconData icon,
-    required VoidCallback onTap,
-  }) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: ListTile(
-        leading: Icon(icon, size: 40, color: Theme.of(context).primaryColor),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(description),
-        trailing: const Icon(Icons.arrow_forward_ios),
-        onTap: onTap,
-      ),
-    );
-  }
+  State<ValidationShowcasePage> createState() => _ValidationShowcasePageState();
 }
 
-/// Example 1: Complete Registration Form
-class RegistrationFormExample extends StatefulWidget {
-  const RegistrationFormExample({super.key});
+class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
+  // Current selection
+  String _selectedCase = 'Email Validation';
 
-  @override
-  State<RegistrationFormExample> createState() =>
-      _RegistrationFormExampleState();
-}
-
-class _RegistrationFormExampleState extends State<RegistrationFormExample> {
+  // Form Key
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
-  final _birthDateController = TextEditingController();
 
+  // Input Controllers
+  final _textController = TextEditingController();
+  
+  // Specific State Variables
   String _selectedCountry = 'US';
-  bool _obscurePassword = true;
-  bool _obscureConfirmPassword = true;
+  bool _obscureText = true;
+
+  // Validation Result State
+  String? _successMessage;
+
+  // Available Cases
+  final List<String> _cases = [
+    'Email Validation',
+    'Phone Validation',
+    'Password Validation',
+    'Name Validation',
+    'Age Validation',
+    'Date Validation',
+    'Time Validation',
+  ];
 
   final List<Map<String, String>> _countries = [
-    {'code': 'US', 'name': 'United States'},
-    {'code': 'UK', 'name': 'United Kingdom'},
-    {'code': 'PK', 'name': 'Pakistan'},
-    {'code': 'IN', 'name': 'India'},
-    {'code': 'CA', 'name': 'Canada'},
-    {'code': 'AU', 'name': 'Australia'},
+    {'code': 'US', 'name': 'USA (+1)'},
+    {'code': 'UK', 'name': 'UK (+44)'},
+    {'code': 'PK', 'name': 'Pakistan (+92)'},
+    {'code': 'IN', 'name': 'India (+91)'},
+    {'code': 'CA', 'name': 'Canada (+1)'},
+    {'code': 'AU', 'name': 'Australia (+61)'},
+    {'code': 'AE', 'name': 'UAE (+971)'},
   ];
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    _birthDateController.dispose();
+    _textController.dispose();
     super.dispose();
   }
 
-  void _submitForm() {
+  // Reset state when case changes
+  void _onCaseChanged(String? newValue) {
+    if (newValue != null && newValue != _selectedCase) {
+      setState(() {
+        _selectedCase = newValue;
+        _textController.clear();
+        _successMessage = null;
+        _selectedCountry = 'US';
+        _obscureText = true;
+        _formKey.currentState?.reset();
+      });
+    }
+  }
+
+  // Run validation
+  void _validate() {
+    setState(() {
+      _successMessage = null;
+    });
+
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('✅ Registration Successful!'),
-          backgroundColor: Colors.green,
-        ),
-      );
+      setState(() {
+        _successMessage = 'Valid! The input passed all checks.';
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Registration Form')),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            const Text(
-              'Create Account',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Fill in the details below to register',
-              style: TextStyle(color: Colors.grey),
-            ),
-            const SizedBox(height: 24),
-
-            // Name Field
-            TextFormField(
-              controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: 'Full Name',
-                hintText: 'John Doe',
-                prefixIcon: Icon(Icons.person),
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validateName(
-                value,
-                requiredError: 'Please enter your name',
-                invalidError: 'Name can only contain letters and spaces',
-              ),
-              textInputAction: TextInputAction.next,
-            ),
-            const SizedBox(height: 16),
-
-            // Email Field
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email Address',
-                hintText: 'john.doe@example.com',
-                prefixIcon: Icon(Icons.email),
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validateEmail(
-                value,
-                requiredError: 'Please enter your email',
-                invalidError: 'Please enter a valid email address',
-              ),
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-            ),
-            const SizedBox(height: 16),
-
-            // Country Selector
-            DropdownButtonFormField<String>(
-              initialValue: _selectedCountry,
-              decoration: const InputDecoration(
-                labelText: 'Country',
-                prefixIcon: Icon(Icons.flag),
-                border: OutlineInputBorder(),
-              ),
-              items: _countries.map((country) {
-                return DropdownMenuItem(
-                  value: country['code'],
-                  child: Text('${country['name']} (${country['code']})'),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedCountry = value!;
-                });
-              },
-            ),
-            const SizedBox(height: 16),
-
-            // Phone Field
-            TextFormField(
-              controller: _phoneController,
-              decoration: InputDecoration(
-                labelText: 'Phone Number',
-                hintText: _selectedCountry == 'US' ? '+12025551234' : '+44...',
-                prefixIcon: const Icon(Icons.phone),
-                border: const OutlineInputBorder(),
-                helperText: 'Include country code (e.g., +1 for US)',
-              ),
-              validator: (value) =>
-                  Validators.validatePhone(value, _selectedCountry),
-              keyboardType: TextInputType.phone,
-              textInputAction: TextInputAction.next,
-            ),
-            const SizedBox(height: 16),
-
-            // Password Field
-            TextFormField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                prefixIcon: const Icon(Icons.lock),
-                border: const OutlineInputBorder(),
-                helperText:
-                    'Min 8 chars: uppercase, lowercase, number, special char',
-                helperMaxLines: 2,
-                suffixIcon: IconButton(
-                  icon: Icon(_obscurePassword
-                      ? Icons.visibility
-                      : Icons.visibility_off),
-                  onPressed: () =>
-                      setState(() => _obscurePassword = !_obscurePassword),
-                ),
-              ),
-              obscureText: _obscurePassword,
-              validator: (value) => Validators.validatePassword(
-                value,
-                checkLength: true,
-                minLength: 8,
-                checkNumberAndLetter: true,
-                checkSpecialCharacter: true,
-                checkLowerCase: true,
-                checkUpperCase: true,
-              ),
-              textInputAction: TextInputAction.next,
-            ),
-            const SizedBox(height: 16),
-
-            // Confirm Password Field
-            TextFormField(
-              controller: _confirmPasswordController,
-              decoration: InputDecoration(
-                labelText: 'Confirm Password',
-                prefixIcon: const Icon(Icons.lock_outline),
-                border: const OutlineInputBorder(),
-                suffixIcon: IconButton(
-                  icon: Icon(_obscureConfirmPassword
-                      ? Icons.visibility
-                      : Icons.visibility_off),
-                  onPressed: () => setState(
-                      () => _obscureConfirmPassword = !_obscureConfirmPassword),
-                ),
-              ),
-              obscureText: _obscureConfirmPassword,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please confirm your password';
-                }
-                if (value != _passwordController.text) {
-                  return 'Passwords do not match';
-                }
-                return null;
-              },
-              textInputAction: TextInputAction.next,
-            ),
-            const SizedBox(height: 16),
-
-            // Birth Date Field
-            TextFormField(
-              controller: _birthDateController,
-              decoration: const InputDecoration(
-                labelText: 'Birth Date',
-                hintText: 'yyyy-MM-dd (e.g., 1990-01-15)',
-                prefixIcon: Icon(Icons.calendar_today),
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validateAge(
-                value,
-                18,
-                requiredError: 'Please enter your birth date',
-                invalidError: 'You must be at least 18 years old to register',
-              ),
-              keyboardType: TextInputType.datetime,
-              textInputAction: TextInputAction.done,
-            ),
-            const SizedBox(height: 24),
-
-            // Submit Button
-            ElevatedButton(
-              onPressed: _submitForm,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(16),
-              ),
-              child: const Text('Register', style: TextStyle(fontSize: 18)),
-            ),
-          ],
-        ),
+      backgroundColor: Colors.grey.shade100,
+      appBar: AppBar(
+        title: const Text('Best Form Validator'),
+        centerTitle: true,
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
       ),
-    );
-  }
-}
-
-/// Example 2: Simple Login Form
-class LoginFormExample extends StatefulWidget {
-  const LoginFormExample({super.key});
-
-  @override
-  State<LoginFormExample> createState() => _LoginFormExampleState();
-}
-
-class _LoginFormExampleState extends State<LoginFormExample> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _obscurePassword = true;
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  void _login() {
-    if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('✅ Login Successful!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Login Form')),
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Icon(Icons.lock_person, size: 80, color: Colors.blue),
-                const SizedBox(height: 24),
-                const Text(
-                  'Welcome Back',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.verified_user_outlined, size: 64, color: Colors.teal),
+              const SizedBox(height: 24),
+              
+              // 1. Selection Dropdown
+              Text('Select Validator to Test:', 
+                   style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey.shade700)),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey.shade300),
                 ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Login to continue',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.grey),
-                ),
-                const SizedBox(height: 32),
-                TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    prefixIcon: Icon(Icons.email),
-                    border: OutlineInputBorder(),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: _selectedCase,
+                    isExpanded: true,
+                    icon: const Icon(Icons.arrow_drop_down_circle, color: Colors.teal),
+                    items: _cases.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value, style: const TextStyle(fontWeight: FontWeight.w600)),
+                      );
+                    }).toList(),
+                    onChanged: _onCaseChanged,
                   ),
-                  validator: (value) => Validators.validateEmail(value),
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
                 ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: const Icon(Icons.lock),
-                    border: const OutlineInputBorder(),
-                    suffixIcon: IconButton(
-                      icon: Icon(_obscurePassword
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                      onPressed: () =>
-                          setState(() => _obscurePassword = !_obscurePassword),
+              ),
+
+              const SizedBox(height: 32),
+
+              // 2. Dynamic Test Area
+              Card(
+                elevation: 4,
+                shadowColor: Colors.black26,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          _selectedCase,
+                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 8),
+                         Text(
+                          _getDescription(_selectedCase),
+                          style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 24),
+                        
+                        // Render Input Fields based on selection
+                        _buildDynamicFields(),
+
+                        const SizedBox(height: 24),
+
+                        // Submit Button
+                        ElevatedButton(
+                          onPressed: _validate,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            elevation: 2,
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('VALIDATE CASE', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                              SizedBox(width: 8),
+                              Icon(Icons.check_circle_outline)
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  obscureText: _obscurePassword,
-                  validator: (value) => Validators.validatePassword(value),
-                  textInputAction: TextInputAction.done,
-                  onFieldSubmitted: (_) => _login(),
                 ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: _login,
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(16),
-                  ),
-                  child: const Text('Login', style: TextStyle(fontSize: 18)),
-                ),
-              ],
-            ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // 3. Result Display
+              AnimatedOpacity(
+                opacity: _successMessage != null ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 300),
+                child: _successMessage != null 
+                  ? Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.green.shade50,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.green),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.check_circle, color: Colors.green),
+                          const SizedBox(width: 12),
+                          Text(
+                            _successMessage!,
+                            style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
-}
 
-/// Example 3: Individual Validators Testing
-class IndividualValidatorsExample extends StatefulWidget {
-  const IndividualValidatorsExample({super.key});
-
-  @override
-  State<IndividualValidatorsExample> createState() =>
-      _IndividualValidatorsExampleState();
-}
-
-class _IndividualValidatorsExampleState
-    extends State<IndividualValidatorsExample> {
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _nameController = TextEditingController();
-  final _ageController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
-    _nameController.dispose();
-    _ageController.dispose();
-    super.dispose();
+  // Helper to get description text
+  String _getDescription(String caseName) {
+    switch (caseName) {
+      case 'Email Validation': return 'Checks for standard email format requirements.';
+      case 'Phone Validation': return 'Validates phone numbers against specific country patterns.';
+      case 'Password Validation': return 'Checks length, special chars, numbers, and letter casing.';
+      case 'Name Validation': return 'Ensures name contains only letters and appropriate spacing.';
+      case 'Age Validation': return 'Validates that the age meets a minimum requirement (e.g., 18+).';
+      case 'Date Validation': return 'Checks if the string is a valid date format.';
+      case 'Time Validation': return 'Checks if the string is a valid time format.';
+      default: return '';
+    }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Individual Validators')),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          _buildValidatorSection(
-            'Email Validator',
-            Icons.email,
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Test Email',
-                hintText: 'user@example.com',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validateEmail(value),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-            ),
+  // Builder for dynamic inputs
+  Widget _buildDynamicFields() {
+    switch (_selectedCase) {
+      case 'Email Validation':
+        return TextFormField(
+          controller: _textController,
+          decoration: const InputDecoration(
+            labelText: 'Email Address',
+            hintText: 'example@domain.com',
+            prefixIcon: Icon(Icons.email_outlined),
           ),
-          _buildValidatorSection(
-            'Phone Validator',
-            Icons.phone,
-            TextFormField(
-              controller: _phoneController,
-              decoration: const InputDecoration(
-                labelText: 'Test Phone (US)',
-                hintText: '+12025551234',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validatePhone(value, 'US'),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-            ),
-          ),
-          _buildValidatorSection(
-            'Password Validator',
-            Icons.lock,
-            TextFormField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Test Password',
-                border: OutlineInputBorder(),
-                helperText: 'Try: MyP@ssw0rd',
-              ),
-              validator: (value) => Validators.validatePassword(
-                value,
-                checkLength: true,
-                minLength: 8,
-                checkNumberAndLetter: true,
-                checkSpecialCharacter: true,
-                checkLowerCase: true,
-                checkUpperCase: true,
-              ),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-            ),
-          ),
-          _buildValidatorSection(
-            'Name Validator',
-            Icons.person,
-            TextFormField(
-              controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: 'Test Name',
-                hintText: 'John Doe',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validateName(value),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-            ),
-          ),
-          _buildValidatorSection(
-            'Age Validator (18+)',
-            Icons.calendar_today,
-            TextFormField(
-              controller: _ageController,
-              decoration: const InputDecoration(
-                labelText: 'Test Birth Date',
-                hintText: '2000-01-15',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validateAge(value, 18),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+          keyboardType: TextInputType.emailAddress,
+          validator: (value) => Validators.validateEmail(value),
+        );
 
-  Widget _buildValidatorSection(String title, IconData icon, Widget field) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      case 'Phone Validation':
+        return Column(
           children: [
-            Row(
-              children: [
-                Icon(icon, color: Colors.blue),
-                const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ],
+            DropdownButtonFormField<String>(
+              key: ValueKey(_selectedCountry),
+              initialValue: _selectedCountry,
+              decoration: const InputDecoration(
+                labelText: 'Select Country',
+                prefixIcon: Icon(Icons.flag_outlined),
+              ),
+              items: _countries.map((c) => DropdownMenuItem(
+                value: c['code'],
+                child: Text(c['name']!),
+              )).toList(),
+              onChanged: (val) => setState(() => _selectedCountry = val!),
             ),
-            const SizedBox(height: 12),
-            field,
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _textController,
+              decoration: const InputDecoration(
+                labelText: 'Phone Number',
+                hintText: '+1234567890',
+                prefixIcon: Icon(Icons.phone_outlined),
+              ),
+              keyboardType: TextInputType.phone,
+              validator: (value) => Validators.validatePhone(value, _selectedCountry),
+            ),
           ],
-        ),
-      ),
-    );
-  }
-}
+        );
 
-/// Example 4: Programmatic Validation
-class ProgrammaticValidationExample extends StatefulWidget {
-  const ProgrammaticValidationExample({super.key});
-
-  @override
-  State<ProgrammaticValidationExample> createState() =>
-      _ProgrammaticValidationExampleState();
-}
-
-class _ProgrammaticValidationExampleState
-    extends State<ProgrammaticValidationExample> {
-  final List<Map<String, dynamic>> _testCases = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _runTests();
-  }
-
-  void _runTests() {
-    _testCases.clear();
-
-    // Email tests
-    _testCases.add(_test('Email', 'user@example.com',
-        Validators.validateEmail('user@example.com')));
-    _testCases.add(_test(
-        'Email', 'invalid-email', Validators.validateEmail('invalid-email')));
-
-    // Phone tests
-    _testCases.add(_test('Phone (US)', '+12025551234',
-        Validators.validatePhone('+12025551234', 'US')));
-    _testCases
-        .add(_test('Phone (US)', '123', Validators.validatePhone('123', 'US')));
-
-    // Password tests
-    _testCases.add(_test(
-        'Password',
-        'MyP@ssw0rd',
-        Validators.validatePassword('MyP@ssw0rd',
-            checkLength: true,
+      case 'Password Validation':
+        return TextFormField(
+          controller: _textController,
+          obscureText: _obscureText,
+          decoration: InputDecoration(
+            labelText: 'Password',
+            prefixIcon: const Icon(Icons.lock_outline),
+            suffixIcon: IconButton(
+              icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+              onPressed: () => setState(() => _obscureText = !_obscureText),
+            ),
+            helperText: 'Requirements: Min 8 chars, Uppercase, Lowercase, Number, Special Char',
+            helperMaxLines: 2,
+          ),
+          validator: (value) => Validators.validatePassword(value,
             minLength: 8,
+            checkUpperCase: true,
+            checkLowerCase: true,
             checkNumberAndLetter: true,
             checkSpecialCharacter: true,
-            checkLowerCase: true,
-            checkUpperCase: true)));
-    _testCases.add(_test('Password', 'weak',
-        Validators.validatePassword('weak', checkLength: true, minLength: 8)));
-
-    // Name tests
-    _testCases
-        .add(_test('Name', 'John Doe', Validators.validateName('John Doe')));
-    _testCases
-        .add(_test('Name', 'John123', Validators.validateName('John123')));
-
-    // Age tests
-    _testCases.add(_test(
-        'Age (18+)', '1990-01-15', Validators.validateAge('1990-01-15', 18)));
-    _testCases.add(_test(
-        'Age (18+)', '2010-01-15', Validators.validateAge('2010-01-15', 18)));
-
-    setState(() {});
-  }
-
-  Map<String, dynamic> _test(String validator, String input, String? result) {
-    return {
-      'validator': validator,
-      'input': input,
-      'result': result,
-      'isValid': result == null,
-    };
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Programmatic Validation')),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          const Text(
-            'Validation Test Results',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 8),
-          const Text(
-            'Testing validators programmatically without forms',
-            style: TextStyle(color: Colors.grey),
+        );
+
+      case 'Name Validation':
+        return TextFormField(
+          controller: _textController,
+          decoration: const InputDecoration(
+            labelText: 'Full Name',
+            hintText: 'John Doe',
+            prefixIcon: Icon(Icons.person_outline),
           ),
-          const SizedBox(height: 20),
-          ..._testCases.map((test) => Card(
-                margin: const EdgeInsets.only(bottom: 12),
-                child: ListTile(
-                  leading: Icon(
-                    test['isValid'] ? Icons.check_circle : Icons.error,
-                    color: test['isValid'] ? Colors.green : Colors.red,
-                    size: 32,
-                  ),
-                  title: Text('${test['validator']}: "${test['input']}"'),
-                  subtitle: Text(
-                    test['isValid'] ? '✅ Valid' : '❌ ${test['result']}',
-                    style: TextStyle(
-                      color: test['isValid'] ? Colors.green : Colors.red,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              )),
-          const SizedBox(height: 20),
-          ElevatedButton.icon(
-            onPressed: _runTests,
-            icon: const Icon(Icons.refresh),
-            label: const Text('Run Tests Again'),
+          keyboardType: TextInputType.name,
+          validator: (value) => Validators.validateName(value),
+        );
+
+      case 'Age Validation':
+        return TextFormField(
+          controller: _textController,
+          decoration: const InputDecoration(
+            labelText: 'Birth Date',
+            hintText: 'yyyy-MM-dd',
+            prefixIcon: Icon(Icons.cake_outlined),
+            helperText: 'Must be at least 18 years old',
           ),
-        ],
-      ),
-    );
+          keyboardType: TextInputType.datetime,
+          validator: (value) => Validators.validateAge(value, 18),
+        );
+
+      case 'Date Validation':
+        return TextFormField(
+          controller: _textController,
+          decoration: const InputDecoration(
+            labelText: 'Date',
+            hintText: 'yyyy-MM-dd',
+            prefixIcon: Icon(Icons.calendar_today_outlined),
+          ),
+          keyboardType: TextInputType.datetime,
+          validator: (value) => Validators.validateDate(value),
+        );
+
+      case 'Time Validation':
+        return TextFormField(
+          controller: _textController,
+          decoration: const InputDecoration(
+            labelText: 'Time',
+            hintText: 'HH:mm:ss',
+            prefixIcon: Icon(Icons.access_time_outlined),
+          ),
+          keyboardType: TextInputType.datetime,
+          validator: (value) => Validators.validateTime(value),
+        );
+
+      default:
+        return const SizedBox.shrink();
+    }
   }
 }

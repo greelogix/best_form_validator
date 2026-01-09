@@ -42,7 +42,7 @@ class PhoneValidator {
     }
   }
 
-  /// Loads phone number regex patterns for testing purposes.
+  /// Loads phone number regex patterns for¬ testing purposes.
   ///
   /// This is an alternative loading method used in test environments
   /// where the asset path differs from the package path.
@@ -82,9 +82,11 @@ class PhoneValidator {
   /// ```dart
   /// String? error = PhoneValidator.validatePhoneNumber('+12025551234', 'US');
   /// ```
-  static String? validatePhoneNumber(String? value, String isoCode) {
+  static String? validatePhoneNumber(String? value, String isoCode,
+      {String? requiredError, bool isRequired = true, String? invalidError}) {
     if (value == null || value.isEmpty) {
-      return 'Phone number is required';
+      if (isRequired) return requiredError ?? 'Phone number is required';
+      return null;
     }
 
     // Lookup regex pattern based on ISO code
@@ -95,7 +97,7 @@ class PhoneValidator {
 
     final regExp = RegExp(regexPattern);
     if (!regExp.hasMatch(value)) {
-      return 'Enter a valid phone number for $isoCode';
+      return invalidError ?? 'Enter a valid phone number for $isoCode';
     }
     return null;
   }

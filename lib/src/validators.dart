@@ -86,8 +86,12 @@ class Validators {
   /// ```dart
   /// String? error = Validators.validatePhone('+12025551234', 'US');
   /// ```
-  static String? validatePhone(String? value, String isoCode) {
-    return PhoneValidator.validatePhoneNumber(value, isoCode);
+  static String? validatePhone(String? value, String isoCode,
+      {String? requiredError, bool isRequired = true, String? invalidError}) {
+    return PhoneValidator.validatePhoneNumber(value, isoCode,
+        requiredError: requiredError,
+        isRequired: isRequired,
+        invalidError: invalidError);
   }
 
   /// Validates a password with customizable criteria.
