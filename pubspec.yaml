@@ -1,26 +1,42 @@
 name: best_form_validator
-description: best_form_validator is a comprehensive Flutter package designed to simplify form validation. It provides a robust set of validation functions for various form fields, including email, phone, password, name, and age. The package supports phone number validation according to different countries' phone number formats, making it versatile for international applications.
-version: 1.0.3
+description: A comprehensive Flutter package for form validation with support for email, phone (50+ countries), password, name, age, date, and time validation. Customizable error messages and null-safe.
+version: 1.0.4
+homepage: https://github.com/greelogix/best_form_validator
 repository: https://github.com/greelogix/best_form_validator
+issue_tracker: https://github.com/greelogix/best_form_validator/issues
+documentation: https://github.com/greelogix/best_form_validator#readme
+
+topics:
+  - validation
+  - form
+  - validator
+  - email
+  - phone
+  - password
 
 environment:
-  sdk: ^3.4.3
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.0.0'
 
-# Add regular dependencies here.
 dependencies:
   flutter:
     sdk: flutter
-  intl: ^0.19.0
+  intl: ^0.20.2
 
 dev_dependencies:
-  lints: ^3.0.0
-  test: ^1.24.0
-  mockito: ^5.1.0
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
 
 
 flutter:
   assets:
     - assets/countries_phone_regex.json
 
-  uses-material-design: true
-  # Correctly formatted authors section
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  web:
+  windows:

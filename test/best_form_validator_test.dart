@@ -1,6 +1,6 @@
 import 'package:best_form_validator/best_form_validator.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Validators', () {

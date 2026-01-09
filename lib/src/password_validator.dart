@@ -1,4 +1,34 @@
+/// Password validator with customizable validation criteria.
+///
+/// Supports multiple validation rules including length, character types,
+/// and special character requirements.
 class PasswordValidator {
+  /// Validates a password against specified criteria.
+  ///
+  /// Returns `null` if the password meets all criteria, otherwise returns
+  /// an error message describing the first failed criterion.
+  ///
+  /// Parameters:
+  /// - [value]: The password to validate
+  /// - [checkLength]: Whether to check minimum length (default: true)
+  /// - [minLength]: Minimum password length (default: 6)
+  /// - [checkNumberAndLetter]: Require both numbers and letters (default: false)
+  /// - [checkSpecialCharacter]: Require special characters (default: false)
+  /// - [checkLowerCase]: Require lowercase letters (default: false)
+  /// - [checkUpperCase]: Require uppercase letters (default: false)
+  ///
+  /// Example:
+  /// ```dart
+  /// String? error = PasswordValidator.validate(
+  ///   'MyP@ssw0rd',
+  ///   checkLength: true,
+  ///   minLength: 8,
+  ///   checkNumberAndLetter: true,
+  ///   checkSpecialCharacter: true,
+  ///   checkLowerCase: true,
+  ///   checkUpperCase: true,
+  /// );
+  /// ```
   static String? validate(String? value,
       {bool? checkLength = true,
       int minLength = 6,
