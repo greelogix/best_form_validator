@@ -41,6 +41,7 @@
 library;
 
 export 'src/age_validator.dart';
+export 'src/i18n/form_localizations.dart';
 export 'src/name_validator.dart';
 export 'src/password_validator.dart';
 export 'src/phone_validator.dart';
