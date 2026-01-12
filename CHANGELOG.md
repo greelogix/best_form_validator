@@ -1,3 +1,10 @@
+## 1.1.1
+    
+### Maintenance
+- Updated pubspec metadata for better pub.dev compliance.
+- Shortened package description.
+- Updated license file to standard MIT format.
+
 ## 1.1.0
 
 ### Features
