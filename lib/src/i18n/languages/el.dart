@@ -14,15 +14,20 @@ class ElFormLocalizations extends FormLocalizations {
   @override
   String get passwordRequired => 'Απαιτείται κωδικός πρόσβασης';
   @override
-  String passwordMinLength(int length) => 'Ο κωδικός πρέπει να έχει τουλάχιστον $length χαρακτήρες';
+  String passwordMinLength(int length) =>
+      'Ο κωδικός πρέπει να έχει τουλάχιστον $length χαρακτήρες';
   @override
-  String get passwordNumberAndLetter => 'Ο κωδικός πρέπει να περιέχει γράμματα και αριθμούς';
+  String get passwordNumberAndLetter =>
+      'Ο κωδικός πρέπει να περιέχει γράμματα και αριθμούς';
   @override
-  String get passwordSpecialCharacter => 'Πρέπει να περιέχει τουλάχιστον έναν ειδικό χαρακτήρα';
+  String get passwordSpecialCharacter =>
+      'Πρέπει να περιέχει τουλάχιστον έναν ειδικό χαρακτήρα';
   @override
-  String get passwordLowerCase => 'Πρέπει να περιέχει τουλάχιστον ένα πεζό γράμμα';
+  String get passwordLowerCase =>
+      'Πρέπει να περιέχει τουλάχιστον ένα πεζό γράμμα';
   @override
-  String get passwordUpperCase => 'Πρέπει να περιέχει τουλάχιστον ένα κεφαλαίο γράμμα';
+  String get passwordUpperCase =>
+      'Πρέπει να περιέχει τουλάχιστον ένα κεφαλαίο γράμμα';
   @override
   String get passwordNoSpaces => 'Ο κωδικός δεν πρέπει να περιέχει κενά';
   @override

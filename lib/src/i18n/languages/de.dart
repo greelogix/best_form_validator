@@ -8,21 +8,27 @@ class DeFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Telefonnummer ist erforderlich';
   @override
-  String invalidPhone(String country) => 'Geben Sie eine gültige Nummer für $country ein';
+  String invalidPhone(String country) =>
+      'Geben Sie eine gültige Nummer für $country ein';
   @override
   String get countryCodeNotSupported => 'Ländercode nicht unterstützt';
   @override
   String get passwordRequired => 'Passwort ist erforderlich';
   @override
-  String passwordMinLength(int length) => 'Passwort muss mindestens $length Zeichen lang sein';
+  String passwordMinLength(int length) =>
+      'Passwort muss mindestens $length Zeichen lang sein';
   @override
-  String get passwordNumberAndLetter => 'Passwort muss Buchstaben und Zahlen enthalten';
+  String get passwordNumberAndLetter =>
+      'Passwort muss Buchstaben und Zahlen enthalten';
   @override
-  String get passwordSpecialCharacter => 'Muss mindestens ein Sonderzeichen enthalten';
+  String get passwordSpecialCharacter =>
+      'Muss mindestens ein Sonderzeichen enthalten';
   @override
-  String get passwordLowerCase => 'Muss mindestens einen Kleinbuchstaben enthalten';
+  String get passwordLowerCase =>
+      'Muss mindestens einen Kleinbuchstaben enthalten';
   @override
-  String get passwordUpperCase => 'Muss mindestens einen Großbuchstaben enthalten';
+  String get passwordUpperCase =>
+      'Muss mindestens einen Großbuchstaben enthalten';
   @override
   String get passwordNoSpaces => 'Passwort darf keine Leerzeichen enthalten';
   @override

@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:best_form_validator/best_form_validator.dart';
 
 /// Main validator class providing static methods for all validation types.
@@ -16,14 +17,27 @@ import 'package:best_form_validator/best_form_validator.dart';
 /// }
 /// ```
 class Validators {
+  /// Sets the locale for validation messages.
+  ///
+  /// This allows the validators to return error messages in the appropriate language
+  /// without needing BuildContext.
+  ///
+  /// Example:
+  /// ```dart
+  /// Validators.setLocale(Locale('es'));
+  /// ```
+  static void setLocale(Locale locale) {
+    FormLocalizations.setGlobal(FormLocalizations.getByLocale(locale));
+  }
+
   /// Validates an email address.
   ///
   /// Returns `null` if the email is valid, otherwise returns an error message.
   ///
   /// Parameters:
   /// - [value]: The email address to validate
-  /// - [requiredError]: Custom error message when email is empty (default: "Email is required")
-  /// - [invalidError]: Custom error message when email format is invalid (default: "Enter a valid email")
+  /// - [requiredError]: Custom error message when email is empty (default: localized "Email is required")
+  /// - [invalidError]: Custom error message when email format is invalid (default: localized "Enter a valid email")
   ///
   /// Example:
   /// ```dart
@@ -35,13 +49,13 @@ class Validators {
   static String? validateEmail(String? value,
       {String? requiredError, String? invalidError}) {
     if (value == null || value.isEmpty) {
-      return requiredError ?? 'Email is required';
+      return requiredError ?? FormLocalizations.global.emailRequired;
     }
     const pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
     final regExp = RegExp(pattern);
 
     if (!regExp.hasMatch(value)) {
-      return invalidError ?? 'Enter a valid email';
+      return invalidError ?? FormLocalizations.global.invalidEmail;
     }
 
     return null;
@@ -148,8 +162,8 @@ class Validators {
   ///
   /// Parameters:
   /// - [value]: The name to validate
-  /// - [requiredError]: Custom error message when name is empty (default: "Name is required")
-  /// - [invalidError]: Custom error message when name format is invalid (default: "Name is invalid")
+  /// - [requiredError]: Custom error message when name is empty (default: localized "Name is required")
+  /// - [invalidError]: Custom error message when name format is invalid (default: localized "Name is invalid")
   ///
   /// Example:
   /// ```dart
@@ -194,8 +208,8 @@ class Validators {
   ///
   /// Parameters:
   /// - [value]: The date string to validate
-  /// - [requiredError]: Custom error message when date is empty (default: "Date is required")
-  /// - [invalidError]: Custom error message when date format is invalid (default: "Enter a valid date")
+  /// - [requiredError]: Custom error message when date is empty (default: localized "Date is required")
+  /// - [invalidError]: Custom error message when date format is invalid (default: localized "Enter a valid date")
   ///
   /// Example:
   /// ```dart
@@ -204,12 +218,12 @@ class Validators {
   static String? validateDate(String? value,
       {String? requiredError, String? invalidError}) {
     if (value == null || value.isEmpty) {
-      return requiredError ?? 'Date is required';
+      return requiredError ?? FormLocalizations.global.dateRequired;
     }
     try {
       DateTime.parse(value);
     } catch (_) {
-      return invalidError ?? 'Enter a valid date';
+      return invalidError ?? FormLocalizations.global.invalidDate;
     }
     return null;
   }
@@ -220,8 +234,8 @@ class Validators {
   ///
   /// Parameters:
   /// - [value]: The time string to validate
-  /// - [requiredError]: Custom error message when time is empty (default: "Time is required")
-  /// - [invalidError]: Custom error message when time format is invalid (default: "Enter a valid time")
+  /// - [requiredError]: Custom error message when time is empty (default: localized "Time is required")
+  /// - [invalidError]: Custom error message when time format is invalid (default: localized "Enter a valid time")
   ///
   /// Example:
   /// ```dart
@@ -230,12 +244,12 @@ class Validators {
   static String? validateTime(String? value,
       {String? requiredError, String? invalidError}) {
     if (value == null || value.isEmpty) {
-      return requiredError ?? 'Time is required';
+      return requiredError ?? FormLocalizations.global.timeRequired;
     }
     try {
       DateTime.parse('1970-01-01 $value');
     } catch (_) {
-      return invalidError ?? 'Enter a valid time';
+      return invalidError ?? FormLocalizations.global.invalidTime;
     }
     return null;
   }

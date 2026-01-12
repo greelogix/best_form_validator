@@ -8,21 +8,26 @@ class RuFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Номер телефона обязателен';
   @override
-  String invalidPhone(String country) => 'Введите действительный номер для $country';
+  String invalidPhone(String country) =>
+      'Введите действительный номер для $country';
   @override
   String get countryCodeNotSupported => 'Код страны не поддерживается';
   @override
   String get passwordRequired => 'Пароль обязателен';
   @override
-  String passwordMinLength(int length) => 'Пароль должен содержать не менее $length символов';
+  String passwordMinLength(int length) =>
+      'Пароль должен содержать не менее $length символов';
   @override
   String get passwordNumberAndLetter => 'Пароль должен содержать буквы и цифры';
   @override
-  String get passwordSpecialCharacter => 'Должен содержать хотя бы один специальный символ';
+  String get passwordSpecialCharacter =>
+      'Должен содержать хотя бы один специальный символ';
   @override
-  String get passwordLowerCase => 'Должен содержать хотя бы одну строчную букву';
+  String get passwordLowerCase =>
+      'Должен содержать хотя бы одну строчную букву';
   @override
-  String get passwordUpperCase => 'Должен содержать хотя бы одну заглавную букву';
+  String get passwordUpperCase =>
+      'Должен содержать хотя бы одну заглавную букву';
   @override
   String get passwordNoSpaces => 'Пароль не должен содержать пробелов';
   @override

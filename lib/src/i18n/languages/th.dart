@@ -14,7 +14,8 @@ class ThFormLocalizations extends FormLocalizations {
   @override
   String get passwordRequired => 'จำเป็นต้องใช้รหัสผ่าน';
   @override
-  String passwordMinLength(int length) => 'รหัสผ่านต้องมีความยาวอย่างน้อย $length ตัวอักษร';
+  String passwordMinLength(int length) =>
+      'รหัสผ่านต้องมีความยาวอย่างน้อย $length ตัวอักษร';
   @override
   String get passwordNumberAndLetter => 'รหัสผ่านต้องมีทั้งตัวอักษรและตัวเลข';
   @override

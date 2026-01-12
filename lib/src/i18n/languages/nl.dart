@@ -8,17 +8,21 @@ class NlFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Telefoonnummer is verplicht';
   @override
-  String invalidPhone(String country) => 'Voer een geldig nummer in voor $country';
+  String invalidPhone(String country) =>
+      'Voer een geldig nummer in voor $country';
   @override
   String get countryCodeNotSupported => 'Landcode niet ondersteund';
   @override
   String get passwordRequired => 'Wachtwoord is verplicht';
   @override
-  String passwordMinLength(int length) => 'Wachtwoord moet minimaal $length tekens lang zijn';
+  String passwordMinLength(int length) =>
+      'Wachtwoord moet minimaal $length tekens lang zijn';
   @override
-  String get passwordNumberAndLetter => 'Wachtwoord moet letters en cijfers bevatten';
+  String get passwordNumberAndLetter =>
+      'Wachtwoord moet letters en cijfers bevatten';
   @override
-  String get passwordSpecialCharacter => 'Moet minimaal één speciaal teken bevatten';
+  String get passwordSpecialCharacter =>
+      'Moet minimaal één speciaal teken bevatten';
   @override
   String get passwordLowerCase => 'Moet minimaal één kleine letter bevatten';
   @override

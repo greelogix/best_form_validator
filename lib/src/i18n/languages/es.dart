@@ -8,17 +8,21 @@ class EsFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'El número de teléfono es obligatorio';
   @override
-  String invalidPhone(String country) => 'Ingrese un número válido para $country';
+  String invalidPhone(String country) =>
+      'Ingrese un número válido para $country';
   @override
   String get countryCodeNotSupported => 'Código de país no compatible';
   @override
   String get passwordRequired => 'La contraseña es obligatoria';
   @override
-  String passwordMinLength(int length) => 'La contraseña debe tener al menos $length caracteres';
+  String passwordMinLength(int length) =>
+      'La contraseña debe tener al menos $length caracteres';
   @override
-  String get passwordNumberAndLetter => 'La contraseña debe contener letras y números';
+  String get passwordNumberAndLetter =>
+      'La contraseña debe contener letras y números';
   @override
-  String get passwordSpecialCharacter => 'Debe contener al menos un carácter especial';
+  String get passwordSpecialCharacter =>
+      'Debe contener al menos un carácter especial';
   @override
   String get passwordLowerCase => 'Debe contener al menos una letra minúscula';
   @override

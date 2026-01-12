@@ -14,7 +14,8 @@ class FaFormLocalizations extends FormLocalizations {
   @override
   String get passwordRequired => 'رمز عبور مورد نیاز است';
   @override
-  String passwordMinLength(int length) => 'رمز عبور باید حداقل $length کاراکتر باشد';
+  String passwordMinLength(int length) =>
+      'رمز عبور باید حداقل $length کاراکتر باشد';
   @override
   String get passwordNumberAndLetter => 'رمز عبور باید شامل حروف و اعداد باشد';
   @override

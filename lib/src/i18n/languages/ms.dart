@@ -8,21 +8,27 @@ class MsFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Nombor telefon diperlukan';
   @override
-  String invalidPhone(String country) => 'Masukkan nombor telefon yang sah untuk $country';
+  String invalidPhone(String country) =>
+      'Masukkan nombor telefon yang sah untuk $country';
   @override
   String get countryCodeNotSupported => 'Kod negara tidak disokong';
   @override
   String get passwordRequired => 'Kata laluan diperlukan';
   @override
-  String passwordMinLength(int length) => 'Kata laluan mesti sekurang-kurangnya $length aksara';
+  String passwordMinLength(int length) =>
+      'Kata laluan mesti sekurang-kurangnya $length aksara';
   @override
-  String get passwordNumberAndLetter => 'Kata laluan mesti mengandungi huruf dan nombor';
+  String get passwordNumberAndLetter =>
+      'Kata laluan mesti mengandungi huruf dan nombor';
   @override
-  String get passwordSpecialCharacter => 'Mesti mengandungi sekurang-kurangnya satu aksara khas';
+  String get passwordSpecialCharacter =>
+      'Mesti mengandungi sekurang-kurangnya satu aksara khas';
   @override
-  String get passwordLowerCase => 'Mesti mengandungi sekurang-kurangnya satu huruf kecil';
+  String get passwordLowerCase =>
+      'Mesti mengandungi sekurang-kurangnya satu huruf kecil';
   @override
-  String get passwordUpperCase => 'Mesti mengandungi sekurang-kurangnya satu huruf besar';
+  String get passwordUpperCase =>
+      'Mesti mengandungi sekurang-kurangnya satu huruf besar';
   @override
   String get passwordNoSpaces => 'Kata laluan tidak boleh mengandungi ruang';
   @override

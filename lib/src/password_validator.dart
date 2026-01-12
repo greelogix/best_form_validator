@@ -1,3 +1,5 @@
+import 'i18n/form_localizations.dart';
+
 /// Password validator with customizable validation criteria.
 ///
 /// Supports multiple validation rules including length, character types,
@@ -37,35 +39,35 @@ class PasswordValidator {
       bool? checkLowerCase = false,
       bool? checkUpperCase = false}) {
     if (value == null || value.isEmpty) {
-      return 'Password is required';
+      return FormLocalizations.global.passwordRequired;
     }
 
     if (checkLength! && value.length < minLength) {
-      return 'Password must be at least $minLength characters long';
+      return FormLocalizations.global.passwordMinLength(minLength);
     }
 
     if (checkNumberAndLetter!) {
       bool hasLetter = value.contains(RegExp(r'[A-Za-z]'));
       bool hasDigit = value.contains(RegExp(r'\d'));
       if (!hasLetter || !hasDigit) {
-        return 'Password must contain both letters and numbers';
+        return FormLocalizations.global.passwordNumberAndLetter;
       }
     }
 
     if (checkSpecialCharacter! &&
         !value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Password must contain at least one special character';
+      return FormLocalizations.global.passwordSpecialCharacter;
     }
 
     if (checkLowerCase! && !value.contains(RegExp(r'[a-z]'))) {
-      return 'Password must contain at least one lowercase letter';
+      return FormLocalizations.global.passwordLowerCase;
     }
 
     if (checkUpperCase! && !value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter';
+      return FormLocalizations.global.passwordUpperCase;
     }
     if (value.contains(" ")) {
-      return 'Password must not contain spaces';
+      return FormLocalizations.global.passwordNoSpaces;
     }
     return null;
   }

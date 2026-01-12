@@ -1,3 +1,14 @@
+## 1.1.0
+
+### Features
+- 🌍 **Full Localization Support**: Added support for 25+ languages including English, Spanish, French, German, Arabic, Urdu, Hindi, Chinese, Portuguese, Russian, Italian, Turkish, Japanese, Korean, and more.
+- Added `Validators.setLocale(Locale)` for dynamic runtime locale switching.
+- Added `FormLocalizations` class for accessing localized strings directly.
+
+### Improvements
+- Updated all validators (Email, Phone, Password, Name, Age, Date, Time) to automatically use localized error messages.
+- Enhanced example app to demonstrate dynamic language switching.
+
 ## 1.0.4
 
 ### Improvements

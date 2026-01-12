@@ -14,11 +14,14 @@ class ArFormLocalizations extends FormLocalizations {
   @override
   String get passwordRequired => 'كلمة المرور مطلوبة';
   @override
-  String passwordMinLength(int length) => 'يجب أن تكون كلمة المرور على الأقل $length أحرف';
+  String passwordMinLength(int length) =>
+      'يجب أن تكون كلمة المرور على الأقل $length أحرف';
   @override
-  String get passwordNumberAndLetter => 'يجب أن تحتوي كلمة المرور على حروف وأرقام';
+  String get passwordNumberAndLetter =>
+      'يجب أن تحتوي كلمة المرور على حروف وأرقام';
   @override
-  String get passwordSpecialCharacter => 'يجب أن تحتوي على رمز خاص واحد على الأقل';
+  String get passwordSpecialCharacter =>
+      'يجب أن تحتوي على رمز خاص واحد على الأقل';
   @override
   String get passwordLowerCase => 'يجب أن تحتوي على حرف صغير واحد على الأقل';
   @override

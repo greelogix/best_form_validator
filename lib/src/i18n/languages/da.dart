@@ -8,15 +8,18 @@ class DaFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Telefonnummer er påkrævet';
   @override
-  String invalidPhone(String country) => 'Indtast et gyldigt nummer for $country';
+  String invalidPhone(String country) =>
+      'Indtast et gyldigt nummer for $country';
   @override
   String get countryCodeNotSupported => 'Landekode understøttes ikke';
   @override
   String get passwordRequired => 'Adgangskode er påkrævet';
   @override
-  String passwordMinLength(int length) => 'Adgangskoden skal være mindst $length tegn lang';
+  String passwordMinLength(int length) =>
+      'Adgangskoden skal være mindst $length tegn lang';
   @override
-  String get passwordNumberAndLetter => 'Adgangskoden skal indeholde bogstaver og tal';
+  String get passwordNumberAndLetter =>
+      'Adgangskoden skal indeholde bogstaver og tal';
   @override
   String get passwordSpecialCharacter => 'Skal indeholde mindst ét specialtegn';
   @override

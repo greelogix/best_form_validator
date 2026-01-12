@@ -8,17 +8,20 @@ class PtFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Número de telefone é obrigatório';
   @override
-  String invalidPhone(String country) => 'Digite um número válido para $country';
+  String invalidPhone(String country) =>
+      'Digite um número válido para $country';
   @override
   String get countryCodeNotSupported => 'Código do país não suportado';
   @override
   String get passwordRequired => 'Senha é obrigatória';
   @override
-  String passwordMinLength(int length) => 'A senha deve ter pelo menos $length caracteres';
+  String passwordMinLength(int length) =>
+      'A senha deve ter pelo menos $length caracteres';
   @override
   String get passwordNumberAndLetter => 'A senha deve conter letras e números';
   @override
-  String get passwordSpecialCharacter => 'Deve conter pelo menos um caractere especial';
+  String get passwordSpecialCharacter =>
+      'Deve conter pelo menos um caractere especial';
   @override
   String get passwordLowerCase => 'Deve conter pelo menos uma letra minúscula';
   @override

@@ -8,15 +8,18 @@ class UrFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'فون نمبر درکار ہے';
   @override
-  String invalidPhone(String country) => '$country کے لیے درست فون نمبر درج کریں';
+  String invalidPhone(String country) =>
+      '$country کے لیے درست فون نمبر درج کریں';
   @override
   String get countryCodeNotSupported => 'ملک کا کوڈ سپورٹڈ نہیں ہے';
   @override
   String get passwordRequired => 'پاس ورڈ درکار ہے';
   @override
-  String passwordMinLength(int length) => 'پاس ورڈ کم از کم $length حروف کا ہونا چاہیے';
+  String passwordMinLength(int length) =>
+      'پاس ورڈ کم از کم $length حروف کا ہونا چاہیے';
   @override
-  String get passwordNumberAndLetter => 'پاس ورڈ میں حروف اور نمبر دونوں ہونے چاہئیں';
+  String get passwordNumberAndLetter =>
+      'پاس ورڈ میں حروف اور نمبر دونوں ہونے چاہئیں';
   @override
   String get passwordSpecialCharacter => 'کم از کم ایک خاص کردار ہونا چاہیے';
   @override

@@ -8,13 +8,15 @@ class ViFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Số điện thoại là bắt buộc';
   @override
-  String invalidPhone(String country) => 'Nhập số điện thoại hợp lệ cho $country';
+  String invalidPhone(String country) =>
+      'Nhập số điện thoại hợp lệ cho $country';
   @override
   String get countryCodeNotSupported => 'Mã quốc gia không được hỗ trợ';
   @override
   String get passwordRequired => 'Mật khẩu là bắt buộc';
   @override
-  String passwordMinLength(int length) => 'Mật khẩu phải có ít nhất $length ký tự';
+  String passwordMinLength(int length) =>
+      'Mật khẩu phải có ít nhất $length ký tự';
   @override
   String get passwordNumberAndLetter => 'Mật khẩu phải chứa cả chữ cái và số';
   @override

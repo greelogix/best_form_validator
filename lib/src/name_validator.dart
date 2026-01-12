@@ -1,3 +1,5 @@
+import 'i18n/form_localizations.dart';
+
 /// Name validator ensuring proper name formatting.
 ///
 /// Validates that names contain only alphabetic characters and spaces,
@@ -25,19 +27,19 @@ class NameValidator {
   static String? validate(String? value,
       {String? requiredError, String? invalidError}) {
     if (value == null || value.trim().isEmpty) {
-      return requiredError ?? 'Name is required';
+      return requiredError ?? FormLocalizations.global.nameRequired;
     }
 
     // Check if the name contains any special characters or numbers
     if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value.replaceAll(' ', ''))) {
-      return invalidError ?? "Name is invalid";
+      return invalidError ?? FormLocalizations.global.nameInvalid;
     }
 
     // Check for leading, trailing, or multiple spaces
     if (value.startsWith(' ') ||
         value.endsWith(' ') ||
         value.contains(RegExp(r'\s{2,}'))) {
-      return invalidError ?? "Name is invalid";
+      return invalidError ?? FormLocalizations.global.nameInvalid;
     }
 
     return null;

@@ -8,15 +8,18 @@ class NoFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Telefonnummer er påkrevd';
   @override
-  String invalidPhone(String country) => 'Skriv inn et gyldig nummer for $country';
+  String invalidPhone(String country) =>
+      'Skriv inn et gyldig nummer for $country';
   @override
   String get countryCodeNotSupported => 'Landskode støttes ikke';
   @override
   String get passwordRequired => 'Passord er påkrevd';
   @override
-  String passwordMinLength(int length) => 'Passordet må være minst $length tegn langt';
+  String passwordMinLength(int length) =>
+      'Passordet må være minst $length tegn langt';
   @override
-  String get passwordNumberAndLetter => 'Passordet må inneholde bokstaver og tall';
+  String get passwordNumberAndLetter =>
+      'Passordet må inneholde bokstaver og tall';
   @override
   String get passwordSpecialCharacter => 'Må inneholde minst ett spesialtegn';
   @override

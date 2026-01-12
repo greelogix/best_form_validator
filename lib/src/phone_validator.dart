@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'i18n/form_localizations.dart';
 
 /// Phone number validator with support for 50+ countries.
 ///
@@ -85,19 +86,21 @@ class PhoneValidator {
   static String? validatePhoneNumber(String? value, String isoCode,
       {String? requiredError, bool isRequired = true, String? invalidError}) {
     if (value == null || value.isEmpty) {
-      if (isRequired) return requiredError ?? 'Phone number is required';
+      if (isRequired) {
+        return requiredError ?? FormLocalizations.global.phoneRequired;
+      }
       return null;
     }
 
     // Lookup regex pattern based on ISO code
     final regexPattern = _regexMap[isoCode];
     if (regexPattern == null) {
-      return 'Country code not supported';
+      return FormLocalizations.global.countryCodeNotSupported;
     }
 
     final regExp = RegExp(regexPattern);
     if (!regExp.hasMatch(value)) {
-      return invalidError ?? 'Enter a valid phone number for $isoCode';
+      return invalidError ?? FormLocalizations.global.invalidPhone(isoCode);
     }
     return null;
   }

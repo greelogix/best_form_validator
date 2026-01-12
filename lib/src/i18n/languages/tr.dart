@@ -8,15 +8,18 @@ class TrFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Telefon numarası gereklidir';
   @override
-  String invalidPhone(String country) => '$country için geçerli bir numara girin';
+  String invalidPhone(String country) =>
+      '$country için geçerli bir numara girin';
   @override
   String get countryCodeNotSupported => 'Ülke kodu desteklenmiyor';
   @override
   String get passwordRequired => 'Şifre gereklidir';
   @override
-  String passwordMinLength(int length) => 'Şifre en az $length karakter uzunluğunda olmalıdır';
+  String passwordMinLength(int length) =>
+      'Şifre en az $length karakter uzunluğunda olmalıdır';
   @override
-  String get passwordNumberAndLetter => 'Şifre hem harf hem de rakam içermelidir';
+  String get passwordNumberAndLetter =>
+      'Şifre hem harf hem de rakam içermelidir';
   @override
   String get passwordSpecialCharacter => 'En az bir özel karakter içermelidir';
   @override

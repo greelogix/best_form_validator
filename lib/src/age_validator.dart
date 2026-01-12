@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'i18n/form_localizations.dart';
 
 /// Age validator with minimum age requirement checking.
 ///
@@ -35,12 +36,12 @@ class AgeValidator {
       try {
         parsedDate = DateFormat('yyyy-MM-dd').parseStrict(birthDate);
       } catch (e) {
-        return invalidError ?? 'Invalid date format. Use yyyy-MM-dd.';
+        return invalidError ?? FormLocalizations.global.invalidDate;
       }
     } else if (birthDate is DateTime) {
       parsedDate = birthDate;
     } else {
-      return invalidError ?? 'Invalid birth date type.';
+      return invalidError ?? FormLocalizations.global.invalidDate;
     }
 
     final today = DateTime.now();
@@ -49,7 +50,7 @@ class AgeValidator {
         (today.month == parsedDate.month && today.day >= parsedDate.day);
 
     if (age < minimumAge || (age == minimumAge && !hasHadBirthdayThisYear)) {
-      return invalidError ?? 'Age must be at least $minimumAge years old.';
+      return invalidError ?? FormLocalizations.global.ageMin(minimumAge);
     }
 
     return null;

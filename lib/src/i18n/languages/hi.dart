@@ -8,15 +8,18 @@ class HiFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'फ़ोन नंबर आवश्यक है';
   @override
-  String invalidPhone(String country) => '$country के लिए एक मान्य फ़ोन नंबर दर्ज करें';
+  String invalidPhone(String country) =>
+      '$country के लिए एक मान्य फ़ोन नंबर दर्ज करें';
   @override
   String get countryCodeNotSupported => 'देश कोड समर्थित नहीं है';
   @override
   String get passwordRequired => 'पासवर्ड आवश्यक है';
   @override
-  String passwordMinLength(int length) => 'पासवर्ड कम से कम $length अक्षरों का होना चाहिए';
+  String passwordMinLength(int length) =>
+      'पासवर्ड कम से कम $length अक्षरों का होना चाहिए';
   @override
-  String get passwordNumberAndLetter => 'पासवर्ड में अक्षर और संख्या दोनों होने चाहिए';
+  String get passwordNumberAndLetter =>
+      'पासवर्ड में अक्षर और संख्या दोनों होने चाहिए';
   @override
   String get passwordSpecialCharacter => 'कम से कम एक विशेष वर्ण होना चाहिए';
   @override

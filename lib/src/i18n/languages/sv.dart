@@ -14,11 +14,14 @@ class SvFormLocalizations extends FormLocalizations {
   @override
   String get passwordRequired => 'Lösenord krävs';
   @override
-  String passwordMinLength(int length) => 'Lösenordet måste vara minst $length tecken långt';
+  String passwordMinLength(int length) =>
+      'Lösenordet måste vara minst $length tecken långt';
   @override
-  String get passwordNumberAndLetter => 'Lösenordet måste innehålla bokstäver och siffror';
+  String get passwordNumberAndLetter =>
+      'Lösenordet måste innehålla bokstäver och siffror';
   @override
-  String get passwordSpecialCharacter => 'Måste innehålla minst ett specialtecken';
+  String get passwordSpecialCharacter =>
+      'Måste innehålla minst ett specialtecken';
   @override
   String get passwordLowerCase => 'Måste innehålla minst en liten bokstav';
   @override

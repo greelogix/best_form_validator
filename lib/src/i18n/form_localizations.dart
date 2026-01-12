@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'languages/en.dart';
@@ -34,6 +33,73 @@ abstract class FormLocalizations {
         EnFormLocalizations();
   }
 
+  /// Global instance for static access
+  static FormLocalizations _global = EnFormLocalizations();
+
+  /// Sets the global localization instance
+  static void setGlobal(FormLocalizations l) => _global = l;
+
+  /// Gets the global localization instance
+  static FormLocalizations get global => _global;
+
+  /// Gets the localization instance for a specific locale
+  static FormLocalizations getByLocale(Locale locale) {
+    switch (locale.languageCode) {
+      case 'en':
+        return EnFormLocalizations();
+      case 'es':
+        return EsFormLocalizations();
+      case 'fr':
+        return FrFormLocalizations();
+      case 'de':
+        return DeFormLocalizations();
+      case 'ar':
+        return ArFormLocalizations();
+      case 'ur':
+        return UrFormLocalizations();
+      case 'hi':
+        return HiFormLocalizations();
+      case 'zh':
+        return ZhFormLocalizations();
+      case 'pt':
+        return PtFormLocalizations();
+      case 'ru':
+        return RuFormLocalizations();
+      case 'it':
+        return ItFormLocalizations();
+      case 'tr':
+        return TrFormLocalizations();
+      case 'ja':
+        return JaFormLocalizations();
+      case 'ko':
+        return KoFormLocalizations();
+      case 'id':
+        return IdFormLocalizations();
+      case 'ms':
+        return MsFormLocalizations();
+      case 'th':
+        return ThFormLocalizations();
+      case 'vi':
+        return ViFormLocalizations();
+      case 'nl':
+        return NlFormLocalizations();
+      case 'sv':
+        return SvFormLocalizations();
+      case 'no':
+        return NoFormLocalizations();
+      case 'fi':
+        return FiFormLocalizations();
+      case 'da':
+        return DaFormLocalizations();
+      case 'el':
+        return ElFormLocalizations();
+      case 'fa':
+        return FaFormLocalizations();
+      default:
+        return EnFormLocalizations();
+    }
+  }
+
   static const LocalizationsDelegate<FormLocalizations> delegate =
       _FormLocalizationsDelegate();
 
@@ -63,7 +129,7 @@ abstract class FormLocalizations {
   String get dateRequired;
   String get invalidDate;
   String ageMin(int age);
-  
+
   /// Time validation messages
   String get timeRequired;
   String get invalidTime;
@@ -76,42 +142,37 @@ class _FormLocalizationsDelegate
   @override
   bool isSupported(Locale locale) {
     return [
-      'en', 'es', 'fr', 'de', 'ar', 'ur', 'hi', 'zh', 'pt', 'ru',
-      'it', 'tr', 'ja', 'ko', 'id', 'ms', 'th', 'vi', 'nl', 'sv',
-      'no', 'fi', 'da', 'el', 'fa'
+      'en',
+      'es',
+      'fr',
+      'de',
+      'ar',
+      'ur',
+      'hi',
+      'zh',
+      'pt',
+      'ru',
+      'it',
+      'tr',
+      'ja',
+      'ko',
+      'id',
+      'ms',
+      'th',
+      'vi',
+      'nl',
+      'sv',
+      'no',
+      'fi',
+      'da',
+      'el',
+      'fa'
     ].contains(locale.languageCode);
   }
 
   @override
   Future<FormLocalizations> load(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en': return SynchronousFuture(EnFormLocalizations());
-      case 'es': return SynchronousFuture(EsFormLocalizations());
-      case 'fr': return SynchronousFuture(FrFormLocalizations());
-      case 'de': return SynchronousFuture(DeFormLocalizations());
-      case 'ar': return SynchronousFuture(ArFormLocalizations());
-      case 'ur': return SynchronousFuture(UrFormLocalizations());
-      case 'hi': return SynchronousFuture(HiFormLocalizations());
-      case 'zh': return SynchronousFuture(ZhFormLocalizations());
-      case 'pt': return SynchronousFuture(PtFormLocalizations());
-      case 'ru': return SynchronousFuture(RuFormLocalizations());
-      case 'it': return SynchronousFuture(ItFormLocalizations());
-      case 'tr': return SynchronousFuture(TrFormLocalizations());
-      case 'ja': return SynchronousFuture(JaFormLocalizations());
-      case 'ko': return SynchronousFuture(KoFormLocalizations());
-      case 'id': return SynchronousFuture(IdFormLocalizations());
-      case 'ms': return SynchronousFuture(MsFormLocalizations());
-      case 'th': return SynchronousFuture(ThFormLocalizations());
-      case 'vi': return SynchronousFuture(ViFormLocalizations());
-      case 'nl': return SynchronousFuture(NlFormLocalizations());
-      case 'sv': return SynchronousFuture(SvFormLocalizations());
-      case 'no': return SynchronousFuture(NoFormLocalizations());
-      case 'fi': return SynchronousFuture(FiFormLocalizations());
-      case 'da': return SynchronousFuture(DaFormLocalizations());
-      case 'el': return SynchronousFuture(ElFormLocalizations());
-      case 'fa': return SynchronousFuture(FaFormLocalizations());
-      default: return SynchronousFuture(EnFormLocalizations());
-    }
+    return SynchronousFuture(FormLocalizations.getByLocale(locale));
   }
 
   @override

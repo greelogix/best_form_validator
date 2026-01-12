@@ -8,21 +8,27 @@ class EnFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Phone number is required';
   @override
-  String invalidPhone(String country) => 'Enter a valid phone number for $country';
+  String invalidPhone(String country) =>
+      'Enter a valid phone number for $country';
   @override
   String get countryCodeNotSupported => 'Country code not supported';
   @override
   String get passwordRequired => 'Password is required';
   @override
-  String passwordMinLength(int length) => 'Password must be at least $length characters long';
+  String passwordMinLength(int length) =>
+      'Password must be at least $length characters long';
   @override
-  String get passwordNumberAndLetter => 'Password must contain both letters and numbers';
+  String get passwordNumberAndLetter =>
+      'Password must contain both letters and numbers';
   @override
-  String get passwordSpecialCharacter => 'Password must contain at least one special character';
+  String get passwordSpecialCharacter =>
+      'Password must contain at least one special character';
   @override
-  String get passwordLowerCase => 'Password must contain at least one lowercase letter';
+  String get passwordLowerCase =>
+      'Password must contain at least one lowercase letter';
   @override
-  String get passwordUpperCase => 'Password must contain at least one uppercase letter';
+  String get passwordUpperCase =>
+      'Password must contain at least one uppercase letter';
   @override
   String get passwordNoSpaces => 'Password must not contain spaces';
   @override

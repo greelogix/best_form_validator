@@ -8,21 +8,27 @@ class IdFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Nomor telepon wajib diisi';
   @override
-  String invalidPhone(String country) => 'Masukkan nomor telepon yang valid untuk $country';
+  String invalidPhone(String country) =>
+      'Masukkan nomor telepon yang valid untuk $country';
   @override
   String get countryCodeNotSupported => 'Kode negara tidak didukung';
   @override
   String get passwordRequired => 'Kata sandi wajib diisi';
   @override
-  String passwordMinLength(int length) => 'Kata sandi harus terdiri dari minimal $length karakter';
+  String passwordMinLength(int length) =>
+      'Kata sandi harus terdiri dari minimal $length karakter';
   @override
-  String get passwordNumberAndLetter => 'Kata sandi harus mengandung huruf dan angka';
+  String get passwordNumberAndLetter =>
+      'Kata sandi harus mengandung huruf dan angka';
   @override
-  String get passwordSpecialCharacter => 'Harus mengandung setidaknya satu karakter khusus';
+  String get passwordSpecialCharacter =>
+      'Harus mengandung setidaknya satu karakter khusus';
   @override
-  String get passwordLowerCase => 'Harus mengandung setidaknya satu huruf kecil';
+  String get passwordLowerCase =>
+      'Harus mengandung setidaknya satu huruf kecil';
   @override
-  String get passwordUpperCase => 'Harus mengandung setidaknya satu huruf besar';
+  String get passwordUpperCase =>
+      'Harus mengandung setidaknya satu huruf besar';
   @override
   String get passwordNoSpaces => 'Kata sandi tidak boleh mengandung spasi';
   @override

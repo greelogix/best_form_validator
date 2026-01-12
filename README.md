@@ -13,6 +13,7 @@ A comprehensive Flutter package designed to simplify form validation. It provide
 ✅ **Name Validation** - Validate names to ensure proper formatting  
 ✅ **Age Validation** - Validate age from DateTime or string input  
 ✅ **Date & Time Validation** - Validate date and time formats  
+✅ **Localization Support** - Built-in support for 25+ languages  
 ✅ **Customizable Error Messages** - Override default error messages  
 ✅ **Null Safety** - Built with sound null safety  
 
@@ -24,7 +25,7 @@ Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  best_form_validator: ^1.0.4
+  best_form_validator: ^1.1.0
 ```
 
 Then run:
@@ -47,6 +48,41 @@ void main() async {
   await Validators.loadPhoneRegex();
   
   runApp(MyApp());
+}
+```
+### Localization Setup
+
+To enable localized error messages, add the `FormLocalizations.delegate` to your `MaterialApp` and set the locale in the `builder`.
+
+```dart
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:best_form_validator/best_form_validator.dart';
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      // ... other properties
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        FormLocalizations.delegate, // Add this delegate
+      ],
+      supportedLocales: [
+        Locale('en'), Locale('es'), Locale('fr'), Locale('de'),
+        Locale('ar'), Locale('ur'), Locale('hi'), Locale('zh'),
+        // ... and many more
+      ],
+      // Important: Update validator locale when app locale changes
+      builder: (context, child) {
+        final locale = Localizations.localeOf(context);
+        Validators.setLocale(locale);
+        return child!;
+      },
+      home: HomePage(),
+    );
+  }
 }
 ```
 
@@ -439,6 +475,7 @@ The main class providing all validation methods.
 | `validateDate` | `String? value, {String? requiredError, String? invalidError}` | `String?` | Validates date format |
 | `validateTime` | `String? value, {String? requiredError, String? invalidError}` | `String?` | Validates time format |
 | `loadPhoneRegex` | None | `Future<void>` | Loads phone validation patterns (call at app startup) |
+| `setLocale` | `Locale locale` | `void` | Sets the global locale for validation messages |
 
 ## Error Messages
 

@@ -8,17 +8,21 @@ class ItFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Il numero di telefono è richiesto';
   @override
-  String invalidPhone(String country) => 'Inserisci un numero valido per $country';
+  String invalidPhone(String country) =>
+      'Inserisci un numero valido per $country';
   @override
   String get countryCodeNotSupported => 'Codice paese non supportato';
   @override
   String get passwordRequired => 'La password è richiesta';
   @override
-  String passwordMinLength(int length) => 'La password deve contenere almeno $length caratteri';
+  String passwordMinLength(int length) =>
+      'La password deve contenere almeno $length caratteri';
   @override
-  String get passwordNumberAndLetter => 'La password deve contenere lettere e numeri';
+  String get passwordNumberAndLetter =>
+      'La password deve contenere lettere e numeri';
   @override
-  String get passwordSpecialCharacter => 'Deve contenere almeno un carattere speciale';
+  String get passwordSpecialCharacter =>
+      'Deve contenere almeno un carattere speciale';
   @override
   String get passwordLowerCase => 'Deve contenere almeno una lettera minuscola';
   @override

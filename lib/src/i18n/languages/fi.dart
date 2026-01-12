@@ -8,19 +8,24 @@ class FiFormLocalizations extends FormLocalizations {
   @override
   String get phoneRequired => 'Puhelinnumero vaaditaan';
   @override
-  String invalidPhone(String country) => 'Anna kelvollinen numero maahan $country';
+  String invalidPhone(String country) =>
+      'Anna kelvollinen numero maahan $country';
   @override
   String get countryCodeNotSupported => 'Maakoodia ei tueta';
   @override
   String get passwordRequired => 'Salasana vaaditaan';
   @override
-  String passwordMinLength(int length) => 'Salasanan on oltava vähintään $length merkkiä pitkä';
+  String passwordMinLength(int length) =>
+      'Salasanan on oltava vähintään $length merkkiä pitkä';
   @override
-  String get passwordNumberAndLetter => 'Salasanan on sisällettävä kirjaimia ja numeroita';
+  String get passwordNumberAndLetter =>
+      'Salasanan on sisällettävä kirjaimia ja numeroita';
   @override
-  String get passwordSpecialCharacter => 'On sisällettävä vähintään yksi erikoismerkki';
+  String get passwordSpecialCharacter =>
+      'On sisällettävä vähintään yksi erikoismerkki';
   @override
-  String get passwordLowerCase => 'On sisällettävä vähintään yksi pieni kirjain';
+  String get passwordLowerCase =>
+      'On sisällettävä vähintään yksi pieni kirjain';
   @override
   String get passwordUpperCase => 'On sisällettävä vähintään yksi iso kirjain';
   @override
