@@ -7,7 +7,6 @@ issue_tracker: https://github.com/greelogix/best_form_validator/issues
 documentation: https://github.com/greelogix/best_form_validator#readme
 
 topics:
-  - validation
   - form
   - validator
   - email
