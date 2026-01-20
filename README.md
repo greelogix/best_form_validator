@@ -3,6 +3,11 @@
 [![pub package](https://img.shields.io/pub/v/best_form_validator.svg)](https://pub.dev/packages/best_form_validator)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/greelogix/best_form_validator/blob/main/LICENSE)
 
+
+## 🎬 Demo
+
+![Best Form Validator Demo](https://raw.githubusercontent.com/greelogix/quick_popup_manager-video/main/best_form_validator_video_demo.gif)
+
 A comprehensive Flutter package designed to simplify form validation. It provides a robust set of validation functions for various form fields, including email, phone, password, name, and age. The package supports phone number validation according to different countries' phone number formats, making it versatile for international applications.
 
 ## Features
