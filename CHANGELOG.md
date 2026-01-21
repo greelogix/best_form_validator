@@ -1,3 +1,10 @@
+## 1.1.3
+
+### Maintenance
+- Fixed Pub.dev scoring issues.
+- Updated documentation comments for Dart conventions.
+- Standardized file structure and metadata.
+
 ## 1.1.2
 
 ### Maintenance
