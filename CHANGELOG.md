@@ -1,4 +1,13 @@
+## 1.1.2
+
+### Maintenance
+- Updated pubspec metadata for better pub.dev compliance.
+- Fixed repository, homepage, and issue tracker URLs.
+- Improved CHANGELOG consistency.
+- Standardized Dart file conventions and documentation.
+
 ## 1.1.1
+
     
 ### Maintenance
 - Updated pubspec metadata for better pub.dev compliance.
