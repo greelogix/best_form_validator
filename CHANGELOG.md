@@ -1,3 +1,25 @@
+## 1.1.4
+
+### Maintenance
+
+- Minor documentation improvements.
+- Updated dependencies.
+- Updated the ReadMe.
+
+## 1.1.3
+
+### Maintenance
+
+- Minor documentation improvements.
+- Updated dependencies.
+
+## 1.1.2
+
+### Maintenance
+
+- Package metadata updates.
+- Improved pub.dev compliance.
+
 ## 1.1.1
     
 ### Maintenance

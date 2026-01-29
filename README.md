@@ -548,4 +548,41 @@ See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes.
 
 ---
 
-Made with ❤️ by GreeLogix
+## ❤️ Maintained By
+
+**GreenLogix** — Flutter, Laravel & AI Development Agency  
+🌐 https://greelogix.com  
+📩 hello@greelogix.com  
+
+Need custom Flutter development, package customization, or enterprise integrations? We’d love to help.
+
+---
+
+## 📦 Other Open-Source Flutter Packages by GreenLogix
+
+If you find Launchify useful for launching URLs and deep links, you may also benefit from these Flutter packages:
+
+### 🔹 Quick Popup Manager
+Smart popup, dialog, and overlay management for Flutter apps.  
+👉 https://pub.dev/packages/quick_popup_manager
+
+### 🔹 Smart Form Toolkit
+Advanced Flutter form toolkit with ready-to-use widgets, validation, and flexible field customization.  
+👉 https://pub.dev/packages/smart_form_toolkit
+
+### 🔹 Safe JSON Mapper
+Type-safe JSON parsing and mapping utilities for Flutter.  
+👉 https://pub.dev/packages/safe_json_mapper
+
+### 🔹 Best Form Validator
+A robust Flutter form validation library with ready-to-use validators and easy integration.  
+👉 https://pub.dev/packages/best_form_validator
+
+### 🔹 Flutter Telescope
+Advanced Flutter debugging, logging, and app insights toolkit.  
+👉 https://pub.dev/packages/flutter_telescope
+
+---
+
+⭐ If Launchify helped you, consider exploring our other packages for faster, safer, and more productive Flutter development.
+
