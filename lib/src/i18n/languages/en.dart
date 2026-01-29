@@ -1,6 +1,8 @@
 import '../form_localizations.dart';
 
+/// English translations for form validation messages.
 class EnFormLocalizations extends FormLocalizations {
+
   @override
   String get emailRequired => 'Email is required';
   @override
