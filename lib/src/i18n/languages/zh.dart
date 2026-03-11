@@ -18,11 +18,11 @@ class ZhFormLocalizations extends FormLocalizations {
   @override
   String get passwordNumberAndLetter => '密码必须包含字母和数字';
   @override
-  String get passwordSpecialCharacter => '必须包含至少一个特殊字符';
+  String get passwordSpecialChar => '必须包含至少一个特殊字符';
   @override
-  String get passwordLowerCase => '必须包含至少一个小写字母';
+  String get passwordLowercase => '必须包含至少一个小写字母';
   @override
-  String get passwordUpperCase => '必须包含至少一个大写字母';
+  String get passwordUppercase => '必须包含至少一个大写字母';
   @override
   String get passwordNoSpaces => '密码不能包含空格';
   @override

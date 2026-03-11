@@ -21,11 +21,11 @@ class UrFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'پاس ورڈ میں حروف اور نمبر دونوں ہونے چاہئیں';
   @override
-  String get passwordSpecialCharacter => 'کم از کم ایک خاص کردار ہونا چاہیے';
+  String get passwordSpecialChar => 'کم از کم ایک خاص کردار ہونا چاہیے';
   @override
-  String get passwordLowerCase => 'کم از کم ایک چھوٹا حرف ہونا چاہیے';
+  String get passwordLowercase => 'کم از کم ایک چھوٹا حرف ہونا چاہیے';
   @override
-  String get passwordUpperCase => 'کم از کم ایک بڑا حرف ہونا چاہیے';
+  String get passwordUppercase => 'کم از کم ایک بڑا حرف ہونا چاہیے';
   @override
   String get passwordNoSpaces => 'پاس ورڈ میں خالی جگہ نہیں ہونی چاہیے';
   @override

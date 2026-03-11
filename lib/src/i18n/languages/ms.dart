@@ -21,13 +21,13 @@ class MsFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Kata laluan mesti mengandungi huruf dan nombor';
   @override
-  String get passwordSpecialCharacter =>
+  String get passwordSpecialChar =>
       'Mesti mengandungi sekurang-kurangnya satu aksara khas';
   @override
-  String get passwordLowerCase =>
+  String get passwordLowercase =>
       'Mesti mengandungi sekurang-kurangnya satu huruf kecil';
   @override
-  String get passwordUpperCase =>
+  String get passwordUppercase =>
       'Mesti mengandungi sekurang-kurangnya satu huruf besar';
   @override
   String get passwordNoSpaces => 'Kata laluan tidak boleh mengandungi ruang';

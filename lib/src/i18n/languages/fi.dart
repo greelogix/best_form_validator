@@ -21,13 +21,13 @@ class FiFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Salasanan on sisällettävä kirjaimia ja numeroita';
   @override
-  String get passwordSpecialCharacter =>
+  String get passwordSpecialChar =>
       'On sisällettävä vähintään yksi erikoismerkki';
   @override
-  String get passwordLowerCase =>
+  String get passwordLowercase =>
       'On sisällettävä vähintään yksi pieni kirjain';
   @override
-  String get passwordUpperCase => 'On sisällettävä vähintään yksi iso kirjain';
+  String get passwordUppercase => 'On sisällettävä vähintään yksi iso kirjain';
   @override
   String get passwordNoSpaces => 'Salasana ei saa sisältää välilyöntejä';
   @override

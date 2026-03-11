@@ -18,11 +18,11 @@ class KoFormLocalizations extends FormLocalizations {
   @override
   String get passwordNumberAndLetter => '비밀번호는 문자와 숫자를 모두 포함해야 합니다';
   @override
-  String get passwordSpecialCharacter => '최소 하나의 특수 문자를 포함해야 합니다';
+  String get passwordSpecialChar => '최소 하나의 특수 문자를 포함해야 합니다';
   @override
-  String get passwordLowerCase => '최소 하나의 소문자를 포함해야 합니다';
+  String get passwordLowercase => '최소 하나의 소문자를 포함해야 합니다';
   @override
-  String get passwordUpperCase => '최소 하나의 대문자를 포함해야 합니다';
+  String get passwordUppercase => '최소 하나의 대문자를 포함해야 합니다';
   @override
   String get passwordNoSpaces => '비밀번호에는 공백이 없어야 합니다';
   @override

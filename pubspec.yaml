@@ -1,6 +1,6 @@
 name: best_form_validator
-description: A comprehensive Flutter form validation package. Supports email, phone (50+ countries), password, name, age, and more with full localization.
-version: 1.1.4
+description: High-performance form validation package for Dart & Flutter. Zero-initialization validators for Forms, Email, Phone (50+ countries), Password Strength, Bank/Credit Cards, Name, & Age.
+version: 1.2.0
 homepage: https://github.com/greelogix/best_form_validator
 repository: https://github.com/greelogix/best_form_validator
 issue_tracker: https://github.com/greelogix/best_form_validator/issues
@@ -30,8 +30,6 @@ dev_dependencies:
 
 
 flutter:
-  assets:
-    - assets/countries_phone_regex.json
 
 platforms:
   android:

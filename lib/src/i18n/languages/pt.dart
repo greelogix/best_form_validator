@@ -20,12 +20,12 @@ class PtFormLocalizations extends FormLocalizations {
   @override
   String get passwordNumberAndLetter => 'A senha deve conter letras e números';
   @override
-  String get passwordSpecialCharacter =>
+  String get passwordSpecialChar =>
       'Deve conter pelo menos um caractere especial';
   @override
-  String get passwordLowerCase => 'Deve conter pelo menos uma letra minúscula';
+  String get passwordLowercase => 'Deve conter pelo menos uma letra minúscula';
   @override
-  String get passwordUpperCase => 'Deve conter pelo menos uma letra maiúscula';
+  String get passwordUppercase => 'Deve conter pelo menos uma letra maiúscula';
   @override
   String get passwordNoSpaces => 'A senha não deve conter espaços';
   @override

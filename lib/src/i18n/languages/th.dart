@@ -19,11 +19,11 @@ class ThFormLocalizations extends FormLocalizations {
   @override
   String get passwordNumberAndLetter => 'รหัสผ่านต้องมีทั้งตัวอักษรและตัวเลข';
   @override
-  String get passwordSpecialCharacter => 'ต้องมีอักขระพิเศษอย่างน้อยหนึ่งตัว';
+  String get passwordSpecialChar => 'ต้องมีอักขระพิเศษอย่างน้อยหนึ่งตัว';
   @override
-  String get passwordLowerCase => 'ต้องมีตัวอักษรพิมพ์เล็กอย่างน้อยหนึ่งตัว';
+  String get passwordLowercase => 'ต้องมีตัวอักษรพิมพ์เล็กอย่างน้อยหนึ่งตัว';
   @override
-  String get passwordUpperCase => 'ต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว';
+  String get passwordUppercase => 'ต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว';
   @override
   String get passwordNoSpaces => 'รหัสผ่านต้องไม่มีช่องว่าง';
   @override

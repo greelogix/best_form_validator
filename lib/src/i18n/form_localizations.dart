@@ -116,9 +116,9 @@ abstract class FormLocalizations {
   String get passwordRequired;
   String passwordMinLength(int length);
   String get passwordNumberAndLetter;
-  String get passwordSpecialCharacter;
-  String get passwordLowerCase;
-  String get passwordUpperCase;
+  String get passwordSpecialChar;
+  String get passwordLowercase;
+  String get passwordUppercase;
   String get passwordNoSpaces;
 
   /// Name validation messages
@@ -166,7 +166,7 @@ class _FormLocalizationsDelegate
       'fi',
       'da',
       'el',
-      'fa'
+      'fa',
     ].contains(locale.languageCode);
   }
 

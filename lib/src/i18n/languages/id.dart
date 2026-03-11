@@ -21,13 +21,13 @@ class IdFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Kata sandi harus mengandung huruf dan angka';
   @override
-  String get passwordSpecialCharacter =>
+  String get passwordSpecialChar =>
       'Harus mengandung setidaknya satu karakter khusus';
   @override
-  String get passwordLowerCase =>
+  String get passwordLowercase =>
       'Harus mengandung setidaknya satu huruf kecil';
   @override
-  String get passwordUpperCase =>
+  String get passwordUppercase =>
       'Harus mengandung setidaknya satu huruf besar';
   @override
   String get passwordNoSpaces => 'Kata sandi tidak boleh mengandung spasi';

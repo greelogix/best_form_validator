@@ -21,12 +21,12 @@ class FrFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Le mot de passe doit contenir des lettres et des chiffres';
   @override
-  String get passwordSpecialCharacter =>
+  String get passwordSpecialChar =>
       'Doit contenir au moins un caractère spécial';
   @override
-  String get passwordLowerCase => 'Doit contenir au moins une lettre minuscule';
+  String get passwordLowercase => 'Doit contenir au moins une lettre minuscule';
   @override
-  String get passwordUpperCase => 'Doit contenir au moins une lettre majuscule';
+  String get passwordUppercase => 'Doit contenir au moins une lettre majuscule';
   @override
   String get passwordNoSpaces =>
       'Le mot de passe ne doit pas contenir d\'espaces';

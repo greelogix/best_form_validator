@@ -21,11 +21,11 @@ class DaFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Adgangskoden skal indeholde bogstaver og tal';
   @override
-  String get passwordSpecialCharacter => 'Skal indeholde mindst ét specialtegn';
+  String get passwordSpecialChar => 'Skal indeholde mindst ét specialtegn';
   @override
-  String get passwordLowerCase => 'Skal indeholde mindst ét lille bogstav';
+  String get passwordLowercase => 'Skal indeholde mindst ét lille bogstav';
   @override
-  String get passwordUpperCase => 'Skal indeholde mindst ét stort bogstav';
+  String get passwordUppercase => 'Skal indeholde mindst ét stort bogstav';
   @override
   String get passwordNoSpaces => 'Adgangskoden må ikke indeholde mellemrum';
   @override

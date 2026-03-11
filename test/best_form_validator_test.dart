@@ -4,9 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Validators', () {
-    setUp(() async {
+    setUp(() {
       WidgetsFlutterBinding.ensureInitialized();
-      await PhoneValidator.loadRegexMapTest();
     });
     test('validateEmail returns error when email is empty', () {
       final result = Validators.validateEmail('');
@@ -42,91 +41,114 @@ void main() {
     ///
     test('Valid password with all criteria', () {
       expect(
-        Validators.validatePassword('Password1!',
-            checkUpperCase: true,
-            checkLowerCase: true,
-            checkSpecialCharacter: true,
-            checkLength: true,
-            checkNumberAndLetter: true),
+        Validators.validatePassword(
+          'Password1!',
+          checkUpperCase: true,
+          checkLowerCase: true,
+          checkSpecialCharacter: true,
+          checkLength: true,
+          checkNumberAndLetter: true,
+        ),
         isNull,
       );
     });
 
     test('Invalid password - too short', () {
       expect(
-          Validators.validatePassword('Pwd1!',
-              checkUpperCase: true,
-              checkLowerCase: true,
-              checkSpecialCharacter: true,
-              checkLength: true,
-              checkNumberAndLetter: true),
-          'Password must be at least 6 characters long');
+        Validators.validatePassword(
+          'Pwd1!',
+          checkUpperCase: true,
+          checkLowerCase: true,
+          checkSpecialCharacter: true,
+          checkLength: true,
+          checkNumberAndLetter: true,
+        ),
+        'Password must be at least 6 characters long',
+      );
     });
 
     test('Invalid password - missing special character', () {
       expect(
-          Validators.validatePassword('Password1',
-              checkUpperCase: true,
-              checkLowerCase: true,
-              checkSpecialCharacter: true,
-              checkLength: true,
-              checkNumberAndLetter: true),
-          'Password must contain at least one special character');
+        Validators.validatePassword(
+          'Password1',
+          checkUpperCase: true,
+          checkLowerCase: true,
+          checkSpecialCharacter: true,
+          checkLength: true,
+          checkNumberAndLetter: true,
+        ),
+        'Password must contain at least one special character',
+      );
     });
 
     test('Invalid password - missing lowercase letter', () {
       expect(
-          Validators.validatePassword('PASSWORD1!',
-              checkUpperCase: true,
-              checkLowerCase: true,
-              checkSpecialCharacter: true,
-              checkLength: true,
-              checkNumberAndLetter: true),
-          'Password must contain at least one lowercase letter');
+        Validators.validatePassword(
+          'PASSWORD1!',
+          checkUpperCase: true,
+          checkLowerCase: true,
+          checkSpecialCharacter: true,
+          checkLength: true,
+          checkNumberAndLetter: true,
+        ),
+        'Password must contain at least one lowercase letter',
+      );
     });
 
     test('Invalid password - missing uppercase letter', () {
       expect(
-          Validators.validatePassword('password1!',
-              checkUpperCase: true,
-              checkLowerCase: true,
-              checkSpecialCharacter: true,
-              checkLength: true,
-              checkNumberAndLetter: true),
-          'Password must contain at least one uppercase letter');
+        Validators.validatePassword(
+          'password1!',
+          checkUpperCase: true,
+          checkLowerCase: true,
+          checkSpecialCharacter: true,
+          checkLength: true,
+          checkNumberAndLetter: true,
+        ),
+        'Password must contain at least one uppercase letter',
+      );
     });
 
     test('Invalid password - missing number', () {
       expect(
-          Validators.validatePassword('Password!',
-              checkUpperCase: true,
-              checkLowerCase: true,
-              checkSpecialCharacter: true,
-              checkLength: true,
-              checkNumberAndLetter: true),
-          'Password must contain both letters and numbers');
+        Validators.validatePassword(
+          'Password!',
+          checkUpperCase: true,
+          checkLowerCase: true,
+          checkSpecialCharacter: true,
+          checkLength: true,
+          checkNumberAndLetter: true,
+        ),
+        'Password must contain both letters and numbers',
+      );
     });
 
     test('Invalid password - contains spaces', () {
       expect(
-          Validators.validatePassword('Password1 !',
-              checkUpperCase: true,
-              checkLowerCase: true,
-              checkSpecialCharacter: true,
-              checkLength: true,
-              checkNumberAndLetter: true),
-          'Password must not contain spaces');
+        Validators.validatePassword(
+          'Password1 !',
+          checkUpperCase: true,
+          checkLowerCase: true,
+          checkSpecialCharacter: true,
+          checkLength: true,
+          checkNumberAndLetter: true,
+        ),
+        'Password must not contain spaces',
+      );
     });
 
     test('Invalid password - empty string', () {
       expect(
-          Validators.validatePassword('',
-              checkUpperCase: true,
-              checkLowerCase: true,
-              checkSpecialCharacter: true,
-              checkLength: true,
-              checkNumberAndLetter: true),
-          'Password is required');
+        Validators.validatePassword(
+          '',
+          checkUpperCase: true,
+          checkLowerCase: true,
+          checkSpecialCharacter: true,
+          checkLength: true,
+          checkNumberAndLetter: true,
+        ),
+        'Password is required',
+      );
     });
   });
 }

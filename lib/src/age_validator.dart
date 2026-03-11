@@ -29,8 +29,12 @@ class AgeValidator {
   /// // With DateTime
   /// String? error = AgeValidator.validateAge(DateTime(2000, 1, 15), 18);
   /// ```
-  static String? validateAge(dynamic birthDate, int minimumAge,
-      {String? requiredError, String? invalidError}) {
+  static String? validateAge(
+    dynamic birthDate,
+    int minimumAge, {
+    String? requiredError,
+    String? invalidError,
+  }) {
     DateTime? parsedDate;
     if (birthDate is String) {
       try {

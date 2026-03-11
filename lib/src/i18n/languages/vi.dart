@@ -20,11 +20,11 @@ class ViFormLocalizations extends FormLocalizations {
   @override
   String get passwordNumberAndLetter => 'Mật khẩu phải chứa cả chữ cái và số';
   @override
-  String get passwordSpecialCharacter => 'Phải chứa ít nhất một ký tự đặc biệt';
+  String get passwordSpecialChar => 'Phải chứa ít nhất một ký tự đặc biệt';
   @override
-  String get passwordLowerCase => 'Phải chứa ít nhất một chữ cái thường';
+  String get passwordLowercase => 'Phải chứa ít nhất một chữ cái thường';
   @override
-  String get passwordUpperCase => 'Phải chứa ít nhất một chữ cái hoa';
+  String get passwordUppercase => 'Phải chứa ít nhất một chữ cái hoa';
   @override
   String get passwordNoSpaces => 'Mật khẩu không được chứa khoảng trắng';
   @override

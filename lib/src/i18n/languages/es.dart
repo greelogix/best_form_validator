@@ -21,12 +21,12 @@ class EsFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'La contraseña debe contener letras y números';
   @override
-  String get passwordSpecialCharacter =>
+  String get passwordSpecialChar =>
       'Debe contener al menos un carácter especial';
   @override
-  String get passwordLowerCase => 'Debe contener al menos una letra minúscula';
+  String get passwordLowercase => 'Debe contener al menos una letra minúscula';
   @override
-  String get passwordUpperCase => 'Debe contener al menos una letra mayúscula';
+  String get passwordUppercase => 'Debe contener al menos una letra mayúscula';
   @override
   String get passwordNoSpaces => 'La contraseña no debe contener espacios';
   @override

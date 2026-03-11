@@ -2,7 +2,6 @@ import '../form_localizations.dart';
 
 /// English translations for form validation messages.
 class EnFormLocalizations extends FormLocalizations {
-
   @override
   String get emailRequired => 'Email is required';
   @override
@@ -23,13 +22,13 @@ class EnFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Password must contain both letters and numbers';
   @override
-  String get passwordSpecialCharacter =>
+  String get passwordSpecialChar =>
       'Password must contain at least one special character';
   @override
-  String get passwordLowerCase =>
+  String get passwordLowercase =>
       'Password must contain at least one lowercase letter';
   @override
-  String get passwordUpperCase =>
+  String get passwordUppercase =>
       'Password must contain at least one uppercase letter';
   @override
   String get passwordNoSpaces => 'Password must not contain spaces';

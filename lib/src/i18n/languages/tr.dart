@@ -21,11 +21,11 @@ class TrFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Şifre hem harf hem de rakam içermelidir';
   @override
-  String get passwordSpecialCharacter => 'En az bir özel karakter içermelidir';
+  String get passwordSpecialChar => 'En az bir özel karakter içermelidir';
   @override
-  String get passwordLowerCase => 'En az bir küçük harf içermelidir';
+  String get passwordLowercase => 'En az bir küçük harf içermelidir';
   @override
-  String get passwordUpperCase => 'En az bir büyük harf içermelidir';
+  String get passwordUppercase => 'En az bir büyük harf içermelidir';
   @override
   String get passwordNoSpaces => 'Şifre boşluk içermemelidir';
   @override

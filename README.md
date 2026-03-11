@@ -8,29 +8,37 @@
 
 ![Best Form Validator Demo](https://raw.githubusercontent.com/greelogix/quick_popup_manager-video/main/best_form_validator_video_demo.gif)
 
-A comprehensive Flutter package designed to simplify form validation. It provides a robust set of validation functions for various form fields, including email, phone, password, name, and age. The package supports phone number validation according to different countries' phone number formats, making it versatile for international applications.
+A high-performance form validation package that specializes in international phone number validation and complex regex patterns. 
+
+**✨ Instant, Context-Less, & Zero-Initialization:**  
+No `BuildContext` required. No `async` app startup delays. Use it directly inside your `TextFormField` out of the box.
+
+### Why use `best_form_validator`?
+
+| Feature | Standard Flutter Validation | `best_form_validator` |
+|---------|-----------------------------|-----------------------|
+| **Phone Regex** | Write your own Regex | Built-in 50+ Countries 🌍 |
+| **Async Hassle** | Custom State Logic | 🚀 Zero-Init (Synchronous) |
+| **Translations** | Manual `if-else` | Built-in 25+ Languages |
+| **Complexity** | Messy `if (val == null) return 'error'` | `MultiValidator().required().build()` |
+| **Financials** | External Packages | Native Luhn / IBAN checks 💳 |
 
 ## Features
 
-✅ **Email Validation** - Ensure that email addresses are in the correct format  
-✅ **Phone Number Validation** - Validate phone numbers based on 50+ countries' formats  
-✅ **Password Validation** - Flexible password validation with customizable criteria  
-✅ **Name Validation** - Validate names to ensure proper formatting  
-✅ **Age Validation** - Validate age from DateTime or string input  
-✅ **Date & Time Validation** - Validate date and time formats  
-✅ **Localization Support** - Built-in support for 25+ languages  
-✅ **Customizable Error Messages** - Override default error messages  
-✅ **Null Safety** - Built with sound null safety  
+✅ **Zero-Initialization** - Synchronous and immediate.  
+✅ **MultiValidator Chaining** - Clean functional API.  
+✅ **Phone Number Validation** - 50+ countries with `PhoneInputFormatter`.  
+✅ **Email & Password Stringency** - Advanced regex and 0-5 Strength scoring.  
+✅ **Financial Checks** - Credit Card (Luhn Algorithm) & EU IBAN Validation.  
+✅ **Localization Support** - Built-in support for 25+ languages.  
 
 ## Getting Started
 
 ### Installation
 
-Add the following to your `pubspec.yaml`:
-
 ```yaml
 dependencies:
-  best_form_validator: ^1.1.0
+  best_form_validator: ^1.1.4
 ```
 
 Then run:
@@ -39,21 +47,17 @@ Then run:
 flutter pub get
 ```
 
-### Initialization
+### 🚀 Quickstart
 
-**Important:** For phone number validation, you must initialize the package at app startup:
+It works instantly. No initialization required!
 
 ```dart
 import 'package:best_form_validator/best_form_validator.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  
-  // Load phone regex patterns (required for phone validation)
-  await Validators.loadPhoneRegex();
-  
-  runApp(MyApp());
-}
+TextFormField(
+  validator: (value) => Validators.validateEmail(value),
+  // ...
+);
 ```
 ### Localization Setup
 

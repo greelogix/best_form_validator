@@ -20,12 +20,11 @@ class SvFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Lösenordet måste innehålla bokstäver och siffror';
   @override
-  String get passwordSpecialCharacter =>
-      'Måste innehålla minst ett specialtecken';
+  String get passwordSpecialChar => 'Måste innehålla minst ett specialtecken';
   @override
-  String get passwordLowerCase => 'Måste innehålla minst en liten bokstav';
+  String get passwordLowercase => 'Måste innehålla minst en liten bokstav';
   @override
-  String get passwordUpperCase => 'Måste innehålla minst en stor bokstav';
+  String get passwordUppercase => 'Måste innehålla minst en stor bokstav';
   @override
   String get passwordNoSpaces => 'Lösenordet får inte innehålla mellanslag';
   @override

@@ -20,13 +20,13 @@ class RuFormLocalizations extends FormLocalizations {
   @override
   String get passwordNumberAndLetter => 'Пароль должен содержать буквы и цифры';
   @override
-  String get passwordSpecialCharacter =>
+  String get passwordSpecialChar =>
       'Должен содержать хотя бы один специальный символ';
   @override
-  String get passwordLowerCase =>
+  String get passwordLowercase =>
       'Должен содержать хотя бы одну строчную букву';
   @override
-  String get passwordUpperCase =>
+  String get passwordUppercase =>
       'Должен содержать хотя бы одну заглавную букву';
   @override
   String get passwordNoSpaces => 'Пароль не должен содержать пробелов';

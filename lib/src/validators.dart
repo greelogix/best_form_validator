@@ -46,8 +46,11 @@ class Validators {
   ///   print(error); // null if valid
   /// }
   /// ```
-  static String? validateEmail(String? value,
-      {String? requiredError, String? invalidError}) {
+  static String? validateEmail(
+    String? value, {
+    String? requiredError,
+    String? invalidError,
+  }) {
     if (value == null || value.isEmpty) {
       return requiredError ?? FormLocalizations.global.emailRequired;
     }
@@ -61,23 +64,19 @@ class Validators {
     return null;
   }
 
-  /// Loads phone number regex patterns for validation.
+  /// [DEPRECATED] Phone number regex patterns are now statically loaded.
   ///
-  /// **Must be called at app startup before using [validatePhone].**
+  /// **No longer required to be called.**
   ///
-  /// This method loads country-specific phone number validation patterns
-  /// from the bundled JSON asset file.
-  ///
-  /// Example:
+  /// Safe to remove from your app startup:
   /// ```dart
-  /// void main() async {
-  ///   WidgetsFlutterBinding.ensureInitialized();
-  ///   await Validators.loadPhoneRegex();
-  ///   runApp(MyApp());
-  /// }
+  /// // Remove this line
+  /// await Validators.loadPhoneRegex();
   /// ```
+  @Deprecated(
+      'No longer needed. Phone regex forms are statically loaded. Safe to remove.')
   static Future<void> loadPhoneRegex() async {
-    await PhoneValidator.loadRegexMap();
+    // No-op
   }
 
   /// Validates a phone number for a specific country.
@@ -100,12 +99,20 @@ class Validators {
   /// ```dart
   /// String? error = Validators.validatePhone('+12025551234', 'US');
   /// ```
-  static String? validatePhone(String? value, String isoCode,
-      {String? requiredError, bool isRequired = true, String? invalidError}) {
-    return PhoneValidator.validatePhoneNumber(value, isoCode,
-        requiredError: requiredError,
-        isRequired: isRequired,
-        invalidError: invalidError);
+  static String? validatePhone(
+    String? value,
+    String isoCode, {
+    String? requiredError,
+    bool isRequired = true,
+    String? invalidError,
+  }) {
+    return PhoneValidator.validatePhoneNumber(
+      value,
+      isoCode,
+      requiredError: requiredError,
+      isRequired: isRequired,
+      invalidError: invalidError,
+    );
   }
 
   /// Validates a password with customizable criteria.
@@ -134,20 +141,24 @@ class Validators {
   ///   checkUpperCase: true,
   /// );
   /// ```
-  static String? validatePassword(String? value,
-      {bool? checkLength = true,
-      int minLength = 6,
-      bool? checkNumberAndLetter = false,
-      bool? checkSpecialCharacter = false,
-      bool? checkLowerCase = false,
-      bool? checkUpperCase = false}) {
-    return PasswordValidator.validate(value,
-        checkLength: checkLength,
-        minLength: minLength,
-        checkNumberAndLetter: checkNumberAndLetter,
-        checkSpecialCharacter: checkSpecialCharacter,
-        checkLowerCase: checkLowerCase,
-        checkUpperCase: checkUpperCase);
+  static String? validatePassword(
+    String? value, {
+    bool? checkLength = true,
+    int minLength = 6,
+    bool? checkNumberAndLetter = false,
+    bool? checkSpecialCharacter = false,
+    bool? checkLowerCase = false,
+    bool? checkUpperCase = false,
+  }) {
+    return PasswordValidator.validate(
+      value,
+      checkLength: checkLength,
+      minLength: minLength,
+      checkNumberAndLetter: checkNumberAndLetter,
+      checkSpecialCharacter: checkSpecialCharacter,
+      checkLowerCase: checkLowerCase,
+      checkUpperCase: checkUpperCase,
+    );
   }
 
   /// Validates a name to ensure proper formatting.
@@ -169,10 +180,16 @@ class Validators {
   /// ```dart
   /// String? error = Validators.validateName('John Doe');
   /// ```
-  static String? validateName(String? value,
-      {String? requiredError, String? invalidError}) {
-    return NameValidator.validate(value,
-        requiredError: requiredError, invalidError: invalidError);
+  static String? validateName(
+    String? value, {
+    String? requiredError,
+    String? invalidError,
+  }) {
+    return NameValidator.validate(
+      value,
+      requiredError: requiredError,
+      invalidError: invalidError,
+    );
   }
 
   /// Validates age meets a minimum requirement.
@@ -196,10 +213,18 @@ class Validators {
   /// // With DateTime
   /// String? error = Validators.validateAge(DateTime(2000, 1, 15), 18);
   /// ```
-  static String? validateAge(dynamic value, int minimumAge,
-      {String? requiredError, String? invalidError}) {
-    return AgeValidator.validateAge(value, minimumAge,
-        requiredError: requiredError, invalidError: invalidError);
+  static String? validateAge(
+    dynamic value,
+    int minimumAge, {
+    String? requiredError,
+    String? invalidError,
+  }) {
+    return AgeValidator.validateAge(
+      value,
+      minimumAge,
+      requiredError: requiredError,
+      invalidError: invalidError,
+    );
   }
 
   /// Validates a date string can be properly parsed.
@@ -215,8 +240,11 @@ class Validators {
   /// ```dart
   /// String? error = Validators.validateDate('2024-01-15');
   /// ```
-  static String? validateDate(String? value,
-      {String? requiredError, String? invalidError}) {
+  static String? validateDate(
+    String? value, {
+    String? requiredError,
+    String? invalidError,
+  }) {
     if (value == null || value.isEmpty) {
       return requiredError ?? FormLocalizations.global.dateRequired;
     }
@@ -241,8 +269,11 @@ class Validators {
   /// ```dart
   /// String? error = Validators.validateTime('14:30:00');
   /// ```
-  static String? validateTime(String? value,
-      {String? requiredError, String? invalidError}) {
+  static String? validateTime(
+    String? value, {
+    String? requiredError,
+    String? invalidError,
+  }) {
     if (value == null || value.isEmpty) {
       return requiredError ?? FormLocalizations.global.timeRequired;
     }

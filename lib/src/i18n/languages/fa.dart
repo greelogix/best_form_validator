@@ -19,11 +19,11 @@ class FaFormLocalizations extends FormLocalizations {
   @override
   String get passwordNumberAndLetter => 'رمز عبور باید شامل حروف و اعداد باشد';
   @override
-  String get passwordSpecialCharacter => 'باید حداقل یک کاراکتر خاص داشته باشد';
+  String get passwordSpecialChar => 'باید حداقل یک کاراکتر خاص داشته باشد';
   @override
-  String get passwordLowerCase => 'باید حداقل یک حرف کوچک داشته باشد';
+  String get passwordLowercase => 'باید حداقل یک حرف کوچک داشته باشد';
   @override
-  String get passwordUpperCase => 'باید حداقل یک حرف بزرگ داشته باشد';
+  String get passwordUppercase => 'باید حداقل یک حرف بزرگ داشته باشد';
   @override
   String get passwordNoSpaces => 'رمز عبور نباید شامل فاصله باشد';
   @override

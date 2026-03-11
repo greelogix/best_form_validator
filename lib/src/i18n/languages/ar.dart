@@ -20,12 +20,11 @@ class ArFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'يجب أن تحتوي كلمة المرور على حروف وأرقام';
   @override
-  String get passwordSpecialCharacter =>
-      'يجب أن تحتوي على رمز خاص واحد على الأقل';
+  String get passwordSpecialChar => 'يجب أن تحتوي على رمز خاص واحد على الأقل';
   @override
-  String get passwordLowerCase => 'يجب أن تحتوي على حرف صغير واحد على الأقل';
+  String get passwordLowercase => 'يجب أن تحتوي على حرف صغير واحد على الأقل';
   @override
-  String get passwordUpperCase => 'يجب أن تحتوي على حرف كبير واحد على الأقل';
+  String get passwordUppercase => 'يجب أن تحتوي على حرف كبير واحد على الأقل';
   @override
   String get passwordNoSpaces => 'يجب ألا تحتوي كلمة المرور على مسافات';
   @override

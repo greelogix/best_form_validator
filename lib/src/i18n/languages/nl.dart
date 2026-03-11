@@ -21,12 +21,11 @@ class NlFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Wachtwoord moet letters en cijfers bevatten';
   @override
-  String get passwordSpecialCharacter =>
-      'Moet minimaal één speciaal teken bevatten';
+  String get passwordSpecialChar => 'Moet minimaal één speciaal teken bevatten';
   @override
-  String get passwordLowerCase => 'Moet minimaal één kleine letter bevatten';
+  String get passwordLowercase => 'Moet minimaal één kleine letter bevatten';
   @override
-  String get passwordUpperCase => 'Moet minimaal één hoofdletter bevatten';
+  String get passwordUppercase => 'Moet minimaal één hoofdletter bevatten';
   @override
   String get passwordNoSpaces => 'Wachtwoord mag geen spaties bevatten';
   @override

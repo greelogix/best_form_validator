@@ -20,13 +20,13 @@ class ElFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Ο κωδικός πρέπει να περιέχει γράμματα και αριθμούς';
   @override
-  String get passwordSpecialCharacter =>
+  String get passwordSpecialChar =>
       'Πρέπει να περιέχει τουλάχιστον έναν ειδικό χαρακτήρα';
   @override
-  String get passwordLowerCase =>
+  String get passwordLowercase =>
       'Πρέπει να περιέχει τουλάχιστον ένα πεζό γράμμα';
   @override
-  String get passwordUpperCase =>
+  String get passwordUppercase =>
       'Πρέπει να περιέχει τουλάχιστον ένα κεφαλαίο γράμμα';
   @override
   String get passwordNoSpaces => 'Ο κωδικός δεν πρέπει να περιέχει κενά';

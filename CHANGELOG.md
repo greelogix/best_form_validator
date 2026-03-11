@@ -1,3 +1,14 @@
+## 1.2.0
+
+### Huge Performance & Feature Upgrade 🚀
+- **Zero-Initialization Hook**: Phone Regex patterns are now statically compiled. You no longer need to `await Validators.loadPhoneRegex()` in your `main()`. Phone validation runs entirely synchronously!
+- **Multi Validator**: Added `MultiValidator` to allow chaining multiple validations sequentially.
+- **Financial Validation**: Added new `FinancialValidators` to support **Credit Cards** (Luhn Algorithm Mod-10) and **IBAN** checks (MOD-97).
+- **Password Strength**: Added `Validators.getPasswordStrength()` which evaluates text entropy and returns an `int` score ranging from `0` to `5`.
+- **Advanced Formatting**: Added `PhoneInputFormatter` which intelligently auto-formats international phone numbers as the user types.
+- **Async Validations**: Added `AsyncValidator` utility helper.
+- Over 25+ Language Localizations inherently patched to natively handle detailed password checks.
+
 ## 1.1.4
 
 ### Maintenance

@@ -24,8 +24,11 @@ class NameValidator {
   /// ```dart
   /// String? error = NameValidator.validate('John Doe');
   /// ```
-  static String? validate(String? value,
-      {String? requiredError, String? invalidError}) {
+  static String? validate(
+    String? value, {
+    String? requiredError,
+    String? invalidError,
+  }) {
     if (value == null || value.trim().isEmpty) {
       return requiredError ?? FormLocalizations.global.nameRequired;
     }

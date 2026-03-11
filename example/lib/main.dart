@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:best_form_validator/best_form_validator.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // Initialize standard regex patterns for phone validation
-  await Validators.loadPhoneRegex();
   runApp(const MyApp());
 }
 
@@ -194,10 +192,7 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
               MyApp.of(context)?.setLocale(Locale(langCode));
             },
             itemBuilder: (context) => _languages.entries.map((e) {
-              return PopupMenuItem(
-                value: e.key,
-                child: Text(e.value),
-              );
+              return PopupMenuItem(value: e.key, child: Text(e.value));
             }).toList(),
           ),
         ],
@@ -209,19 +204,24 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                  'Current Language: ${_languages[currentLocale.languageCode] ?? currentLocale.languageCode}',
-                  style: Theme.of(context).textTheme.bodySmall),
+                'Current Language: ${_languages[currentLocale.languageCode] ?? currentLocale.languageCode}',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
               const SizedBox(height: 16),
-              const Icon(Icons.verified_user_outlined,
-                  size: 64, color: Colors.teal),
+              const Icon(
+                Icons.verified_user_outlined,
+                size: 64,
+                color: Colors.teal,
+              ),
               const SizedBox(height: 24),
 
               // 1. Selection Dropdown
-              Text('Select Validator to Test:',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(color: Colors.grey.shade700)),
+              Text(
+                'Select Validator to Test:',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(color: Colors.grey.shade700),
+              ),
               const SizedBox(height: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -234,14 +234,17 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
                   child: DropdownButton<String>(
                     value: _selectedCase,
                     isExpanded: true,
-                    icon: const Icon(Icons.arrow_drop_down_circle,
-                        color: Colors.teal),
+                    icon: const Icon(
+                      Icons.arrow_drop_down_circle,
+                      color: Colors.teal,
+                    ),
                     items: _cases.map((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
-                        child: Text(value,
-                            style:
-                                const TextStyle(fontWeight: FontWeight.w600)),
+                        child: Text(
+                          value,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
                       );
                     }).toList(),
                     onChanged: _onCaseChanged,
@@ -256,7 +259,8 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
                 elevation: 4,
                 shadowColor: Colors.black26,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Form(
@@ -267,16 +271,19 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
                         Text(
                           _selectedCase,
                           style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.teal),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.teal,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           _getDescription(_selectedCase),
                           style: TextStyle(
-                              fontSize: 14, color: Colors.grey.shade600),
+                            fontSize: 14,
+                            color: Colors.grey.shade600,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 24),
@@ -294,18 +301,22 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12)),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                             elevation: 2,
                           ),
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('VALIDATE CASE',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
+                              Text(
+                                'VALIDATE CASE',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               SizedBox(width: 8),
-                              Icon(Icons.check_circle_outline)
+                              Icon(Icons.check_circle_outline),
                             ],
                           ),
                         ),
@@ -337,8 +348,9 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
                             Text(
                               _successMessage!,
                               style: const TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -400,10 +412,12 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
                 prefixIcon: Icon(Icons.flag_outlined),
               ),
               items: _countries
-                  .map((c) => DropdownMenuItem(
-                        value: c['code'],
-                        child: Text(c['name']!),
-                      ))
+                  .map(
+                    (c) => DropdownMenuItem(
+                      value: c['code'],
+                      child: Text(c['name']!),
+                    ),
+                  )
                   .toList(),
               onChanged: (val) => setState(() => _selectedCountry = val!),
             ),
@@ -430,8 +444,9 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
             labelText: 'Password',
             prefixIcon: const Icon(Icons.lock_outline),
             suffixIcon: IconButton(
-              icon:
-                  Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+              icon: Icon(
+                _obscureText ? Icons.visibility_off : Icons.visibility,
+              ),
               onPressed: () => setState(() => _obscureText = !_obscureText),
             ),
             helperText:

@@ -21,11 +21,11 @@ class NoFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Passordet må inneholde bokstaver og tall';
   @override
-  String get passwordSpecialCharacter => 'Må inneholde minst ett spesialtegn';
+  String get passwordSpecialChar => 'Må inneholde minst ett spesialtegn';
   @override
-  String get passwordLowerCase => 'Må inneholde minst en liten bokstav';
+  String get passwordLowercase => 'Må inneholde minst en liten bokstav';
   @override
-  String get passwordUpperCase => 'Må inneholde minst en stor bokstav';
+  String get passwordUppercase => 'Må inneholde minst en stor bokstav';
   @override
   String get passwordNoSpaces => 'Passordet må ikke inneholde mellomrom';
   @override

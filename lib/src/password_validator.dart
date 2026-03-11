@@ -1,36 +1,8 @@
-import 'i18n/form_localizations.dart';
+import 'package:best_form_validator/src/i18n/form_localizations.dart';
 
-/// Password validator with customizable validation criteria.
-///
-/// Supports multiple validation rules including length, character types,
-/// and special character requirements.
+/// Password validator with checking and strength rules.
 class PasswordValidator {
-  /// Validates a password against specified criteria.
-  ///
-  /// Returns `null` if the password meets all criteria, otherwise returns
-  /// an error message describing the first failed criterion.
-  ///
-  /// Parameters:
-  /// - [value]: The password to validate
-  /// - [checkLength]: Whether to check minimum length (default: true)
-  /// - [minLength]: Minimum password length (default: 6)
-  /// - [checkNumberAndLetter]: Require both numbers and letters (default: false)
-  /// - [checkSpecialCharacter]: Require special characters (default: false)
-  /// - [checkLowerCase]: Require lowercase letters (default: false)
-  /// - [checkUpperCase]: Require uppercase letters (default: false)
-  ///
-  /// Example:
-  /// ```dart
-  /// String? error = PasswordValidator.validate(
-  ///   'MyP@ssw0rd',
-  ///   checkLength: true,
-  ///   minLength: 8,
-  ///   checkNumberAndLetter: true,
-  ///   checkSpecialCharacter: true,
-  ///   checkLowerCase: true,
-  ///   checkUpperCase: true,
-  /// );
-  /// ```
+  /// Validates a password with customizable criteria.
   static String? validate(String? value,
       {bool? checkLength = true,
       int minLength = 6,
@@ -42,33 +14,75 @@ class PasswordValidator {
       return FormLocalizations.global.passwordRequired;
     }
 
-    if (checkLength! && value.length < minLength) {
+    // Default flags if not provided
+    final checkLen = checkLength ?? true;
+    final checkNumAlpha = checkNumberAndLetter ?? false;
+    final checkSpecial = checkSpecialCharacter ?? false;
+    final checkLower = checkLowerCase ?? false;
+    final checkUpper = checkUpperCase ?? false;
+
+    // Minimum Length Check
+    if (checkLen && value.length < minLength) {
       return FormLocalizations.global.passwordMinLength(minLength);
     }
 
-    if (checkNumberAndLetter!) {
-      bool hasLetter = value.contains(RegExp(r'[A-Za-z]'));
-      bool hasDigit = value.contains(RegExp(r'\d'));
-      if (!hasLetter || !hasDigit) {
+    // Number & Letter Check
+    if (checkNumAlpha) {
+      final hasLetter = RegExp(r'[a-zA-Z]').hasMatch(value);
+      final hasNumber = RegExp(r'[0-9]').hasMatch(value);
+      if (!hasLetter || !hasNumber) {
         return FormLocalizations.global.passwordNumberAndLetter;
       }
     }
 
-    if (checkSpecialCharacter! &&
-        !value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return FormLocalizations.global.passwordSpecialCharacter;
+    // Special Character Check
+    if (checkSpecial) {
+      // Common special characters constraint
+      final hasSpecial =
+          RegExp(r'[!@#\$%\^&\*\(\),\.\?":\{\}\|<>]').hasMatch(value);
+      if (!hasSpecial) {
+        return FormLocalizations.global.passwordSpecialChar;
+      }
     }
 
-    if (checkLowerCase! && !value.contains(RegExp(r'[a-z]'))) {
-      return FormLocalizations.global.passwordLowerCase;
+    // Lowercase Check
+    if (checkLower && !RegExp(r'[a-z]').hasMatch(value)) {
+      return FormLocalizations.global.passwordLowercase;
     }
 
-    if (checkUpperCase! && !value.contains(RegExp(r'[A-Z]'))) {
-      return FormLocalizations.global.passwordUpperCase;
+    // Uppercase Check
+    if (checkUpper && !RegExp(r'[A-Z]').hasMatch(value)) {
+      return FormLocalizations.global.passwordUppercase;
     }
-    if (value.contains(" ")) {
+
+    // No Spaces Allowed
+    if (value.contains(' ')) {
       return FormLocalizations.global.passwordNoSpaces;
     }
+
     return null;
+  }
+
+  /// Evaluates the strength of a password, returning a score from 0 to 5.
+  ///
+  /// Criteria:
+  /// - +1 for length >= 8
+  /// - +1 for containing lowercase letters
+  /// - +1 for containing uppercase letters
+  /// - +1 for containing numbers
+  /// - +1 for containing special characters
+  ///
+  /// Returns `0` if empty or null.
+  static int getPasswordStrength(String? password) {
+    if (password == null || password.isEmpty) return 0;
+
+    int score = 0;
+    if (password.length >= 8) score++;
+    if (RegExp(r'[a-z]').hasMatch(password)) score++;
+    if (RegExp(r'[A-Z]').hasMatch(password)) score++;
+    if (RegExp(r'[0-9]').hasMatch(password)) score++;
+    if (RegExp(r'[!@#\$%\^&\*\(\),\.\?":\{\}\|<>]').hasMatch(password)) score++;
+
+    return score;
   }
 }

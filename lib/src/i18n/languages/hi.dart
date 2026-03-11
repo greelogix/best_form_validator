@@ -21,11 +21,11 @@ class HiFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'पासवर्ड में अक्षर और संख्या दोनों होने चाहिए';
   @override
-  String get passwordSpecialCharacter => 'कम से कम एक विशेष वर्ण होना चाहिए';
+  String get passwordSpecialChar => 'कम से कम एक विशेष वर्ण होना चाहिए';
   @override
-  String get passwordLowerCase => 'कम से कम एक छोटा अक्षर होना चाहिए';
+  String get passwordLowercase => 'कम से कम एक छोटा अक्षर होना चाहिए';
   @override
-  String get passwordUpperCase => 'कम से कम एक बड़ा अक्षर होना चाहिए';
+  String get passwordUppercase => 'कम से कम एक बड़ा अक्षर होना चाहिए';
   @override
   String get passwordNoSpaces => 'पासवर्ड में रिक्त स्थान नहीं होना चाहिए';
   @override

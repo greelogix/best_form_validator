@@ -21,13 +21,13 @@ class DeFormLocalizations extends FormLocalizations {
   String get passwordNumberAndLetter =>
       'Passwort muss Buchstaben und Zahlen enthalten';
   @override
-  String get passwordSpecialCharacter =>
+  String get passwordSpecialChar =>
       'Muss mindestens ein Sonderzeichen enthalten';
   @override
-  String get passwordLowerCase =>
+  String get passwordLowercase =>
       'Muss mindestens einen Kleinbuchstaben enthalten';
   @override
-  String get passwordUpperCase =>
+  String get passwordUppercase =>
       'Muss mindestens einen Großbuchstaben enthalten';
   @override
   String get passwordNoSpaces => 'Passwort darf keine Leerzeichen enthalten';

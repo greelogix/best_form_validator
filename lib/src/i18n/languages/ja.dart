@@ -18,11 +18,11 @@ class JaFormLocalizations extends FormLocalizations {
   @override
   String get passwordNumberAndLetter => 'パスワードには文字と数字の両方を含める必要があります';
   @override
-  String get passwordSpecialCharacter => '少なくとも1つの特殊文字を含める必要があります';
+  String get passwordSpecialChar => '少なくとも1つの特殊文字を含める必要があります';
   @override
-  String get passwordLowerCase => '少なくとも1つの小文字を含める必要があります';
+  String get passwordLowercase => '少なくとも1つの小文字を含める必要があります';
   @override
-  String get passwordUpperCase => '少なくとも1つの大文字を含める必要があります';
+  String get passwordUppercase => '少なくとも1つの大文字を含める必要があります';
   @override
   String get passwordNoSpaces => 'パスワードにスペースを含めることはできません';
   @override

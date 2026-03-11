@@ -1,68 +1,33 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
 import 'i18n/form_localizations.dart';
+import 'phone_regex_map.dart';
 
 /// Phone number validator with support for 50+ countries.
 ///
 /// This class handles phone number validation based on country-specific
-/// regex patterns loaded from a JSON asset file.
-///
-/// **Important:** Call [loadRegexMap] at app startup before validation.
+/// regex patterns. It now uses a statically linked map for synchronous
+/// (zero-initialization) validation.
 class PhoneValidator {
-  static late Map<String, String> _regexMap;
-
-  /// Loads phone number regex patterns from the bundled asset file.
+  /// [DEPRECATED] No longer required to be called.
+  /// Phone regex patterns are now statically loaded for instant, synchronous validation.
   ///
-  /// This method must be called at app startup before using [validatePhoneNumber].
-  /// It loads country-specific regex patterns from the package's asset file.
-  ///
-  /// Returns a status message indicating success or failure.
-  ///
-  /// Example:
+  /// Safe to remove from your `main()` function:
   /// ```dart
-  /// void main() async {
-  ///   WidgetsFlutterBinding.ensureInitialized();
-  ///   await PhoneValidator.loadRegexMap();
-  ///   runApp(MyApp());
-  /// }
+  /// // Remove this line
+  /// await Validators.loadPhoneRegex();
   /// ```
+  @Deprecated(
+    'No longer needed. Phone regex forms are statically loaded. Safe to remove.',
+  )
   static Future<String?> loadRegexMap() async {
-    try {
-      String jsonString = await rootBundle.loadString(
-          'packages/best_form_validator/assets/countries_phone_regex.json');
-      Map<String, dynamic> jsonMap = json.decode(jsonString);
-      _regexMap = jsonMap.map((key, value) => MapEntry(key, value as String));
-      if (jsonMap.isNotEmpty) {
-        return "regex is loaded";
-      } else {
-        return "regex is not loaded";
-      }
-    } catch (e) {
-      return "Regex not loaded: ${e.toString()}";
-    }
+    return "regex is loaded statically";
   }
 
-  /// Loads phone number regex patterns for¬ testing purposes.
-  ///
-  /// This is an alternative loading method used in test environments
-  /// where the asset path differs from the package path.
-  ///
-  /// Returns a status message indicating success or failure.
+  /// [DEPRECATED] No longer required to be called.
+  @Deprecated(
+    'No longer needed. Phone regex forms are statically loaded. Safe to remove.',
+  )
   static Future<String?> loadRegexMapTest() async {
-    try {
-      String jsonString =
-          await rootBundle.loadString('assets/countries_phone_regex.json');
-      Map<String, dynamic> jsonMap = json.decode(jsonString);
-      _regexMap = jsonMap.map((key, value) => MapEntry(key, value as String));
-      if (jsonMap.isNotEmpty) {
-        return "regex is loaded";
-      } else {
-        return "regex is not loaded";
-      }
-    } catch (e) {
-      return "Regex not loaded: ${e.toString()}";
-    }
+    return "regex is loaded statically";
   }
 
   /// Validates a phone number for a specific country.
@@ -83,8 +48,13 @@ class PhoneValidator {
   /// ```dart
   /// String? error = PhoneValidator.validatePhoneNumber('+12025551234', 'US');
   /// ```
-  static String? validatePhoneNumber(String? value, String isoCode,
-      {String? requiredError, bool isRequired = true, String? invalidError}) {
+  static String? validatePhoneNumber(
+    String? value,
+    String isoCode, {
+    String? requiredError,
+    bool isRequired = true,
+    String? invalidError,
+  }) {
     if (value == null || value.isEmpty) {
       if (isRequired) {
         return requiredError ?? FormLocalizations.global.phoneRequired;
@@ -93,7 +63,7 @@ class PhoneValidator {
     }
 
     // Lookup regex pattern based on ISO code
-    final regexPattern = _regexMap[isoCode];
+    final regexPattern = phoneRegexMap[isoCode];
     if (regexPattern == null) {
       return FormLocalizations.global.countryCodeNotSupported;
     }
