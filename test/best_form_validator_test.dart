@@ -400,8 +400,7 @@ void main() {
 
     test('person exactly 18 today returns null', () {
       final today = DateTime.now();
-      final birthDate =
-          DateTime(today.year - 18, today.month, today.day);
+      final birthDate = DateTime(today.year - 18, today.month, today.day);
       final str =
           '${birthDate.year}-${birthDate.month.toString().padLeft(2, '0')}-${birthDate.day.toString().padLeft(2, '0')}';
       expect(Validators.validateAge(str, 18), isNull);
@@ -409,8 +408,7 @@ void main() {
 
     test('person 17 years old returns error', () {
       final today = DateTime.now();
-      final birthDate =
-          DateTime(today.year - 17, today.month, today.day);
+      final birthDate = DateTime(today.year - 17, today.month, today.day);
       expect(Validators.validateAge(birthDate, 18), isNotNull);
     });
 
@@ -454,8 +452,10 @@ void main() {
       expect(Validators.validateDate('2024-01-15'), isNull);
     });
 
-    test('valid datetime string returns null', () {
-      expect(Validators.validateDate('2024-01-15T10:30:00'), isNull);
+    test('datetime string with time component is rejected (strict yyyy-MM-dd)',
+        () {
+      // strict parsing only accepts yyyy-MM-dd, not datetime strings
+      expect(Validators.validateDate('2024-01-15T10:30:00'), isNotNull);
     });
 
     test('custom requiredError is returned when empty', () {
@@ -681,17 +681,17 @@ void main() {
     test('chaining email + min length works', () {
       final v = MultiValidator([
         (val) => Validators.validateEmail(val),
-        (val) =>
-            val != null && val.length < 20 ? 'Email too short' : null,
+        (val) => val != null && val.length < 20 ? 'Email too short' : null,
       ]);
       // Valid email but length check fails
       expect(v('a@b.co'), 'Email too short');
     });
 
     test('can be used as TextFormField validator signature', () {
-      String? Function(String?) validator = MultiValidator([
+      final mv = MultiValidator([
         (val) => Validators.validateName(val),
       ]);
+      String? Function(String?) validator = mv.call;
       expect(validator('John'), isNull);
       expect(validator(''), isNotNull);
     });
@@ -767,9 +767,31 @@ void main() {
 
     test('financial strings localized in all 25 languages', () {
       const langs = [
-        'en', 'es', 'fr', 'de', 'ar', 'ur', 'hi', 'zh', 'pt', 'ru',
-        'it', 'tr', 'ja', 'ko', 'id', 'ms', 'th', 'vi', 'nl', 'sv',
-        'no', 'fi', 'da', 'el', 'fa',
+        'en',
+        'es',
+        'fr',
+        'de',
+        'ar',
+        'ur',
+        'hi',
+        'zh',
+        'pt',
+        'ru',
+        'it',
+        'tr',
+        'ja',
+        'ko',
+        'id',
+        'ms',
+        'th',
+        'vi',
+        'nl',
+        'sv',
+        'no',
+        'fi',
+        'da',
+        'el',
+        'fa',
       ];
       for (final lang in langs) {
         final loc = FormLocalizations.getByLocale(Locale(lang));
@@ -785,8 +807,7 @@ void main() {
     });
 
     test('unknown locale falls back to English', () {
-      final loc =
-          FormLocalizations.getByLocale(const Locale('xx'));
+      final loc = FormLocalizations.getByLocale(const Locale('xx'));
       expect(loc.emailRequired, 'Email is required');
     });
 
@@ -811,8 +832,372 @@ void main() {
 
     test('invalidPhone interpolates country code', () {
       final loc = FormLocalizations.getByLocale(const Locale('en'));
+      expect(loc.invalidPhone('US'), 'Enter a valid phone number for US');
+    });
+  });
+
+  // =========================================================================
+  // EDGE CASES — validateTime boundary values
+  // =========================================================================
+  group('validateTime — boundary edge cases', () {
+    test('24:00 is rejected (hour out of range)', () {
+      expect(Validators.validateTime('24:00'), isNotNull);
+    });
+
+    test('24:00:00 is rejected', () {
+      expect(Validators.validateTime('24:00:00'), isNotNull);
+    });
+
+    test('1:30 without leading zero is rejected', () {
+      // Regex requires exactly 2 digits for hours
+      expect(Validators.validateTime('1:30'), isNotNull);
+    });
+
+    test('00:60 is rejected (minute out of range)', () {
+      expect(Validators.validateTime('00:60'), isNotNull);
+    });
+
+    test('00:00:60 is rejected (second out of range)', () {
+      expect(Validators.validateTime('00:00:60'), isNotNull);
+    });
+
+    test('23:59 (HH:mm boundary) returns null', () {
+      expect(Validators.validateTime('23:59'), isNull);
+    });
+
+    test('trailing whitespace rejected', () {
+      expect(Validators.validateTime('14:30 '), isNotNull);
+    });
+  });
+
+  // =========================================================================
+  // EDGE CASES — validateName rejection cases
+  // =========================================================================
+  group('validateName — rejection edge cases', () {
+    test('emoji is rejected', () {
+      expect(Validators.validateName('John😀'), isNotNull);
+    });
+
+    test('pure punctuation is rejected', () {
+      expect(Validators.validateName('---'), isNotNull);
+    });
+
+    test('name starting with hyphen is rejected', () {
+      expect(Validators.validateName('-Jane'), isNotNull);
+    });
+
+    test('name ending with hyphen is rejected', () {
+      expect(Validators.validateName('Jane-'), isNotNull);
+    });
+
+    test('name starting with apostrophe is rejected', () {
+      expect(Validators.validateName("'Brien"), isNotNull);
+    });
+
+    test('tab character is rejected', () {
+      expect(Validators.validateName('John\tDoe'), isNotNull);
+    });
+
+    test('number symbol is rejected', () {
+      expect(Validators.validateName('John#Doe'), isNotNull);
+    });
+
+    test('three-part hyphenated name accepted', () {
+      expect(Validators.validateName('Anne-Marie Doe'), isNull);
+    });
+
+    test('mixed script names accepted (Arabic + Latin)', () {
+      // Each token is validated independently; mixed tokens within one word
+      // are not common but multi-word mixed script should work
+      expect(Validators.validateName('محمد Ali'), isNull);
+    });
+  });
+
+  // =========================================================================
+  // EDGE CASES — validatePhone input normalization
+  // =========================================================================
+  group('validatePhone — input with spaces and dashes', () {
+    test('PK number with spaces is normalized and accepted', () {
+      // e.g. user typed "0300 123 4567"
+      expect(Validators.validatePhone('0300 123 4567', 'PK'), isNull);
+    });
+
+    test('PK number with dashes is normalized and accepted', () {
+      expect(Validators.validatePhone('0300-123-4567', 'PK'), isNull);
+    });
+
+    test('international number with spaces accepted', () {
+      expect(Validators.validatePhone('+92 300 1234567', 'PK'), isNull);
+    });
+
+    test('CA and US share +1 prefix — CA valid', () {
+      expect(Validators.validatePhone('+16135551234', 'CA'), isNull);
+    });
+  });
+
+  // =========================================================================
+  // EDGE CASES — normalizePhone
+  // =========================================================================
+  group('normalizePhone — spaces and dashes stripped', () {
+    test('spaces stripped before normalization', () {
       expect(
-          loc.invalidPhone('US'), 'Enter a valid phone number for US');
+        Validators.normalizePhone('0300 123 4567', 'PK'),
+        '+923001234567',
+      );
+    });
+
+    test('dashes stripped before normalization', () {
+      expect(
+        Validators.normalizePhone('0300-123-4567', 'PK'),
+        '+923001234567',
+      );
+    });
+
+    test('unknown ISO returns value unchanged', () {
+      expect(Validators.normalizePhone('12345', 'XX'), '12345');
+    });
+
+    test('US has no localFormat entry — returns value unchanged if no prefix',
+        () {
+      // US has no localFormat entry, so number is returned as-is
+      final result = Validators.normalizePhone('2025551234', 'US');
+      expect(result, '2025551234');
+    });
+  });
+
+  // =========================================================================
+  // EDGE CASES — validateDate
+  // =========================================================================
+  group('validateDate — edge cases', () {
+    test('invalid day 32 returns error', () {
+      expect(Validators.validateDate('2024-01-32'), isNotNull);
+    });
+
+    test('invalid month 13 returns error', () {
+      expect(Validators.validateDate('2024-13-01'), isNotNull);
+    });
+
+    test('completely wrong format returns error', () {
+      expect(Validators.validateDate('15/01/2024'), isNotNull);
+    });
+
+    test('leap year Feb 29 on leap year returns null', () {
+      expect(Validators.validateDate('2024-02-29'), isNull);
+    });
+
+    test('Feb 29 on non-leap year returns error', () {
+      expect(Validators.validateDate('2023-02-29'), isNotNull);
+    });
+  });
+
+  // =========================================================================
+  // EDGE CASES — validateAge
+  // =========================================================================
+  group('validateAge — edge cases', () {
+    test('future birth date returns error', () {
+      final future = DateTime.now().add(const Duration(days: 365));
+      expect(Validators.validateAge(future, 18), isNotNull);
+    });
+
+    test('minimumAge of 0 always passes for valid date', () {
+      expect(Validators.validateAge('2000-01-01', 0), isNull);
+    });
+
+    test('birthday tomorrow (not yet 18) returns error', () {
+      final today = DateTime.now();
+      final tomorrow = DateTime(today.year - 18, today.month, today.day + 1);
+      expect(Validators.validateAge(tomorrow, 18), isNotNull);
+    });
+  });
+
+  // =========================================================================
+  // EDGE CASES — Credit Card
+  // =========================================================================
+  group('FinancialValidators.validateCreditCard — edge cases', () {
+    test('American Express test number returns null', () {
+      // Amex test number: 378282246310005
+      expect(
+        FinancialValidators.validateCreditCard('378282246310005'),
+        isNull,
+      );
+    });
+
+    test('number with dashes stripped and validated', () {
+      expect(
+        FinancialValidators.validateCreditCard('4111-1111-1111-1111'),
+        isNull,
+      );
+    });
+
+    test('single digit returns invalid error', () {
+      expect(FinancialValidators.validateCreditCard('4'), isNotNull);
+    });
+
+    test('custom requiredError returned', () {
+      expect(
+        FinancialValidators.validateCreditCard('', requiredError: 'Enter card'),
+        'Enter card',
+      );
+    });
+
+    test('custom invalidError returned', () {
+      expect(
+        FinancialValidators.validateCreditCard('1234567890123456',
+            invalidError: 'Bad card'),
+        'Bad card',
+      );
+    });
+  });
+
+  // =========================================================================
+  // EDGE CASES — IBAN
+  // =========================================================================
+  group('FinancialValidators.validateIBAN — edge cases', () {
+    test('IBAN longer than 34 chars is rejected', () {
+      expect(
+        FinancialValidators.validateIBAN(
+            'GB82WEST1234569876543212345678901234567'),
+        isNotNull,
+      );
+    });
+
+    test('valid FR IBAN returns null', () {
+      // FR76 3000 6000 0112 3456 7890 189
+      expect(
+        FinancialValidators.validateIBAN('FR7630006000011234567890189'),
+        isNull,
+      );
+    });
+
+    test('only 2 chars (too short) returns invalid', () {
+      expect(FinancialValidators.validateIBAN('GB'), isNotNull);
+    });
+
+    test('custom requiredError returned', () {
+      expect(
+        FinancialValidators.validateIBAN('', requiredError: 'Enter IBAN'),
+        'Enter IBAN',
+      );
+    });
+  });
+
+  // =========================================================================
+  // EDGE CASES — Password
+  // =========================================================================
+  group('validatePassword — edge cases', () {
+    test('space-only password returns required error', () {
+      // Trimmed empty → required
+      expect(Validators.validatePassword(' '), isNotNull);
+    });
+
+    test('minLength 0 always passes length check', () {
+      expect(
+        Validators.validatePassword('a', checkLength: true, minLength: 0),
+        isNull,
+      );
+    });
+
+    test('checkLength false ignores length', () {
+      expect(
+        Validators.validatePassword('ab', checkLength: false),
+        isNull,
+      );
+    });
+
+    test('password with only spaces fails no-spaces check', () {
+      expect(
+        Validators.validatePassword('        ', checkLength: false),
+        isNotNull,
+      );
+    });
+  });
+
+  // =========================================================================
+  // PUBLIC API — verify no src/ imports needed
+  // =========================================================================
+  group('Public API — all classes accessible from barrel import', () {
+    test('Validators is accessible', () {
+      expect(Validators, isNotNull);
+    });
+
+    test('PasswordValidator is accessible', () {
+      expect(PasswordValidator, isNotNull);
+    });
+
+    test('PhoneValidator is accessible', () {
+      expect(PhoneValidator, isNotNull);
+    });
+
+    test('NameValidator is accessible', () {
+      expect(NameValidator, isNotNull);
+    });
+
+    test('AgeValidator is accessible', () {
+      expect(AgeValidator, isNotNull);
+    });
+
+    test('FinancialValidators is accessible', () {
+      expect(FinancialValidators, isNotNull);
+    });
+
+    test('MultiValidator is accessible', () {
+      expect(MultiValidator, isNotNull);
+    });
+
+    test('PhoneInputFormatter is accessible', () {
+      expect(PhoneInputFormatter, isNotNull);
+    });
+
+    test('FormLocalizations is accessible', () {
+      expect(FormLocalizations, isNotNull);
+    });
+  });
+
+  // =========================================================================
+  // REGRESSION — old bugs must not reappear
+  // =========================================================================
+  group('Regression — previously broken behavior', () {
+    test('[REGRESSION] validateTime 25:99:99 was accepted before fix', () {
+      // Old code: DateTime.parse('1970-01-01 25:99:99') would wrap/overflow
+      // New code: strict regex must reject it
+      expect(Validators.validateTime('25:99:99'), isNotNull);
+    });
+
+    test('[REGRESSION] validatePhone PK local rejected before fix', () {
+      // Old code had no normalization, 0300... would fail
+      expect(Validators.validatePhone('03001234567', 'PK'), isNull);
+    });
+
+    test('[REGRESSION] validatePhone GB ISO rejected before fix', () {
+      // Old code only had UK key, GB would return countryCodeNotSupported
+      expect(Validators.validatePhone('+447911123456', 'GB'), isNull);
+    });
+
+    test('[REGRESSION] validateName rejected Arabic before fix', () {
+      // Old code: ^[a-zA-Z]+$ would reject Arabic
+      expect(Validators.validateName('محمد'), isNull);
+    });
+
+    test('[REGRESSION] validateName rejected Chinese before fix', () {
+      expect(Validators.validateName('王芳'), isNull);
+    });
+
+    test('[REGRESSION] FinancialValidators accessible from public API', () {
+      // Was hidden behind src/ import before fix
+      expect(
+        FinancialValidators.validateCreditCard('4111111111111111'),
+        isNull,
+      );
+    });
+
+    test('[REGRESSION] MultiValidator accessible from public API', () {
+      final v = MultiValidator([(val) => null]);
+      expect(v('test'), isNull);
+    });
+
+    test('[REGRESSION] PhoneInputFormatter accessible from public API', () {
+      final f = PhoneInputFormatter();
+      expect(f, isNotNull);
     });
   });
 }

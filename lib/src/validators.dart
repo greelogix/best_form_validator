@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:best_form_validator/best_form_validator.dart';
+import 'package:intl/intl.dart';
 
 /// Main validator class providing static methods for all validation types.
 ///
@@ -316,18 +317,24 @@ class Validators {
     );
   }
 
-  /// Validates a date string can be properly parsed.
+  /// Validates a date string using strict yyyy-MM-dd parsing.
   ///
   /// Returns `null` if the date is valid, otherwise returns an error message.
   ///
+  /// Uses `DateFormat('yyyy-MM-dd').parseStrict()` for strict validation —
+  /// invalid values like `2024-01-32`, `2024-13-01`, or `2023-02-29` are
+  /// correctly rejected.
+  ///
   /// Parameters:
-  /// - [value]: The date string to validate
-  /// - [requiredError]: Custom error message when date is empty (default: localized "Date is required")
-  /// - [invalidError]: Custom error message when date format is invalid (default: localized "Enter a valid date")
+  /// - [value]: The date string to validate (yyyy-MM-dd format)
+  /// - [requiredError]: Custom error message when date is empty
+  /// - [invalidError]: Custom error message when date format is invalid
   ///
   /// Example:
   /// ```dart
-  /// String? error = Validators.validateDate('2024-01-15');
+  /// String? error = Validators.validateDate('2024-01-15');  // null (valid)
+  /// String? error = Validators.validateDate('2024-01-32');  // error
+  /// String? error = Validators.validateDate('2023-02-29');  // error (not a leap year)
   /// ```
   static String? validateDate(
     String? value, {
@@ -338,7 +345,7 @@ class Validators {
       return requiredError ?? FormLocalizations.global.dateRequired;
     }
     try {
-      DateTime.parse(value);
+      DateFormat('yyyy-MM-dd').parseStrict(value);
     } catch (_) {
       return invalidError ?? FormLocalizations.global.invalidDate;
     }
@@ -374,8 +381,7 @@ class Validators {
       return requiredError ?? FormLocalizations.global.timeRequired;
     }
     // Strict regex: HH:mm or HH:mm:ss with proper range enforcement
-    final timeRegex =
-        RegExp(r'^([01]\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$');
+    final timeRegex = RegExp(r'^([01]\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$');
     if (!timeRegex.hasMatch(value)) {
       return invalidError ?? FormLocalizations.global.invalidTime;
     }

@@ -44,7 +44,8 @@ class EsFormLocalizations extends FormLocalizations {
   @override
   String get invalidTime => 'Formato de hora inválido';
   @override
-  String get creditCardRequired => 'El número de tarjeta de crédito es obligatorio';
+  String get creditCardRequired =>
+      'El número de tarjeta de crédito es obligatorio';
   @override
   String get invalidCreditCard => 'Número de tarjeta de crédito inválido';
   @override

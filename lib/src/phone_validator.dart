@@ -84,8 +84,7 @@ class PhoneValidator {
     if (stripped.startsWith('+')) return stripped;
 
     // Strip local trunk prefix (e.g. leading 0) and prepend dial code
-    if (fmt.localPrefix.isNotEmpty &&
-        stripped.startsWith(fmt.localPrefix)) {
+    if (fmt.localPrefix.isNotEmpty && stripped.startsWith(fmt.localPrefix)) {
       return '${fmt.dialCode}${stripped.substring(fmt.localPrefix.length)}';
     }
 
