@@ -45,4 +45,12 @@ class DeFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Zeit ist erforderlich';
   @override
   String get invalidTime => 'Ungültiges Zeitformat';
+  @override
+  String get creditCardRequired => 'Kreditkartennummer ist erforderlich';
+  @override
+  String get invalidCreditCard => 'Ungültige Kreditkartennummer';
+  @override
+  String get ibanRequired => 'IBAN ist erforderlich';
+  @override
+  String get invalidIban => 'Ungültige IBAN-Nummer';
 }

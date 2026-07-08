@@ -39,4 +39,12 @@ class KoFormLocalizations extends FormLocalizations {
   String get timeRequired => '시간은 필수입니다';
   @override
   String get invalidTime => '유효하지 않은 시간 형식';
+  @override
+  String get creditCardRequired => '신용카드 번호는 필수입니다';
+  @override
+  String get invalidCreditCard => '유효하지 않은 신용카드 번호';
+  @override
+  String get ibanRequired => 'IBAN은 필수입니다';
+  @override
+  String get invalidIban => '유효하지 않은 IBAN 번호';
 }

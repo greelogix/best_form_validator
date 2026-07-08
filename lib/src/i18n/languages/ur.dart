@@ -42,4 +42,12 @@ class UrFormLocalizations extends FormLocalizations {
   String get timeRequired => 'وقت درکار ہے';
   @override
   String get invalidTime => 'غلط وقت کا فارمیٹ';
+  @override
+  String get creditCardRequired => 'کریڈٹ کارڈ نمبر درکار ہے';
+  @override
+  String get invalidCreditCard => 'غلط کریڈٹ کارڈ نمبر';
+  @override
+  String get ibanRequired => 'IBAN درکار ہے';
+  @override
+  String get invalidIban => 'غلط IBAN نمبر';
 }

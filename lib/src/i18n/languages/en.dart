@@ -46,4 +46,12 @@ class EnFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Time is required';
   @override
   String get invalidTime => 'Invalid time format';
+  @override
+  String get creditCardRequired => 'Credit card number is required';
+  @override
+  String get invalidCreditCard => 'Invalid credit card number';
+  @override
+  String get ibanRequired => 'IBAN is required';
+  @override
+  String get invalidIban => 'Invalid IBAN number';
 }

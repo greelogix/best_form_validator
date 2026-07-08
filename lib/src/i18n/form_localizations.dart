@@ -133,6 +133,12 @@ abstract class FormLocalizations {
   /// Time validation messages
   String get timeRequired;
   String get invalidTime;
+
+  /// Financial validation messages
+  String get creditCardRequired;
+  String get invalidCreditCard;
+  String get ibanRequired;
+  String get invalidIban;
 }
 
 class _FormLocalizationsDelegate

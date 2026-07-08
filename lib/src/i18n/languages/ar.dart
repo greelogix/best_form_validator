@@ -41,4 +41,12 @@ class ArFormLocalizations extends FormLocalizations {
   String get timeRequired => 'الوقت مطلوب';
   @override
   String get invalidTime => 'تنسيق الوقت غير صالح';
+  @override
+  String get creditCardRequired => 'رقم بطاقة الائتمان مطلوب';
+  @override
+  String get invalidCreditCard => 'رقم بطاقة الائتمان غير صالح';
+  @override
+  String get ibanRequired => 'رقم IBAN مطلوب';
+  @override
+  String get invalidIban => 'رقم IBAN غير صالح';
 }

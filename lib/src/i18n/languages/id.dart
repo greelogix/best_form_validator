@@ -45,4 +45,12 @@ class IdFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Waktu wajib diisi';
   @override
   String get invalidTime => 'Format waktu tidak valid';
+  @override
+  String get creditCardRequired => 'Nomor kartu kredit wajib diisi';
+  @override
+  String get invalidCreditCard => 'Nomor kartu kredit tidak valid';
+  @override
+  String get ibanRequired => 'IBAN wajib diisi';
+  @override
+  String get invalidIban => 'Nomor IBAN tidak valid';
 }

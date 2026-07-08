@@ -44,4 +44,12 @@ class FrFormLocalizations extends FormLocalizations {
   String get timeRequired => 'L\'heure est requise';
   @override
   String get invalidTime => 'Format d\'heure invalide';
+  @override
+  String get creditCardRequired => 'Le numéro de carte de crédit est requis';
+  @override
+  String get invalidCreditCard => 'Numéro de carte de crédit invalide';
+  @override
+  String get ibanRequired => 'L\'IBAN est requis';
+  @override
+  String get invalidIban => 'Numéro IBAN invalide';
 }

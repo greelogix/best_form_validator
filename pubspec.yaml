@@ -1,6 +1,10 @@
 name: best_form_validator
-description: High-performance form validation package for Dart & Flutter. Zero-initialization validators for Forms, Email, Phone (50+ countries), Password Strength, Bank/Credit Cards, Name, & Age.
-version: 1.2.0
+description: >-
+  Zero-initialization Flutter form validation: email, phone (52 countries,
+  local & international formats), password strength, Unicode names, age,
+  date, strict time, credit card (Luhn), IBAN (MOD-97), MultiValidator
+  chaining, and 25-language localization.
+version: 1.3.0
 homepage: https://github.com/greelogix/best_form_validator
 repository: https://github.com/greelogix/best_form_validator
 issue_tracker: https://github.com/greelogix/best_form_validator/issues
@@ -27,7 +31,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-
 
 flutter:
 

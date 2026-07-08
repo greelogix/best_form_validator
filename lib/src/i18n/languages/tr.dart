@@ -42,4 +42,12 @@ class TrFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Zaman gereklidir';
   @override
   String get invalidTime => 'Geçersiz zaman formatı';
+  @override
+  String get creditCardRequired => 'Kredi kartı numarası gereklidir';
+  @override
+  String get invalidCreditCard => 'Geçersiz kredi kartı numarası';
+  @override
+  String get ibanRequired => 'IBAN gereklidir';
+  @override
+  String get invalidIban => 'Geçersiz IBAN numarası';
 }

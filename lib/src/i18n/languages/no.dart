@@ -42,4 +42,12 @@ class NoFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Tid er påkrevd';
   @override
   String get invalidTime => 'Ugyldig tidsformat';
+  @override
+  String get creditCardRequired => 'Kredittkortnummer er påkrevd';
+  @override
+  String get invalidCreditCard => 'Ugyldig kredittkortnummer';
+  @override
+  String get ibanRequired => 'IBAN er påkrevd';
+  @override
+  String get invalidIban => 'Ugyldig IBAN-nummer';
 }

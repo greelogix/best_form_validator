@@ -39,4 +39,12 @@ class JaFormLocalizations extends FormLocalizations {
   String get timeRequired => '時間は必須です';
   @override
   String get invalidTime => '無効な時間形式';
+  @override
+  String get creditCardRequired => 'クレジットカード番号は必須です';
+  @override
+  String get invalidCreditCard => '無効なクレジットカード番号';
+  @override
+  String get ibanRequired => 'IBANは必須です';
+  @override
+  String get invalidIban => '無効なIBAN番号';
 }

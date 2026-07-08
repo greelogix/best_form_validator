@@ -44,4 +44,12 @@ class ElFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Απαιτείται ώρα';
   @override
   String get invalidTime => 'Μη έγκυρη μορφή ώρας';
+  @override
+  String get creditCardRequired => 'Απαιτείται αριθμός πιστωτικής κάρτας';
+  @override
+  String get invalidCreditCard => 'Μη έγκυρος αριθμός πιστωτικής κάρτας';
+  @override
+  String get ibanRequired => 'Απαιτείται IBAN';
+  @override
+  String get invalidIban => 'Μη έγκυρος αριθμός IBAN';
 }

@@ -1,9 +1,13 @@
 /// A statically typed map holding country-specific phone regex patterns.
 /// This replaces the async JSON loading for zero-initialization phone validation.
+///
+/// Both `'GB'` (ISO 3166-1 standard) and `'UK'` (legacy alias) are accepted for
+/// the United Kingdom so that any country-picker package works without manual mapping.
 const Map<String, String> phoneRegexMap = {
   "US": r"\+1\d{10}",
   "CA": r"\+1\d{10}",
-  "UK": r"\+44\d{10,11}",
+  "GB": r"\+44\d{10,11}",
+  "UK": r"\+44\d{10,11}", // legacy alias – prefer GB
   "FR": r"\+33\d{9}",
   "DE": r"\+49\d{10}",
   "IN": r"\+91\d{10}",

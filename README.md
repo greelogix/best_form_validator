@@ -2,596 +2,457 @@
 
 [![pub package](https://img.shields.io/pub/v/best_form_validator.svg)](https://pub.dev/packages/best_form_validator)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/greelogix/best_form_validator/blob/main/LICENSE)
+[![pub points](https://img.shields.io/pub/points/best_form_validator)](https://pub.dev/packages/best_form_validator/score)
 
-
-## 🎬 Demo
+## Demo
 
 ![Best Form Validator Demo](https://raw.githubusercontent.com/greelogix/quick_popup_manager-video/main/best_form_validator_video_demo.gif)
 
-A high-performance form validation package that specializes in international phone number validation and complex regex patterns. 
+A high-performance, zero-initialization form validation package for Flutter and Dart.
 
-**✨ Instant, Context-Less, & Zero-Initialization:**  
-No `BuildContext` required. No `async` app startup delays. Use it directly inside your `TextFormField` out of the box.
+**Instant. Context-free. No async setup.**  
+Drop validators directly into `TextFormField.validator` — no `BuildContext`, no `await`, no boilerplate.
 
-### Why use `best_form_validator`?
+### Why `best_form_validator`?
 
-| Feature | Standard Flutter Validation | `best_form_validator` |
-|---------|-----------------------------|-----------------------|
-| **Phone Regex** | Write your own Regex | Built-in 50+ Countries 🌍 |
-| **Async Hassle** | Custom State Logic | 🚀 Zero-Init (Synchronous) |
-| **Translations** | Manual `if-else` | Built-in 25+ Languages |
-| **Complexity** | Messy `if (val == null) return 'error'` | `MultiValidator().required().build()` |
-| **Financials** | External Packages | Native Luhn / IBAN checks 💳 |
+| Feature | Standard Flutter | `best_form_validator` |
+|---------|------------------|-----------------------|
+| Phone regex | Write your own | Built-in 52 countries 🌍 |
+| Local number formats | Manual conversion | Auto-normalized ✅ |
+| Async startup | N/A | Zero-init (synchronous) 🚀 |
+| Translations | Manual `if-else` | 25 languages built-in |
+| Chaining validators | Nested callbacks | `MultiValidator([...])` |
+| Financial validation | External packages | Native Luhn / IBAN 💳 |
+| Unicode names | ASCII regex only | Arabic, CJK, Devanagari… |
+
+---
 
 ## Features
 
-✅ **Zero-Initialization** - Synchronous and immediate.  
-✅ **MultiValidator Chaining** - Clean functional API.  
-✅ **Phone Number Validation** - 50+ countries with `PhoneInputFormatter`.  
-✅ **Email & Password Stringency** - Advanced regex and 0-5 Strength scoring.  
-✅ **Financial Checks** - Credit Card (Luhn Algorithm) & EU IBAN Validation.  
-✅ **Localization Support** - Built-in support for 25+ languages.  
+- **Zero-Initialization** — synchronous, no startup code required
+- **Phone Validation** — 52 countries, accepts local formats (`03001234567`) and international formats (`+923001234567`)
+- **GB / UK alias** — both `'GB'` (ISO 3166-1) and `'UK'` work interchangeably
+- **Email & Password** — battle-tested regex + configurable strength rules
+- **Password Strength** — `PasswordValidator.getPasswordStrength()` returns a 0–5 score
+- **Unicode Names** — Latin, Arabic, Urdu, Hindi, Chinese, Japanese, Korean, and more
+- **Age Validation** — handles the birthday-not-yet-occurred edge case correctly
+- **Time Validation** — strict HH:mm / HH:mm:ss (rejects 25:99:99)
+- **Financial Checks** — Credit Card (Luhn Mod-10) & IBAN (MOD-97), both publicly exported
+- **MultiValidator** — chain validators, returns the first error
+- **Localization** — 25 language error messages, runtime-switchable
+- **PhoneInputFormatter** — `TextInputFormatter` for auto-spacing phone numbers
 
-## Getting Started
+---
 
-### Installation
+## Installation
 
 ```yaml
 dependencies:
-  best_form_validator: ^1.1.4
+  best_form_validator: ^1.3.0
 ```
-
-Then run:
 
 ```bash
 flutter pub get
 ```
 
-### 🚀 Quickstart
+---
 
-It works instantly. No initialization required!
+## Quick Start
 
 ```dart
 import 'package:best_form_validator/best_form_validator.dart';
 
 TextFormField(
   validator: (value) => Validators.validateEmail(value),
-  // ...
-);
+)
 ```
-### Localization Setup
 
-To enable localized error messages, add the `FormLocalizations.delegate` to your `MaterialApp` and set the locale in the `builder`.
+No initialization needed. Works immediately.
+
+---
+
+## Localization Setup
+
+Add `FormLocalizations.delegate` to your `MaterialApp` and call `Validators.setLocale` in the `builder`:
 
 ```dart
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:best_form_validator/best_form_validator.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      // ... other properties
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        FormLocalizations.delegate, // Add this delegate
-      ],
-      supportedLocales: [
-        Locale('en'), Locale('es'), Locale('fr'), Locale('de'),
-        Locale('ar'), Locale('ur'), Locale('hi'), Locale('zh'),
-        // ... and many more
-      ],
-      // Important: Update validator locale when app locale changes
-      builder: (context, child) {
-        final locale = Localizations.localeOf(context);
-        Validators.setLocale(locale);
-        return child!;
-      },
-      home: HomePage(),
-    );
-  }
-}
-```
-
-## Usage
-
-### Email Validation
-
-Validates email addresses using standard email format rules.
-
-```dart
-import 'package:best_form_validator/best_form_validator.dart';
-
-// Basic usage
-String? error = Validators.validateEmail('user@example.com');
-if (error != null) {
-  print(error); // null if valid
-}
-
-// With custom error messages
-String? error = Validators.validateEmail(
-  'invalid-email',
-  requiredError: 'Please enter your email',
-  invalidError: 'Please enter a valid email address',
-);
-```
-
-**In a TextFormField:**
-
-```dart
-TextFormField(
-  decoration: InputDecoration(labelText: 'Email'),
-  validator: (value) => Validators.validateEmail(value),
-  keyboardType: TextInputType.emailAddress,
+MaterialApp(
+  localizationsDelegates: [
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    FormLocalizations.delegate,
+  ],
+  supportedLocales: const [
+    Locale('en'), Locale('es'), Locale('fr'), Locale('de'),
+    Locale('ar'), Locale('ur'), Locale('hi'), Locale('zh'),
+    Locale('pt'), Locale('ru'), Locale('it'), Locale('tr'),
+    Locale('ja'), Locale('ko'), Locale('id'), Locale('ms'),
+    Locale('th'), Locale('vi'), Locale('nl'), Locale('sv'),
+    Locale('no'), Locale('fi'), Locale('da'), Locale('el'),
+    Locale('fa'),
+  ],
+  builder: (context, child) {
+    Validators.setLocale(Localizations.localeOf(context));
+    return child!;
+  },
 )
 ```
 
-### Phone Number Validation
+---
 
-Validates phone numbers based on country-specific formats. Supports 50+ countries.
+## Usage
+
+### Email
 
 ```dart
-import 'package:best_form_validator/best_form_validator.dart';
+Validators.validateEmail('user@example.com');  // null (valid)
+Validators.validateEmail('');                  // 'Email is required'
+Validators.validateEmail('bad-email');         // 'Enter a valid email'
 
-// Validate US phone number
-String? error = Validators.validatePhone('+12025551234', 'US');
-
-// Validate UK phone number
-String? error = Validators.validatePhone('+447911123456', 'UK');
-
-// Validate Pakistan phone number
-String? error = Validators.validatePhone('+923001234567', 'PK');
+// Custom messages
+Validators.validateEmail(
+  'bad',
+  requiredError: 'Please enter your email',
+  invalidError: 'That email looks wrong',
+);
 ```
 
-**Supported Countries:**
+### Phone — international & local formats
 
-US, CA, UK, FR, DE, IN, AU, BR, CN, JP, MX, RU, ZA, NG, EG, KE, GH, SA, AE, IT, ES, SE, NO, FI, DK, NL, BE, CH, AT, PT, GR, TR, IR, PK, BD, LK, TH, MY, SG, ID, PH, VN, KR, HK, TW, NZ, AF, AL, DZ, AR, AZ, BH
+Both `+923001234567` and `03001234567` are accepted for Pakistan:
 
-**In a TextFormField:**
+```dart
+// International format
+Validators.validatePhone('+12025551234', 'US');      // null (valid)
+Validators.validatePhone('+923001234567', 'PK');     // null (valid)
+
+// Local format — auto-normalized before validation
+Validators.validatePhone('03001234567', 'PK');       // null (valid)
+Validators.validatePhone('07911123456', 'GB');       // null (valid)
+
+// Both GB and UK are accepted for the United Kingdom
+Validators.validatePhone('+447911123456', 'GB');     // null (valid)
+Validators.validatePhone('+447911123456', 'UK');     // null (valid)
+```
+
+Normalize a local number to international format independently:
+
+```dart
+String intl = Validators.normalizePhone('03001234567', 'PK');
+// → '+923001234567'
+```
+
+**Supported countries (52):** US, CA, GB, UK, FR, DE, IN, AU, BR, CN, JP, MX, RU, ZA, NG, EG, KE, GH, SA, AE, IT, ES, SE, NO, FI, DK, NL, BE, CH, AT, PT, GR, TR, IR, PK, BD, LK, TH, MY, SG, ID, PH, VN, KR, HK, TW, NZ, AF, AL, DZ, AR, AZ, BH
 
 ```dart
 TextFormField(
-  decoration: InputDecoration(
-    labelText: 'Phone Number',
-    hintText: '+1234567890',
-  ),
-  validator: (value) => Validators.validatePhone(value, 'US'),
+  decoration: InputDecoration(labelText: 'Phone', hintText: '+1 234 567 8900'),
+  inputFormatters: [PhoneInputFormatter()],       // auto-formats as user types
+  validator: (v) => Validators.validatePhone(v, 'US'),
   keyboardType: TextInputType.phone,
 )
 ```
 
-### Password Validation
-
-Flexible password validation with multiple configurable criteria.
+### Password
 
 ```dart
-import 'package:best_form_validator/best_form_validator.dart';
+// Basic (min 6 chars)
+Validators.validatePassword('secret');
 
-// Basic validation (minimum 6 characters)
-String? error = Validators.validatePassword('mypassword');
-
-// Advanced validation with all criteria
-String? error = Validators.validatePassword(
+// Full strength check
+Validators.validatePassword(
   'MyP@ssw0rd',
-  checkLength: true,           // Check minimum length
-  minLength: 8,                // Minimum 8 characters
-  checkNumberAndLetter: true,  // Must contain letters and numbers
-  checkSpecialCharacter: true, // Must contain special characters
-  checkLowerCase: true,        // Must contain lowercase letters
-  checkUpperCase: true,        // Must contain uppercase letters
+  checkLength: true,
+  minLength: 8,
+  checkNumberAndLetter: true,
+  checkSpecialCharacter: true,
+  checkLowerCase: true,
+  checkUpperCase: true,
 );
+
+// Password strength score (0–5)
+int score = PasswordValidator.getPasswordStrength('MyP@ssw0rd'); // 5
 ```
 
-**Password Requirements:**
-- ✅ Minimum length (configurable, default: 6)
-- ✅ Contains both letters and numbers
-- ✅ Contains special characters (!@#$%^&*(),.?":{}|<>)
-- ✅ Contains lowercase letters
-- ✅ Contains uppercase letters
-- ✅ No spaces allowed
-
-**In a TextFormField:**
+### Name — Unicode aware
 
 ```dart
-TextFormField(
-  decoration: InputDecoration(labelText: 'Password'),
-  obscureText: true,
-  validator: (value) => Validators.validatePassword(
-    value,
-    checkLength: true,
-    minLength: 8,
-    checkNumberAndLetter: true,
-    checkSpecialCharacter: true,
-    checkLowerCase: true,
-    checkUpperCase: true,
-  ),
-)
+Validators.validateName('John Doe');      // null – Latin
+Validators.validateName('José García');   // null – accented
+Validators.validateName('محمد علي');     // null – Arabic
+Validators.validateName('王芳');          // null – Chinese
+Validators.validateName('राज कुमार');    // null – Hindi (Devanagari)
+Validators.validateName('Mary-Jane');    // null – hyphenated
+Validators.validateName("O'Brien");      // null – apostrophe
+Validators.validateName('John123');      // error – digits not allowed
 ```
 
-### Name Validation
-
-Validates names to ensure proper formatting without special characters or numbers.
+### Age
 
 ```dart
-import 'package:best_form_validator/best_form_validator.dart';
+Validators.validateAge('2000-01-15', 18);          // null if ≥18
+Validators.validateAge(DateTime(2000, 1, 15), 18); // DateTime also accepted
 
-// Basic usage
-String? error = Validators.validateName('John Doe'); // null (valid)
-String? error = Validators.validateName('John123');  // Invalid
-
-// With custom error messages
-String? error = Validators.validateName(
-  'John Doe',
-  requiredError: 'Please enter your name',
-  invalidError: 'Name can only contain letters',
-);
-```
-
-**Name Rules:**
-- ✅ Only alphabetic characters allowed
-- ✅ Spaces allowed between names
-- ❌ No leading or trailing spaces
-- ❌ No multiple consecutive spaces
-- ❌ No special characters or numbers
-
-**In a TextFormField:**
-
-```dart
-TextFormField(
-  decoration: InputDecoration(labelText: 'Full Name'),
-  validator: (value) => Validators.validateName(value),
-  keyboardType: TextInputType.name,
-)
-```
-
-### Age Validation
-
-Validates age from DateTime or string input with configurable minimum age requirement.
-
-```dart
-import 'package:best_form_validator/best_form_validator.dart';
-
-// Validate with DateTime
-DateTime birthDate = DateTime(2000, 1, 15);
-String? error = Validators.validateAge(birthDate, 18); // Minimum 18 years
-
-// Validate with string (yyyy-MM-dd format)
-String? error = Validators.validateAge('2000-01-15', 18);
-
-// With custom error messages
-String? error = Validators.validateAge(
-  '2010-01-15',
+Validators.validateAge(
+  '2010-06-01',
   18,
-  requiredError: 'Please enter your birth date',
   invalidError: 'You must be at least 18 years old',
 );
 ```
 
-**In a TextFormField:**
+### Date
 
 ```dart
+Validators.validateDate('2024-01-15'); // null (valid)
+Validators.validateDate('not-a-date'); // error
+```
+
+### Time
+
+```dart
+Validators.validateTime('14:30');      // null – HH:mm
+Validators.validateTime('14:30:00');   // null – HH:mm:ss
+Validators.validateTime('25:99:99');   // error – out of range (fixed in v1.3.0)
+Validators.validateTime('00:00:00');   // null – midnight
+```
+
+### Financial — Credit Card & IBAN
+
+```dart
+// Credit card (Luhn Mod-10) — spaces and dashes stripped automatically
+Validators.validateCreditCard('4111 1111 1111 1111'); // null (valid Visa test)
+Validators.validateCreditCard('1234 5678 9012 3456'); // error
+
+// Direct class usage
+FinancialValidators.validateCreditCard('4111111111111111');
+
+// IBAN (MOD-97) — spaces stripped, case-insensitive
+Validators.validateIBAN('GB82 WEST 1234 5698 7654 32'); // null (valid)
+Validators.validateIBAN('INVALID');                      // error
+
+// In a TextFormField
 TextFormField(
-  decoration: InputDecoration(
-    labelText: 'Birth Date',
-    hintText: 'yyyy-MM-dd',
-  ),
-  validator: (value) => Validators.validateAge(value, 18),
-  keyboardType: TextInputType.datetime,
+  validator: (v) => Validators.validateCreditCard(v),
+  keyboardType: TextInputType.number,
 )
 ```
 
-### Date Validation
-
-Validates date strings can be properly parsed.
+### MultiValidator — chain validators
 
 ```dart
-import 'package:best_form_validator/best_form_validator.dart';
-
-String? error = Validators.validateDate('2024-01-15'); // null (valid)
-String? error = Validators.validateDate('invalid');    // Error
-
-// With custom error messages
-String? error = Validators.validateDate(
-  '2024-01-15',
-  requiredError: 'Please select a date',
-  invalidError: 'Please enter a valid date',
-);
+TextFormField(
+  validator: MultiValidator([
+    (v) => Validators.validateName(v),
+    (v) => (v != null && v.length < 2) ? 'Too short' : null,
+  ]),
+)
 ```
 
-### Time Validation
-
-Validates time format strings.
-
-```dart
-import 'package:best_form_validator/best_form_validator.dart';
-
-String? error = Validators.validateTime('14:30:00'); // null (valid)
-String? error = Validators.validateTime('25:00:00'); // Error
-
-// With custom error messages
-String? error = Validators.validateTime(
-  '14:30:00',
-  requiredError: 'Please select a time',
-  invalidError: 'Please enter a valid time',
-);
-```
+---
 
 ## Complete Form Example
-
-Here's a complete example of a registration form using all validators:
 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:best_form_validator/best_form_validator.dart';
 
 class RegistrationForm extends StatefulWidget {
+  const RegistrationForm({super.key});
   @override
-  _RegistrationFormState createState() => _RegistrationFormState();
+  State<RegistrationForm> createState() => _RegistrationFormState();
 }
 
 class _RegistrationFormState extends State<RegistrationForm> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _birthDateController = TextEditingController();
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
-    _birthDateController.dispose();
-    super.dispose();
-  }
-
-  void _submitForm() {
+  void _submit() {
     if (_formKey.currentState!.validate()) {
-      // Form is valid, proceed with registration
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Registration Successful!')),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Success!')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Registration')),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: EdgeInsets.all(16),
-          children: [
-            // Name Field
-            TextFormField(
-              controller: _nameController,
-              decoration: InputDecoration(
-                labelText: 'Full Name',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validateName(
-                value,
-                requiredError: 'Please enter your name',
-                invalidError: 'Name can only contain letters',
-              ),
-              keyboardType: TextInputType.name,
+    return Form(
+      key: _formKey,
+      child: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          TextFormField(
+            decoration: const InputDecoration(labelText: 'Full Name'),
+            validator: (v) => Validators.validateName(v),
+          ),
+          const SizedBox(height: 12),
+          TextFormField(
+            decoration: const InputDecoration(labelText: 'Email'),
+            validator: (v) => Validators.validateEmail(v),
+            keyboardType: TextInputType.emailAddress,
+          ),
+          const SizedBox(height: 12),
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Phone',
+              hintText: '+1 555 000 0000 or local format',
             ),
-            SizedBox(height: 16),
-
-            // Email Field
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validateEmail(
-                value,
-                requiredError: 'Please enter your email',
-                invalidError: 'Please enter a valid email',
-              ),
-              keyboardType: TextInputType.emailAddress,
+            inputFormatters: [PhoneInputFormatter()],
+            validator: (v) => Validators.validatePhone(v, 'US'),
+            keyboardType: TextInputType.phone,
+          ),
+          const SizedBox(height: 12),
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Password',
+              helperText: 'Min 8 chars, upper, lower, number, special',
             ),
-            SizedBox(height: 16),
-
-            // Phone Field
-            TextFormField(
-              controller: _phoneController,
-              decoration: InputDecoration(
-                labelText: 'Phone Number',
-                hintText: '+1234567890',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validatePhone(value, 'US'),
-              keyboardType: TextInputType.phone,
+            obscureText: true,
+            validator: (v) => Validators.validatePassword(
+              v,
+              checkLength: true,
+              minLength: 8,
+              checkNumberAndLetter: true,
+              checkSpecialCharacter: true,
+              checkLowerCase: true,
+              checkUpperCase: true,
             ),
-            SizedBox(height: 16),
-
-            // Password Field
-            TextFormField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
-                helperText: 'Min 8 chars, uppercase, lowercase, number, special char',
-              ),
-              obscureText: true,
-              validator: (value) => Validators.validatePassword(
-                value,
-                checkLength: true,
-                minLength: 8,
-                checkNumberAndLetter: true,
-                checkSpecialCharacter: true,
-                checkLowerCase: true,
-                checkUpperCase: true,
-              ),
+          ),
+          const SizedBox(height: 12),
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Birth Date',
+              hintText: 'yyyy-MM-dd',
             ),
-            SizedBox(height: 16),
-
-            // Birth Date Field
-            TextFormField(
-              controller: _birthDateController,
-              decoration: InputDecoration(
-                labelText: 'Birth Date',
-                hintText: 'yyyy-MM-dd',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) => Validators.validateAge(
-                value,
-                18,
-                invalidError: 'You must be at least 18 years old',
-              ),
-              keyboardType: TextInputType.datetime,
-            ),
-            SizedBox(height: 24),
-
-            // Submit Button
-            ElevatedButton(
-              onPressed: _submitForm,
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Text('Register', style: TextStyle(fontSize: 16)),
-              ),
-            ),
-          ],
-        ),
+            validator: (v) => Validators.validateAge(v, 18,
+                invalidError: 'Must be at least 18 years old'),
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: _submit,
+            child: const Text('Register'),
+          ),
+        ],
       ),
     );
   }
 }
 ```
 
+---
+
 ## API Reference
 
-### Validators Class
+### `Validators` (convenience façade)
 
-The main class providing all validation methods.
+| Method | Description |
+|--------|-------------|
+| `validateEmail(value)` | Standard email format |
+| `validatePhone(value, isoCode)` | 52 countries, auto-normalizes local formats |
+| `normalizePhone(value, isoCode)` | Convert local to international format |
+| `validatePassword(value, {...})` | Configurable password rules |
+| `validateName(value)` | Unicode-aware name validation |
+| `validateAge(value, minimumAge)` | Minimum age from birth date |
+| `validateDate(value)` | Parseable date string |
+| `validateTime(value)` | Strict HH:mm or HH:mm:ss |
+| `validateCreditCard(value)` | Luhn algorithm (Mod-10) |
+| `validateIBAN(value)` | ISO 13616 MOD-97 |
+| `setLocale(locale)` | Set global error message language |
 
-#### Methods
+### `PasswordValidator`
 
-| Method | Parameters | Returns | Description |
-|--------|------------|---------|-------------|
-| `validateEmail` | `String? value, {String? requiredError, String? invalidError}` | `String?` | Validates email format |
-| `validatePhone` | `String? value, String isoCode` | `String?` | Validates phone number for specific country |
-| `validatePassword` | `String? value, {bool? checkLength, int minLength, bool? checkNumberAndLetter, bool? checkSpecialCharacter, bool? checkLowerCase, bool? checkUpperCase}` | `String?` | Validates password with configurable criteria |
-| `validateName` | `String? value, {String? requiredError, String? invalidError}` | `String?` | Validates name format |
-| `validateAge` | `dynamic value, int minimumAge, {String? requiredError, String? invalidError}` | `String?` | Validates age meets minimum requirement |
-| `validateDate` | `String? value, {String? requiredError, String? invalidError}` | `String?` | Validates date format |
-| `validateTime` | `String? value, {String? requiredError, String? invalidError}` | `String?` | Validates time format |
-| `loadPhoneRegex` | None | `Future<void>` | Loads phone validation patterns (call at app startup) |
-| `setLocale` | `Locale locale` | `void` | Sets the global locale for validation messages |
+| Method | Description |
+|--------|-------------|
+| `validate(value, {...})` | Same as `Validators.validatePassword` |
+| `getPasswordStrength(value)` | Returns int 0–5 entropy score |
 
-## Error Messages
+### `PhoneValidator`
 
-All validators return `null` if validation passes, or a `String` error message if validation fails.
+| Method | Description |
+|--------|-------------|
+| `validatePhoneNumber(value, isoCode)` | Direct phone validation |
+| `normalizePhone(value, isoCode)` | Local → international conversion |
 
-### Default Error Messages
+### `FinancialValidators`
 
-- **Email**: "Email is required" / "Enter a valid email"
-- **Phone**: "Phone number is required" / "Enter a valid phone number for {country}"
-- **Password**: Various messages based on failed criteria
-- **Name**: "Name is required" / "Name is invalid"
-- **Age**: "Invalid date format" / "Age must be at least {minimumAge} years old"
-- **Date**: "Date is required" / "Enter a valid date"
-- **Time**: "Time is required" / "Enter a valid time"
+| Method | Description |
+|--------|-------------|
+| `validateCreditCard(value)` | Luhn check, strips spaces/dashes |
+| `validateIBAN(value)` | MOD-97 check, strips spaces |
 
-All error messages can be customized using the optional parameters.
+### `MultiValidator`
+
+```dart
+MultiValidator([validator1, validator2, ...])
+```
+
+Calls each validator in order and returns the first non-null error.
+
+### `PhoneInputFormatter`
+
+A `TextInputFormatter` that auto-spaces phone numbers as the user types (`+XXX XXX XXX XXX`).
+
+---
+
+## Supported Languages (25)
+
+`en` `es` `fr` `de` `ar` `ur` `hi` `zh` `pt` `ru` `it` `tr` `ja` `ko` `id` `ms` `th` `vi` `nl` `sv` `no` `fi` `da` `el` `fa`
+
+---
 
 ## Platform Support
 
-- ✅ Android
-- ✅ iOS
-- ✅ Web
-- ✅ Windows
-- ✅ macOS
-- ✅ Linux
+| Android | iOS | Web | Windows | macOS | Linux |
+|:-------:|:---:|:---:|:-------:|:-----:|:-----:|
+| ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+---
 
 ## Requirements
 
-- Dart SDK: >=3.0.0 <4.0.0
-- Flutter: >=3.0.0
+- Dart SDK: `>=3.0.0 <4.0.0`
+- Flutter: `>=3.0.0`
+- Dependencies: `intl ^0.20.2` (only direct dependency)
 
-## Dependencies
-
-- `intl: ^0.20.2` - For date formatting and parsing
+---
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create your feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -m 'Add my feature'`)
+4. Push to the branch (`git push origin feature/my-feature`)
 5. Open a Pull Request
 
-## Issues and Feedback
+Please file bugs and feature requests in our [issue tracker](https://github.com/greelogix/best_form_validator/issues).
 
-Please file issues, bugs, or feature requests in our [issue tracker](https://github.com/greelogix/best_form_validator/issues).
+---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Author
-
-**GreeLogix**
-
-- GitHub: [@greelogix](https://github.com/greelogix)
-- Repository: [best_form_validator](https://github.com/greelogix/best_form_validator)
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes.
-
-## Additional Resources
-
-- [Official Documentation](https://pub.dev/packages/best_form_validator)
-- [Example App](https://github.com/greelogix/best_form_validator/tree/main/example)
-- [API Reference](https://pub.dev/documentation/best_form_validator/latest/)
+MIT — see [LICENSE](LICENSE).
 
 ---
 
-## ❤️ Maintained By
+## Maintained By
 
-**GreenLogix** — Flutter, Laravel & AI Development Agency  
+**GreeLogix** — Flutter, Laravel & AI Development Agency  
 🌐 https://greelogix.com  
-📩 hello@greelogix.com  
-
-Need custom Flutter development, package customization, or enterprise integrations? We’d love to help.
+📩 hello@greelogix.com
 
 ---
 
-## 📦 Other Open-Source Flutter Packages by GreenLogix
+## Other Flutter Packages by GreeLogix
 
-If you find Launchify useful for launching URLs and deep links, you may also benefit from these Flutter packages:
-
-### 🔹 Quick Popup Manager
-Smart popup, dialog, and overlay management for Flutter apps.  
-👉 https://pub.dev/packages/quick_popup_manager
-
-### 🔹 Smart Form Toolkit
-Advanced Flutter form toolkit with ready-to-use widgets, validation, and flexible field customization.  
-👉 https://pub.dev/packages/smart_form_toolkit
-
-### 🔹 Safe JSON Mapper
-Type-safe JSON parsing and mapping utilities for Flutter.  
-👉 https://pub.dev/packages/safe_json_mapper
-
-### 🔹 Best Form Validator
-A robust Flutter form validation library with ready-to-use validators and easy integration.  
-👉 https://pub.dev/packages/best_form_validator
-
-### 🔹 Flutter Telescope
-Advanced Flutter debugging, logging, and app insights toolkit.  
-👉 https://pub.dev/packages/flutter_telescope
+| Package | Description |
+|---------|-------------|
+| [quick_popup_manager](https://pub.dev/packages/quick_popup_manager) | Smart popup, dialog & overlay management |
+| [smart_form_toolkit](https://pub.dev/packages/smart_form_toolkit) | Advanced form toolkit with ready-to-use widgets |
+| [safe_json_mapper](https://pub.dev/packages/safe_json_mapper) | Type-safe JSON parsing and mapping |
+| [flutter_telescope](https://pub.dev/packages/flutter_telescope) | Debugging, logging & app insights toolkit |
 
 ---
 
-⭐ If Launchify helped you, consider exploring our other packages for faster, safer, and more productive Flutter development.
-
+See [CHANGELOG.md](CHANGELOG.md) for a full history of changes.

@@ -43,4 +43,12 @@ class ItFormLocalizations extends FormLocalizations {
   String get timeRequired => 'L\'ora è richiesta';
   @override
   String get invalidTime => 'Formato ora non valido';
+  @override
+  String get creditCardRequired => 'Il numero di carta di credito è richiesto';
+  @override
+  String get invalidCreditCard => 'Numero di carta di credito non valido';
+  @override
+  String get ibanRequired => 'L\'IBAN è richiesto';
+  @override
+  String get invalidIban => 'Numero IBAN non valido';
 }

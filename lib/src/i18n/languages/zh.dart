@@ -39,4 +39,12 @@ class ZhFormLocalizations extends FormLocalizations {
   String get timeRequired => '需要时间';
   @override
   String get invalidTime => '无效的时间格式';
+  @override
+  String get creditCardRequired => '需要信用卡号码';
+  @override
+  String get invalidCreditCard => '无效的信用卡号码';
+  @override
+  String get ibanRequired => '需要IBAN';
+  @override
+  String get invalidIban => '无效的IBAN号码';
 }

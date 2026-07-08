@@ -40,4 +40,12 @@ class FaFormLocalizations extends FormLocalizations {
   String get timeRequired => 'زمان مورد نیاز است';
   @override
   String get invalidTime => 'فرمت زمان نامعتبر است';
+  @override
+  String get creditCardRequired => 'شماره کارت اعتباری مورد نیاز است';
+  @override
+  String get invalidCreditCard => 'شماره کارت اعتباری نامعتبر است';
+  @override
+  String get ibanRequired => 'IBAN مورد نیاز است';
+  @override
+  String get invalidIban => 'شماره IBAN نامعتبر است';
 }

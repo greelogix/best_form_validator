@@ -41,4 +41,12 @@ class SvFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Tid krävs';
   @override
   String get invalidTime => 'Ogiltigt tidsformat';
+  @override
+  String get creditCardRequired => 'Kreditkortsnummer krävs';
+  @override
+  String get invalidCreditCard => 'Ogiltigt kreditkortsnummer';
+  @override
+  String get ibanRequired => 'IBAN krävs';
+  @override
+  String get invalidIban => 'Ogiltigt IBAN-nummer';
 }

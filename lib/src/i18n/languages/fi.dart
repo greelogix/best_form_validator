@@ -44,4 +44,12 @@ class FiFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Aika vaaditaan';
   @override
   String get invalidTime => 'Virheellinen aikamuoto';
+  @override
+  String get creditCardRequired => 'Luottokortin numero vaaditaan';
+  @override
+  String get invalidCreditCard => 'Virheellinen luottokortin numero';
+  @override
+  String get ibanRequired => 'IBAN vaaditaan';
+  @override
+  String get invalidIban => 'Virheellinen IBAN-numero';
 }

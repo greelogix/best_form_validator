@@ -42,4 +42,12 @@ class DaFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Tid er påkrævet';
   @override
   String get invalidTime => 'Ugyldigt tidsformat';
+  @override
+  String get creditCardRequired => 'Kreditkortnummer er påkrævet';
+  @override
+  String get invalidCreditCard => 'Ugyldigt kreditkortnummer';
+  @override
+  String get ibanRequired => 'IBAN er påkrævet';
+  @override
+  String get invalidIban => 'Ugyldigt IBAN-nummer';
 }

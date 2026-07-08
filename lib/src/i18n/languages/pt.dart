@@ -42,4 +42,12 @@ class PtFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Hora é obrigatória';
   @override
   String get invalidTime => 'Formato de hora inválido';
+  @override
+  String get creditCardRequired => 'Número do cartão de crédito é obrigatório';
+  @override
+  String get invalidCreditCard => 'Número de cartão de crédito inválido';
+  @override
+  String get ibanRequired => 'IBAN é obrigatório';
+  @override
+  String get invalidIban => 'Número IBAN inválido';
 }

@@ -42,4 +42,12 @@ class NlFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Tijd is verplicht';
   @override
   String get invalidTime => 'Ongeldige tijdsindeling';
+  @override
+  String get creditCardRequired => 'Creditcardnummer is verplicht';
+  @override
+  String get invalidCreditCard => 'Ongeldig creditcardnummer';
+  @override
+  String get ibanRequired => 'IBAN is verplicht';
+  @override
+  String get invalidIban => 'Ongeldig IBAN-nummer';
 }

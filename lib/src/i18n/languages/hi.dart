@@ -42,4 +42,12 @@ class HiFormLocalizations extends FormLocalizations {
   String get timeRequired => 'समय आवश्यक है';
   @override
   String get invalidTime => 'अमान्य समय प्रारूप';
+  @override
+  String get creditCardRequired => 'क्रेडिट कार्ड नंबर आवश्यक है';
+  @override
+  String get invalidCreditCard => 'अमान्य क्रेडिट कार्ड नंबर';
+  @override
+  String get ibanRequired => 'IBAN आवश्यक है';
+  @override
+  String get invalidIban => 'अमान्य IBAN नंबर';
 }

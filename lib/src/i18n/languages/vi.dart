@@ -41,4 +41,12 @@ class ViFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Thời gian là bắt buộc';
   @override
   String get invalidTime => 'Định dạng thời gian không hợp lệ';
+  @override
+  String get creditCardRequired => 'Số thẻ tín dụng là bắt buộc';
+  @override
+  String get invalidCreditCard => 'Số thẻ tín dụng không hợp lệ';
+  @override
+  String get ibanRequired => 'IBAN là bắt buộc';
+  @override
+  String get invalidIban => 'Số IBAN không hợp lệ';
 }

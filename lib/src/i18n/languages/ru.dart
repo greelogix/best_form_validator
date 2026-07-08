@@ -44,4 +44,12 @@ class RuFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Время обязательно';
   @override
   String get invalidTime => 'Неверный формат времени';
+  @override
+  String get creditCardRequired => 'Номер кредитной карты обязателен';
+  @override
+  String get invalidCreditCard => 'Неверный номер кредитной карты';
+  @override
+  String get ibanRequired => 'IBAN обязателен';
+  @override
+  String get invalidIban => 'Неверный номер IBAN';
 }
