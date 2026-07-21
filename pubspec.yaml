@@ -12,7 +12,6 @@ issue_tracker: https://github.com/greelogix/best_form_validator/issues
 topics:
   - form
   - validator
-  - email
   - url
   - phone
   - password
