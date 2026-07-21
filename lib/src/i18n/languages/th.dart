@@ -6,6 +6,10 @@ class ThFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'ป้อนอีเมลที่ถูกต้อง';
   @override
+  String get urlRequired => 'จำเป็นต้องใช้ URL';
+  @override
+  String get invalidUrl => 'ป้อน URL ที่ถูกต้อง';
+  @override
   String get phoneRequired => 'จำเป็นต้องใช้หมายเลขโทรศัพท์';
   @override
   String invalidPhone(String country) => 'ป้อนหมายเลขที่ถูกต้องสำหรับ $country';

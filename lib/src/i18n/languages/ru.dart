@@ -6,6 +6,10 @@ class RuFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Введите действительный адрес электронной почты';
   @override
+  String get urlRequired => 'URL обязателен';
+  @override
+  String get invalidUrl => 'Введите действительный URL';
+  @override
   String get phoneRequired => 'Номер телефона обязателен';
   @override
   String invalidPhone(String country) =>

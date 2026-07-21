@@ -6,6 +6,10 @@ class DaFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Indtast en gyldig e-mailadresse';
   @override
+  String get urlRequired => 'URL er påkrævet';
+  @override
+  String get invalidUrl => 'Indtast en gyldig URL';
+  @override
   String get phoneRequired => 'Telefonnummer er påkrævet';
   @override
   String invalidPhone(String country) =>

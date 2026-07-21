@@ -6,6 +6,10 @@ class EsFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Ingrese un correo electrónico válido';
   @override
+  String get urlRequired => 'La URL es obligatoria';
+  @override
+  String get invalidUrl => 'Ingrese una URL válida';
+  @override
   String get phoneRequired => 'El número de teléfono es obligatorio';
   @override
   String invalidPhone(String country) =>

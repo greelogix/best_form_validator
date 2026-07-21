@@ -6,6 +6,10 @@ class JaFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => '有効なメールアドレスを入力してください';
   @override
+  String get urlRequired => 'URLは必須です';
+  @override
+  String get invalidUrl => '有効なURLを入力してください';
+  @override
   String get phoneRequired => '電話番号は必須です';
   @override
   String invalidPhone(String country) => '$country の有効な電話番号を入力してください';

@@ -19,6 +19,7 @@ import 'package:intl/intl.dart';
 ///
 /// ## Available validators
 /// - [validateEmail] — standard email format
+/// - [validateUrl] — HTTP/HTTPS URL format
 /// - [validatePhone] — 52 countries, auto-normalizes local formats
 /// - [validatePassword] — configurable strength rules
 /// - [validateName] — Unicode-aware name validation
@@ -77,6 +78,44 @@ class Validators {
     }
 
     return null;
+  }
+
+  /// Validates a URL (HTTP or HTTPS).
+  ///
+  /// Returns `null` if the URL is valid, otherwise returns an error message.
+  ///
+  /// Parameters:
+  /// - [value]: The URL to validate
+  /// - [requiredError]: Custom error message when URL is empty
+  /// - [invalidError]: Custom error message when URL format is invalid
+  /// - [isRequired]: Whether an empty value is an error (default: true)
+  /// - [allowedSchemes]: Permitted URI schemes (default: `http`, `https`)
+  /// - [allowMissingScheme]: When true, accepts values like `example.com`
+  ///   by prepending `https://` before validation
+  ///
+  /// Example:
+  /// ```dart
+  /// Validators.validateUrl('https://example.com');   // null (valid)
+  /// Validators.validateUrl('http://localhost:8080'); // null (valid)
+  /// Validators.validateUrl('example.com');           // error (no scheme)
+  /// Validators.validateUrl('example.com', allowMissingScheme: true); // null
+  /// ```
+  static String? validateUrl(
+    String? value, {
+    String? requiredError,
+    String? invalidError,
+    bool isRequired = true,
+    List<String> allowedSchemes = const ['http', 'https'],
+    bool allowMissingScheme = false,
+  }) {
+    return UrlValidator.validate(
+      value,
+      requiredError: requiredError,
+      invalidError: invalidError,
+      isRequired: isRequired,
+      allowedSchemes: allowedSchemes,
+      allowMissingScheme: allowMissingScheme,
+    );
   }
 
   /// [DEPRECATED] Phone number regex patterns are now statically loaded.

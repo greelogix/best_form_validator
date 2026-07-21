@@ -19,8 +19,9 @@
 ///
 /// | Class | What it validates |
 /// |-------|------------------|
-/// | [Validators] | Convenience façade — email, phone, password, name, age, date, time |
+/// | [Validators] | Convenience façade — email, url, phone, password, name, age, date, time |
 /// | [EmailValidator] | — delegated by `Validators.validateEmail` |
+/// | [UrlValidator] | HTTP/HTTPS URL validation |
 /// | [PhoneValidator] | Phone numbers for 52 countries, auto-normalizes local formats |
 /// | [PasswordValidator] | Password rules + `getPasswordStrength()` (score 0–5) |
 /// | [NameValidator] | Unicode-aware name validation |
@@ -47,6 +48,7 @@ library;
 
 // Core validators
 export 'src/validators.dart';
+export 'src/url_validator.dart';
 export 'src/age_validator.dart';
 export 'src/name_validator.dart';
 export 'src/password_validator.dart';

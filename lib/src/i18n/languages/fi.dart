@@ -6,6 +6,10 @@ class FiFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Anna kelvollinen sähköpostiosoite';
   @override
+  String get urlRequired => 'URL vaaditaan';
+  @override
+  String get invalidUrl => 'Anna kelvollinen URL';
+  @override
   String get phoneRequired => 'Puhelinnumero vaaditaan';
   @override
   String invalidPhone(String country) =>

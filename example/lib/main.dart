@@ -112,6 +112,7 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
   // Available Cases
   final List<String> _cases = [
     'Email Validation',
+    'URL Validation',
     'Phone Validation',
     'Password Validation',
     'Name Validation',
@@ -369,6 +370,8 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
     switch (caseName) {
       case 'Email Validation':
         return 'Checks for standard email format requirements.';
+      case 'URL Validation':
+        return 'Validates HTTP/HTTPS URLs with a proper host and scheme.';
       case 'Phone Validation':
         return 'Validates phone numbers against specific country patterns.';
       case 'Password Validation':
@@ -399,6 +402,19 @@ class _ValidationShowcasePageState extends State<ValidationShowcasePage> {
           ),
           keyboardType: TextInputType.emailAddress,
           validator: (value) => Validators.validateEmail(value),
+        );
+
+      case 'URL Validation':
+        return TextFormField(
+          controller: _textController,
+          decoration: const InputDecoration(
+            labelText: 'Website URL',
+            hintText: 'https://example.com',
+            prefixIcon: Icon(Icons.link_outlined),
+            helperText: 'Must start with http:// or https://',
+          ),
+          keyboardType: TextInputType.url,
+          validator: (value) => Validators.validateUrl(value),
         );
 
       case 'Phone Validation':

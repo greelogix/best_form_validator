@@ -107,6 +107,10 @@ abstract class FormLocalizations {
   String get emailRequired;
   String get invalidEmail;
 
+  /// URL validation messages
+  String get urlRequired;
+  String get invalidUrl;
+
   /// Phone validation messages
   String get phoneRequired;
   String invalidPhone(String country);

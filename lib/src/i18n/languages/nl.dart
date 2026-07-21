@@ -6,6 +6,10 @@ class NlFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Voer een geldig e-mailadres in';
   @override
+  String get urlRequired => 'URL is verplicht';
+  @override
+  String get invalidUrl => 'Voer een geldige URL in';
+  @override
   String get phoneRequired => 'Telefoonnummer is verplicht';
   @override
   String invalidPhone(String country) =>

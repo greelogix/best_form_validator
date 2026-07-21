@@ -6,6 +6,10 @@ class IdFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Masukkan email yang valid';
   @override
+  String get urlRequired => 'URL wajib diisi';
+  @override
+  String get invalidUrl => 'Masukkan URL yang valid';
+  @override
   String get phoneRequired => 'Nomor telepon wajib diisi';
   @override
   String invalidPhone(String country) =>

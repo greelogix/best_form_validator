@@ -6,6 +6,10 @@ class ZhFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => '请输入有效的电子邮件';
   @override
+  String get urlRequired => '需要 URL';
+  @override
+  String get invalidUrl => '请输入有效的 URL';
+  @override
   String get phoneRequired => '需要电话号码';
   @override
   String invalidPhone(String country) => '请输入有效的 $country 电话号码';

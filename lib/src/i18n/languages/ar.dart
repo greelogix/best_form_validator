@@ -6,6 +6,10 @@ class ArFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'أدخل بريداً إلكترونياً صالحاً';
   @override
+  String get urlRequired => 'الرابط مطلوب';
+  @override
+  String get invalidUrl => 'أدخل رابطاً صالحاً';
+  @override
   String get phoneRequired => 'رقم الهاتف مطلوب';
   @override
   String invalidPhone(String country) => 'أدخل رقم هاتف صالح لـ $country';

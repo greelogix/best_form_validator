@@ -6,6 +6,10 @@ class PtFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Digite um e-mail válido';
   @override
+  String get urlRequired => 'URL é obrigatória';
+  @override
+  String get invalidUrl => 'Digite uma URL válida';
+  @override
   String get phoneRequired => 'Número de telefone é obrigatório';
   @override
   String invalidPhone(String country) =>

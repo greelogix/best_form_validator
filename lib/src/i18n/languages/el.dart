@@ -6,6 +6,10 @@ class ElFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Εισάγετε έγκυρο email';
   @override
+  String get urlRequired => 'Απαιτείται URL';
+  @override
+  String get invalidUrl => 'Εισάγετε έγκυρο URL';
+  @override
   String get phoneRequired => 'Απαιτείται αριθμός τηλεφώνου';
   @override
   String invalidPhone(String country) => 'Εισάγετε έγκυρο αριθμό για $country';

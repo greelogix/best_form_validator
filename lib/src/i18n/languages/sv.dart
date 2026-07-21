@@ -6,6 +6,10 @@ class SvFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Ange en giltig e-postadress';
   @override
+  String get urlRequired => 'URL krävs';
+  @override
+  String get invalidUrl => 'Ange en giltig URL';
+  @override
   String get phoneRequired => 'Telefonnummer krävs';
   @override
   String invalidPhone(String country) => 'Ange ett giltigt nummer för $country';

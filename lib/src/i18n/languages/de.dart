@@ -6,6 +6,10 @@ class DeFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Geben Sie eine gültige E-Mail ein';
   @override
+  String get urlRequired => 'URL ist erforderlich';
+  @override
+  String get invalidUrl => 'Geben Sie eine gültige URL ein';
+  @override
   String get phoneRequired => 'Telefonnummer ist erforderlich';
   @override
   String invalidPhone(String country) =>

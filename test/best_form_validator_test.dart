@@ -59,6 +59,101 @@ void main() {
   });
 
   // =========================================================================
+  // URL
+  // =========================================================================
+  group('Validators.validateUrl', () {
+    test('null value returns required error', () {
+      expect(Validators.validateUrl(null), 'URL is required');
+    });
+
+    test('empty string returns required error', () {
+      expect(Validators.validateUrl(''), 'URL is required');
+    });
+
+    test('whitespace-only returns required error', () {
+      expect(Validators.validateUrl('   '), 'URL is required');
+    });
+
+    test('empty value with isRequired=false returns null', () {
+      expect(Validators.validateUrl('', isRequired: false), isNull);
+    });
+
+    test('missing scheme returns invalid error', () {
+      expect(Validators.validateUrl('example.com'), 'Enter a valid URL');
+    });
+
+    test('invalid scheme returns invalid error', () {
+      expect(Validators.validateUrl('ftp://example.com'), 'Enter a valid URL');
+    });
+
+    test('javascript scheme returns invalid error', () {
+      expect(
+        Validators.validateUrl('javascript:alert(1)'),
+        'Enter a valid URL',
+      );
+    });
+
+    test('host without TLD returns invalid error', () {
+      expect(Validators.validateUrl('https://example'), 'Enter a valid URL');
+    });
+
+    test('valid https URL returns null', () {
+      expect(Validators.validateUrl('https://example.com'), isNull);
+    });
+
+    test('valid http URL returns null', () {
+      expect(Validators.validateUrl('http://example.com'), isNull);
+    });
+
+    test('valid URL with path and query returns null', () {
+      expect(
+        Validators.validateUrl('https://www.example.com/path?q=1'),
+        isNull,
+      );
+    });
+
+    test('valid URL with port returns null', () {
+      expect(Validators.validateUrl('http://localhost:8080'), isNull);
+    });
+
+    test('valid IPv4 URL returns null', () {
+      expect(Validators.validateUrl('https://192.168.1.1'), isNull);
+    });
+
+    test('allowMissingScheme accepts bare domain', () {
+      expect(
+        Validators.validateUrl('example.com', allowMissingScheme: true),
+        isNull,
+      );
+    });
+
+    test('trims surrounding whitespace', () {
+      expect(Validators.validateUrl('  https://example.com  '), isNull);
+    });
+
+    test('custom requiredError is returned when empty', () {
+      expect(
+        Validators.validateUrl('', requiredError: 'My error'),
+        'My error',
+      );
+    });
+
+    test('custom invalidError is returned on bad format', () {
+      expect(
+        Validators.validateUrl('not-a-url', invalidError: 'Custom invalid'),
+        'Custom invalid',
+      );
+    });
+  });
+
+  group('UrlValidator.validate', () {
+    test('delegates to same behavior as Validators.validateUrl', () {
+      expect(UrlValidator.validate('https://example.com'), isNull);
+      expect(UrlValidator.validate('bad'), 'Enter a valid URL');
+    });
+  });
+
+  // =========================================================================
   // PHONE — international format
   // =========================================================================
   group('Validators.validatePhone — international format', () {
@@ -741,6 +836,8 @@ void main() {
     test('English locale returns English strings', () {
       final loc = FormLocalizations.getByLocale(const Locale('en'));
       expect(loc.emailRequired, 'Email is required');
+      expect(loc.urlRequired, 'URL is required');
+      expect(loc.invalidUrl, 'Enter a valid URL');
       expect(loc.phoneRequired, 'Phone number is required');
       expect(loc.creditCardRequired, 'Credit card number is required');
       expect(loc.ibanRequired, 'IBAN is required');
@@ -795,6 +892,10 @@ void main() {
       ];
       for (final lang in langs) {
         final loc = FormLocalizations.getByLocale(Locale(lang));
+        expect(loc.urlRequired, isNotEmpty,
+            reason: '$lang urlRequired is empty');
+        expect(loc.invalidUrl, isNotEmpty,
+            reason: '$lang invalidUrl is empty');
         expect(loc.creditCardRequired, isNotEmpty,
             reason: '$lang creditCardRequired is empty');
         expect(loc.invalidCreditCard, isNotEmpty,
@@ -1126,6 +1227,10 @@ void main() {
 
     test('PhoneValidator is accessible', () {
       expect(PhoneValidator, isNotNull);
+    });
+
+    test('UrlValidator is accessible', () {
+      expect(UrlValidator, isNotNull);
     });
 
     test('NameValidator is accessible', () {

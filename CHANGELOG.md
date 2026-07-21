@@ -1,3 +1,19 @@
+## 1.4.0
+
+### New Features
+- **`Validators.validateUrl()`** — validates HTTP/HTTPS URLs with a proper scheme and host. Supports optional fields (`isRequired: false`), custom schemes, and `allowMissingScheme` to accept bare domains like `example.com`.
+- **`UrlValidator`** — exported publicly for direct use alongside the `Validators` façade.
+
+### Localization
+- URL validator error messages are fully localized in all 25 supported languages (`urlRequired`, `invalidUrl`).
+
+### Documentation
+- README updated with URL validation usage and API reference.
+- Example app updated with a URL Validation showcase case.
+
+### Test Coverage
+- Added URL validator tests covering required/optional fields, scheme checks, localhost, IPv4, paths, whitespace trimming, and custom error messages.
+
 ## 1.3.0
 
 ### Bug Fixes

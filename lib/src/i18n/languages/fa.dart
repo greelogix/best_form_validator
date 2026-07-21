@@ -6,6 +6,10 @@ class FaFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'ایمیل معتبر وارد کنید';
   @override
+  String get urlRequired => 'URL مورد نیاز است';
+  @override
+  String get invalidUrl => 'URL معتبر وارد کنید';
+  @override
   String get phoneRequired => 'شماره تلفن مورد نیاز است';
   @override
   String invalidPhone(String country) => 'شماره معتبر برای $country وارد کنید';

@@ -6,6 +6,10 @@ class NoFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Skriv inn en gyldig e-postadresse';
   @override
+  String get urlRequired => 'URL er påkrevd';
+  @override
+  String get invalidUrl => 'Skriv inn en gyldig URL';
+  @override
   String get phoneRequired => 'Telefonnummer er påkrevd';
   @override
   String invalidPhone(String country) =>

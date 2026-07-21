@@ -6,6 +6,10 @@ class ItFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Inserisci un\'email valida';
   @override
+  String get urlRequired => 'L\'URL è richiesto';
+  @override
+  String get invalidUrl => 'Inserisci un URL valido';
+  @override
   String get phoneRequired => 'Il numero di telefono è richiesto';
   @override
   String invalidPhone(String country) =>

@@ -6,6 +6,10 @@ class MsFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Masukkan emel yang sah';
   @override
+  String get urlRequired => 'URL diperlukan';
+  @override
+  String get invalidUrl => 'Masukkan URL yang sah';
+  @override
   String get phoneRequired => 'Nombor telefon diperlukan';
   @override
   String invalidPhone(String country) =>

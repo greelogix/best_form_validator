@@ -6,6 +6,10 @@ class UrFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'درست ای میل درج کریں';
   @override
+  String get urlRequired => 'URL درکار ہے';
+  @override
+  String get invalidUrl => 'درست URL درج کریں';
+  @override
   String get phoneRequired => 'فون نمبر درکار ہے';
   @override
   String invalidPhone(String country) =>

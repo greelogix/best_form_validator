@@ -22,6 +22,7 @@ Drop validators directly into `TextFormField.validator` — no `BuildContext`, n
 | Async startup | N/A | Zero-init (synchronous) 🚀 |
 | Translations | Manual `if-else` | 25 languages built-in |
 | Chaining validators | Nested callbacks | `MultiValidator([...])` |
+| URL validation | Write your own | Built-in HTTP/HTTPS ✅ |
 | Financial validation | External packages | Native Luhn / IBAN 💳 |
 | Unicode names | ASCII regex only | Arabic, CJK, Devanagari… |
 
@@ -33,6 +34,7 @@ Drop validators directly into `TextFormField.validator` — no `BuildContext`, n
 - **Phone Validation** — 52 countries, accepts local formats (`03001234567`) and international formats (`+923001234567`)
 - **GB / UK alias** — both `'GB'` (ISO 3166-1) and `'UK'` work interchangeably
 - **Email & Password** — battle-tested regex + configurable strength rules
+- **URL Validation** — HTTP/HTTPS URLs with proper scheme and host checks
 - **Password Strength** — `PasswordValidator.getPasswordStrength()` returns a 0–5 score
 - **Unicode Names** — Latin, Arabic, Urdu, Hindi, Chinese, Japanese, Korean, and more
 - **Age Validation** — handles the birthday-not-yet-occurred edge case correctly
@@ -48,7 +50,7 @@ Drop validators directly into `TextFormField.validator` — no `BuildContext`, n
 
 ```yaml
 dependencies:
-  best_form_validator: ^1.3.0
+  best_form_validator: ^1.4.0
 ```
 
 ```bash
@@ -118,6 +120,28 @@ Validators.validateEmail(
   'bad',
   requiredError: 'Please enter your email',
   invalidError: 'That email looks wrong',
+);
+```
+
+### URL
+
+```dart
+Validators.validateUrl('https://example.com');   // null (valid)
+Validators.validateUrl('http://localhost:8080'); // null (valid)
+Validators.validateUrl('example.com');           // error (missing scheme)
+Validators.validateUrl('');                      // 'URL is required'
+
+// Accept bare domains (prepends https://)
+Validators.validateUrl('example.com', allowMissingScheme: true); // null (valid)
+
+// Optional field
+Validators.validateUrl('', isRequired: false);  // null (valid)
+
+// Custom messages
+Validators.validateUrl(
+  'bad',
+  requiredError: 'Please enter your website',
+  invalidError: 'That URL looks wrong',
 );
 ```
 
@@ -350,6 +374,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
 | Method | Description |
 |--------|-------------|
 | `validateEmail(value)` | Standard email format |
+| `validateUrl(value, {...})` | HTTP/HTTPS URL with scheme and host checks |
 | `validatePhone(value, isoCode)` | 52 countries, auto-normalizes local formats |
 | `normalizePhone(value, isoCode)` | Convert local to international format |
 | `validatePassword(value, {...})` | Configurable password rules |
@@ -374,6 +399,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
 |--------|-------------|
 | `validatePhoneNumber(value, isoCode)` | Direct phone validation |
 | `normalizePhone(value, isoCode)` | Local → international conversion |
+
+### `UrlValidator`
+
+| Method | Description |
+|--------|-------------|
+| `validate(value, {...})` | Same as `Validators.validateUrl` |
 
 ### `FinancialValidators`
 

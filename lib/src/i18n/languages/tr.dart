@@ -6,6 +6,10 @@ class TrFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Geçerli bir e-posta girin';
   @override
+  String get urlRequired => 'URL gereklidir';
+  @override
+  String get invalidUrl => 'Geçerli bir URL girin';
+  @override
   String get phoneRequired => 'Telefon numarası gereklidir';
   @override
   String invalidPhone(String country) =>

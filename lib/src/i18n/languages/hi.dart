@@ -6,6 +6,10 @@ class HiFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'एक मान्य ईमेल दर्ज करें';
   @override
+  String get urlRequired => 'URL आवश्यक है';
+  @override
+  String get invalidUrl => 'एक मान्य URL दर्ज करें';
+  @override
   String get phoneRequired => 'फ़ोन नंबर आवश्यक है';
   @override
   String invalidPhone(String country) =>

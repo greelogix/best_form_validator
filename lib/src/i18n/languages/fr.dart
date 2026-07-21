@@ -6,6 +6,10 @@ class FrFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Entrez une adresse e-mail valide';
   @override
+  String get urlRequired => 'L\'URL est requise';
+  @override
+  String get invalidUrl => 'Entrez une URL valide';
+  @override
   String get phoneRequired => 'Le numéro de téléphone est requis';
   @override
   String invalidPhone(String country) =>

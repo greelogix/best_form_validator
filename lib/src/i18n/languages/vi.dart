@@ -6,6 +6,10 @@ class ViFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Nhập email hợp lệ';
   @override
+  String get urlRequired => 'URL là bắt buộc';
+  @override
+  String get invalidUrl => 'Nhập URL hợp lệ';
+  @override
   String get phoneRequired => 'Số điện thoại là bắt buộc';
   @override
   String invalidPhone(String country) =>

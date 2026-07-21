@@ -6,6 +6,10 @@ class KoFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => '유효한 이메일을 입력하세요';
   @override
+  String get urlRequired => 'URL은 필수입니다';
+  @override
+  String get invalidUrl => '유효한 URL을 입력하세요';
+  @override
   String get phoneRequired => '전화번호는 필수입니다';
   @override
   String invalidPhone(String country) => '$country 에 대한 유효한 전화번호를 입력하세요';
