@@ -4,7 +4,7 @@ description: >-
   local & international formats), password strength, Unicode names, age,
   date, strict time, credit card (Luhn), IBAN (MOD-97), MultiValidator
   chaining, and 25-language localization.
-version: 1.4.0
+version: 1.4.1
 homepage: https://github.com/greelogix/best_form_validator
 repository: https://github.com/greelogix/best_form_validator
 issue_tracker: https://github.com/greelogix/best_form_validator/issues

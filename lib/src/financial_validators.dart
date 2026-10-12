@@ -7,13 +7,12 @@ import 'i18n/form_localizations.dart';
 /// Flutter's `TextFormField.validator`.
 ///
 /// ### Credit card
-/// Strips spaces and dashes, then applies the
+/// Strips spaces and dashes, requires 12–19 digits, then applies the
 /// [Luhn algorithm (Mod-10)](https://en.wikipedia.org/wiki/Luhn_algorithm).
 ///
 /// ### IBAN
-/// Strips spaces, upper-cases the input, checks the basic `CC##…` format, then
-/// applies the [ISO 13616 MOD-97](https://en.wikipedia.org/wiki/International_Bank_Account_Number)
-/// check.
+/// Strips spaces, upper-cases the input, verifies the registered country and
+/// country-specific length, then applies ISO 13616 MOD-97.
 ///
 /// Example:
 /// ```dart
@@ -26,10 +25,105 @@ import 'i18n/form_localizations.dart';
 /// FinancialValidators.validateIBAN('INVALID');                      // error
 /// ```
 class FinancialValidators {
+  /// ISO 13616 country lengths from the SWIFT IBAN Registry, release 103
+  /// (September 2026).
+  static const Map<String, int> _ibanLengths = {
+    'AD': 24,
+    'AE': 23,
+    'AL': 28,
+    'AT': 20,
+    'AZ': 28,
+    'BA': 20,
+    'BE': 16,
+    'BG': 22,
+    'BH': 22,
+    'BI': 27,
+    'BR': 29,
+    'BY': 28,
+    'CH': 21,
+    'CR': 22,
+    'CY': 28,
+    'CZ': 24,
+    'DE': 22,
+    'DJ': 27,
+    'DK': 18,
+    'DO': 28,
+    'EE': 20,
+    'EG': 29,
+    'ES': 24,
+    'FI': 18,
+    'FK': 18,
+    'FO': 18,
+    'FR': 27,
+    'GB': 22,
+    'GE': 22,
+    'GI': 23,
+    'GL': 18,
+    'GR': 27,
+    'GT': 28,
+    'HN': 28,
+    'HR': 21,
+    'HU': 28,
+    'IE': 22,
+    'IL': 23,
+    'IQ': 23,
+    'IS': 26,
+    'IT': 27,
+    'JO': 30,
+    'KW': 30,
+    'KZ': 20,
+    'LB': 28,
+    'LC': 32,
+    'LI': 21,
+    'LT': 20,
+    'LU': 20,
+    'LV': 21,
+    'LY': 25,
+    'MC': 27,
+    'MD': 24,
+    'ME': 22,
+    'MK': 19,
+    'MN': 20,
+    'MR': 27,
+    'MT': 31,
+    'MU': 30,
+    'NI': 28,
+    'NL': 18,
+    'NO': 15,
+    'OM': 23,
+    'PK': 24,
+    'PL': 28,
+    'PS': 29,
+    'PT': 25,
+    'QA': 29,
+    'RO': 24,
+    'RS': 22,
+    'RU': 33,
+    'SA': 24,
+    'SC': 31,
+    'SD': 18,
+    'SE': 24,
+    'SI': 19,
+    'SK': 24,
+    'SM': 27,
+    'SO': 23,
+    'ST': 25,
+    'SV': 28,
+    'TL': 23,
+    'TN': 24,
+    'TR': 26,
+    'UA': 29,
+    'VA': 22,
+    'VG': 24,
+    'XK': 20,
+    'YE': 30,
+  };
+
   /// Validates a credit card number using the Luhn Algorithm (Mod-10).
   ///
-  /// Spaces and dashes in [value] are stripped before validation, so both
-  /// `4111111111111111` and `4111 1111 1111 1111` are accepted.
+  /// Spaces and dashes in [value] are stripped before validation. The result
+  /// must contain 12–19 digits and pass Luhn, so both `4111111111111111` and
+  /// `4111 1111 1111 1111` are accepted.
   ///
   /// Returns `null` if valid, otherwise returns a localized error message.
   ///
@@ -49,12 +143,13 @@ class FinancialValidators {
     String? requiredError,
     String? invalidError,
   }) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.trim().isEmpty) {
       return requiredError ?? FormLocalizations.global.creditCardRequired;
     }
 
     final sanitized = value.replaceAll(RegExp(r'[\s\-]'), '');
-    if (!RegExp(r'^\d+$').hasMatch(sanitized)) {
+    if (!RegExp(r'^\d{12,19}$').hasMatch(sanitized) ||
+        RegExp(r'^0+$').hasMatch(sanitized)) {
       return invalidError ?? FormLocalizations.global.invalidCreditCard;
     }
 
@@ -80,7 +175,8 @@ class FinancialValidators {
   /// Validates an International Bank Account Number (IBAN) using MOD-97.
   ///
   /// [value] is automatically upper-cased and stripped of spaces before
-  /// validation. Maximum IBAN length is 34 characters.
+  /// validation. Its country code and exact length must be registered in the
+  /// SWIFT IBAN Registry before the MOD-97 checksum is evaluated.
   ///
   /// Returns `null` if valid, otherwise returns a localized error message.
   ///
@@ -100,15 +196,20 @@ class FinancialValidators {
     String? requiredError,
     String? invalidError,
   }) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.trim().isEmpty) {
       return requiredError ?? FormLocalizations.global.ibanRequired;
     }
 
     final sanitized = value.replaceAll(RegExp(r'\s+'), '').toUpperCase();
 
-    // Basic format check: 2 letter country code, 2 check digits, up to 30 alphanumeric chars
+    // Basic format check: 2-letter country code, 2 check digits, and BBAN.
     if (!RegExp(r'^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$').hasMatch(sanitized) ||
         sanitized.length > 34) {
+      return invalidError ?? FormLocalizations.global.invalidIban;
+    }
+
+    final expectedLength = _ibanLengths[sanitized.substring(0, 2)];
+    if (expectedLength == null || sanitized.length != expectedLength) {
       return invalidError ?? FormLocalizations.global.invalidIban;
     }
 

@@ -1,3 +1,18 @@
+## 1.4.1
+
+### Bug Fixes
+- Phone validation now requires a full-string match, preventing valid numbers with junk prefixes or suffixes from being accepted.
+- Phone formatting characters are stripped for every supported country; US/CA local numbers and country codes without `+` are normalized, and Italian geographic leading zeroes are preserved.
+- Age validation now returns the required-field message for null, empty, and whitespace-only values, rejects future dates consistently, and rejects negative `minimumAge` configuration.
+- Credit-card validation now enforces a practical payment-card length range (12–19 digits) and rejects trivial all-zero values before applying Luhn.
+- IBAN validation now enforces registered country codes and country-specific lengths from the SWIFT IBAN Registry release 103 before applying MOD-97.
+- Name validation now uses Unicode letter and combining-mark properties, adding complete script coverage including Cyrillic, Greek, Thai, and decomposed accented names.
+
+### Maintenance
+- Added regression tests for all fixes.
+- Added `.pubignore` to remove IDE metadata, generated platform scaffolding, and the duplicate demo GIF from the published archive.
+- Added the generated `build/` exclusion to static analysis configuration.
+
 ## 1.4.0
 
 ### New Features

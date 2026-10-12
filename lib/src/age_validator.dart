@@ -17,9 +17,9 @@ class AgeValidator {
   ///
   /// Parameters:
   /// - [birthDate]: Birth date as DateTime or String (yyyy-MM-dd)
-  /// - [minimumAge]: Minimum age requirement in years
-  /// - [requiredError]: Custom error when value is invalid
-  /// - [invalidError]: Custom error when age doesn't meet minimum
+  /// - [minimumAge]: Minimum age requirement in years; must be non-negative
+  /// - [requiredError]: Custom error when the value is null or empty
+  /// - [invalidError]: Custom error for invalid/future dates or insufficient age
   ///
   /// Example:
   /// ```dart
@@ -35,6 +35,19 @@ class AgeValidator {
     String? requiredError,
     String? invalidError,
   }) {
+    if (minimumAge < 0) {
+      throw ArgumentError.value(
+        minimumAge,
+        'minimumAge',
+        'Must be zero or greater',
+      );
+    }
+
+    if (birthDate == null ||
+        (birthDate is String && birthDate.trim().isEmpty)) {
+      return requiredError ?? FormLocalizations.global.dateRequired;
+    }
+
     DateTime? parsedDate;
     if (birthDate is String) {
       try {
@@ -49,6 +62,13 @@ class AgeValidator {
     }
 
     final today = DateTime.now();
+    final todayDate = DateTime(today.year, today.month, today.day);
+    final parsedDateOnly =
+        DateTime(parsedDate.year, parsedDate.month, parsedDate.day);
+    if (parsedDateOnly.isAfter(todayDate)) {
+      return invalidError ?? FormLocalizations.global.invalidDate;
+    }
+
     final age = today.year - parsedDate.year;
     final hasHadBirthdayThisYear = (today.month > parsedDate.month) ||
         (today.month == parsedDate.month && today.day >= parsedDate.day);

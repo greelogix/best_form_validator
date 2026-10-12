@@ -479,14 +479,41 @@ void main() {
     test('Korean name accepted', () {
       expect(Validators.validateName('김민준'), isNull);
     });
+
+    test('Cyrillic name accepted', () {
+      expect(Validators.validateName('Иван Петров'), isNull);
+    });
+
+    test('Greek name accepted', () {
+      expect(Validators.validateName('Γεώργιος Παπαδόπουλος'), isNull);
+    });
+
+    test('Thai name accepted', () {
+      expect(Validators.validateName('สมชาย ใจดี'), isNull);
+    });
+
+    test('decomposed accented name accepted', () {
+      expect(Validators.validateName('Jose\u0301 Garcia'), isNull);
+    });
   });
 
   // =========================================================================
   // AGE
   // =========================================================================
   group('Validators.validateAge', () {
-    test('null value returns invalid date error', () {
-      expect(Validators.validateAge(null, 18), isNotNull);
+    test('null value returns required date error', () {
+      expect(Validators.validateAge(null, 18), 'Date is required');
+    });
+
+    test('empty value returns required date error', () {
+      expect(Validators.validateAge('', 18), 'Date is required');
+    });
+
+    test('whitespace value returns custom required error', () {
+      expect(
+        Validators.validateAge('   ', 18, requiredError: 'Birth date needed'),
+        'Birth date needed',
+      );
     });
 
     test('invalid string format returns invalid date error', () {
@@ -523,6 +550,13 @@ void main() {
           invalidError: 'Too young',
         ),
         'Too young',
+      );
+    });
+
+    test('negative minimum age is rejected as a configuration error', () {
+      expect(
+        () => Validators.validateAge('2000-01-01', -1),
+        throwsArgumentError,
       );
     });
   });
@@ -894,8 +928,7 @@ void main() {
         final loc = FormLocalizations.getByLocale(Locale(lang));
         expect(loc.urlRequired, isNotEmpty,
             reason: '$lang urlRequired is empty');
-        expect(loc.invalidUrl, isNotEmpty,
-            reason: '$lang invalidUrl is empty');
+        expect(loc.invalidUrl, isNotEmpty, reason: '$lang invalidUrl is empty');
         expect(loc.creditCardRequired, isNotEmpty,
             reason: '$lang creditCardRequired is empty');
         expect(loc.invalidCreditCard, isNotEmpty,
@@ -1034,6 +1067,40 @@ void main() {
     test('CA and US share +1 prefix — CA valid', () {
       expect(Validators.validatePhone('+16135551234', 'CA'), isNull);
     });
+
+    test('formatted US number is normalized and accepted', () {
+      expect(Validators.validatePhone('+1 (202) 555-1234', 'US'), isNull);
+    });
+
+    test('US local number is normalized and accepted', () {
+      expect(Validators.validatePhone('2025551234', 'US'), isNull);
+    });
+
+    test('US country code without plus is normalized and accepted', () {
+      expect(Validators.validatePhone('12025551234', 'US'), isNull);
+    });
+
+    test('Italian geographic leading zero is retained', () {
+      expect(Validators.normalizePhone('0212345678', 'IT'), '+390212345678');
+      expect(Validators.validatePhone('0212345678', 'IT'), isNull);
+    });
+
+    test('PhoneInputFormatter output validates for US', () {
+      final formatter = PhoneInputFormatter();
+      final formatted = formatter.formatEditUpdate(
+        TextEditingValue.empty,
+        const TextEditingValue(text: '+12025551234'),
+      );
+      expect(Validators.validatePhone(formatted.text, 'US'), isNull);
+    });
+
+    test('valid number with junk prefix is rejected', () {
+      expect(Validators.validatePhone('junk+12025551234', 'US'), isNotNull);
+    });
+
+    test('valid number with junk suffix is rejected', () {
+      expect(Validators.validatePhone('+12025551234junk', 'US'), isNotNull);
+    });
   });
 
   // =========================================================================
@@ -1058,11 +1125,16 @@ void main() {
       expect(Validators.normalizePhone('12345', 'XX'), '12345');
     });
 
-    test('US has no localFormat entry — returns value unchanged if no prefix',
-        () {
-      // US has no localFormat entry, so number is returned as-is
+    test('US local number is normalized to international format', () {
       final result = Validators.normalizePhone('2025551234', 'US');
-      expect(result, '2025551234');
+      expect(result, '+12025551234');
+    });
+
+    test('US spaces and punctuation are stripped', () {
+      expect(
+        Validators.normalizePhone('+1 (202) 555-1234', 'US'),
+        '+12025551234',
+      );
     });
   });
 
@@ -1104,6 +1176,11 @@ void main() {
       expect(Validators.validateAge('2000-01-01', 0), isNull);
     });
 
+    test('future birth date fails even when minimumAge is 0', () {
+      final future = DateTime.now().add(const Duration(days: 365));
+      expect(Validators.validateAge(future, 0), isNotNull);
+    });
+
     test('birthday tomorrow (not yet 18) returns error', () {
       final today = DateTime.now();
       final tomorrow = DateTime(today.year - 18, today.month, today.day + 1);
@@ -1132,6 +1209,28 @@ void main() {
 
     test('single digit returns invalid error', () {
       expect(FinancialValidators.validateCreditCard('4'), isNotNull);
+    });
+
+    test('single zero is rejected even though it passes Luhn modulo', () {
+      expect(FinancialValidators.validateCreditCard('0'), isNotNull);
+    });
+
+    test('all-zero card number is rejected', () {
+      expect(
+        FinancialValidators.validateCreditCard('0000000000000000'),
+        isNotNull,
+      );
+    });
+
+    test('card number shorter than 12 digits is rejected', () {
+      expect(FinancialValidators.validateCreditCard('79927398713'), isNotNull);
+    });
+
+    test('whitespace-only card value returns required error', () {
+      expect(
+        FinancialValidators.validateCreditCard('   '),
+        'Credit card number is required',
+      );
     });
 
     test('custom requiredError returned', () {
@@ -1172,6 +1271,22 @@ void main() {
 
     test('only 2 chars (too short) returns invalid', () {
       expect(FinancialValidators.validateIBAN('GB'), isNotNull);
+    });
+
+    test('unsupported country code is rejected', () {
+      expect(FinancialValidators.validateIBAN('ZZ59TEST12345678901234'),
+          isNotNull);
+    });
+
+    test('valid country with incorrect national length is rejected', () {
+      expect(
+        FinancialValidators.validateIBAN('GB82WEST123456987654320'),
+        isNotNull,
+      );
+    });
+
+    test('whitespace-only IBAN returns required error', () {
+      expect(FinancialValidators.validateIBAN('   '), 'IBAN is required');
     });
 
     test('custom requiredError returned', () {

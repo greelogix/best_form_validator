@@ -22,6 +22,8 @@ class PhoneValidator {
   // numbers can be converted before validation.
   // ---------------------------------------------------------------------------
   static const Map<String, _LocalFormat> _localFormats = {
+    'US': _LocalFormat(localPrefix: '', dialCode: '+1'),
+    'CA': _LocalFormat(localPrefix: '', dialCode: '+1'),
     'PK': _LocalFormat(localPrefix: '0', dialCode: '+92'),
     'IN': _LocalFormat(localPrefix: '0', dialCode: '+91'),
     'BD': _LocalFormat(localPrefix: '0', dialCode: '+880'),
@@ -29,7 +31,8 @@ class PhoneValidator {
     'UK': _LocalFormat(localPrefix: '0', dialCode: '+44'),
     'DE': _LocalFormat(localPrefix: '0', dialCode: '+49'),
     'FR': _LocalFormat(localPrefix: '0', dialCode: '+33'),
-    'IT': _LocalFormat(localPrefix: '0', dialCode: '+39'),
+    // Italy retains the leading zero for geographic numbers internationally.
+    'IT': _LocalFormat(localPrefix: '', dialCode: '+39'),
     'AU': _LocalFormat(localPrefix: '0', dialCode: '+61'),
     'NZ': _LocalFormat(localPrefix: '0', dialCode: '+64'),
     'ZA': _LocalFormat(localPrefix: '0', dialCode: '+27'),
@@ -75,13 +78,23 @@ class PhoneValidator {
   /// // → '+923001234567'
   /// ```
   static String normalizePhone(String value, String isoCode) {
-    final fmt = _localFormats[isoCode.toUpperCase()];
-    if (fmt == null) return value;
-
+    final normalizedIso = isoCode.toUpperCase();
     final stripped = value.replaceAll(RegExp(r'[\s\-()]'), '');
+    final fmt = _localFormats[normalizedIso];
+
+    // Countries without a trunk-prefix rule (for example US/CA) still need
+    // common display formatting removed before validation. Preserve the
+    // original value for unsupported country codes to avoid surprising callers.
+    if (fmt == null) {
+      return phoneRegexMap.containsKey(normalizedIso) ? stripped : value;
+    }
 
     // Already international
     if (stripped.startsWith('+')) return stripped;
+
+    // A country code typed without the leading plus (e.g. 12025551234).
+    final dialDigits = fmt.dialCode.substring(1);
+    if (stripped.startsWith(dialDigits)) return '+$stripped';
 
     // Strip local trunk prefix (e.g. leading 0) and prepend dial code
     if (fmt.localPrefix.isNotEmpty && stripped.startsWith(fmt.localPrefix)) {
@@ -154,8 +167,8 @@ class PhoneValidator {
     // Auto-normalise local format to international before regex check
     final normalized = normalizePhone(value, normalizedIso);
 
-    final regExp = RegExp(regexPattern);
-    if (!regExp.hasMatch(normalized)) {
+    final match = RegExp(regexPattern).firstMatch(normalized);
+    if (match == null || match.start != 0 || match.end != normalized.length) {
       return invalidError ??
           FormLocalizations.global.invalidPhone(normalizedIso);
     }

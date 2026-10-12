@@ -24,22 +24,22 @@ Drop validators directly into `TextFormField.validator` — no `BuildContext`, n
 | Chaining validators | Nested callbacks | `MultiValidator([...])` |
 | URL validation | Write your own | Built-in HTTP/HTTPS ✅ |
 | Financial validation | External packages | Native Luhn / IBAN 💳 |
-| Unicode names | ASCII regex only | Arabic, CJK, Devanagari… |
+| Unicode names | ASCII regex only | All Unicode letter scripts ✅ |
 
 ---
 
 ## Features
 
 - **Zero-Initialization** — synchronous, no startup code required
-- **Phone Validation** — 52 countries, accepts local formats (`03001234567`) and international formats (`+923001234567`)
+- **Phone Validation** — 52 countries; accepts international, commonly formatted, and supported local numbering plans with full-input matching
 - **GB / UK alias** — both `'GB'` (ISO 3166-1) and `'UK'` work interchangeably
 - **Email & Password** — battle-tested regex + configurable strength rules
 - **URL Validation** — HTTP/HTTPS URLs with proper scheme and host checks
 - **Password Strength** — `PasswordValidator.getPasswordStrength()` returns a 0–5 score
-- **Unicode Names** — Latin, Arabic, Urdu, Hindi, Chinese, Japanese, Korean, and more
+- **Unicode Names** — all Unicode letter scripts and combining marks, including Cyrillic, Greek, Thai, Arabic, CJK, and more
 - **Age Validation** — handles the birthday-not-yet-occurred edge case correctly
 - **Time Validation** — strict HH:mm / HH:mm:ss (rejects 25:99:99)
-- **Financial Checks** — Credit Card (Luhn Mod-10) & IBAN (MOD-97), both publicly exported
+- **Financial Checks** — 12–19 digit credit cards with Luhn, plus country-length-aware IBAN MOD-97 validation
 - **MultiValidator** — chain validators, returns the first error
 - **Localization** — 25 language error messages, runtime-switchable
 - **PhoneInputFormatter** — `TextInputFormatter` for auto-spacing phone numbers
@@ -50,7 +50,7 @@ Drop validators directly into `TextFormField.validator` — no `BuildContext`, n
 
 ```yaml
 dependencies:
-  best_form_validator: ^1.4.0
+  best_form_validator: ^1.4.1
 ```
 
 ```bash
@@ -155,6 +155,7 @@ Validators.validatePhone('+12025551234', 'US');      // null (valid)
 Validators.validatePhone('+923001234567', 'PK');     // null (valid)
 
 // Local format — auto-normalized before validation
+Validators.validatePhone('2025551234', 'US');        // null (valid)
 Validators.validatePhone('03001234567', 'PK');       // null (valid)
 Validators.validatePhone('07911123456', 'GB');       // null (valid)
 
@@ -210,6 +211,9 @@ Validators.validateName('José García');   // null – accented
 Validators.validateName('محمد علي');     // null – Arabic
 Validators.validateName('王芳');          // null – Chinese
 Validators.validateName('राज कुमार');    // null – Hindi (Devanagari)
+Validators.validateName('Иван Петров'); // null – Cyrillic
+Validators.validateName('Γεώργιος');    // null – Greek
+Validators.validateName('สมชาย ใจดี');  // null – Thai
 Validators.validateName('Mary-Jane');    // null – hyphenated
 Validators.validateName("O'Brien");      // null – apostrophe
 Validators.validateName('John123');      // error – digits not allowed
@@ -224,6 +228,7 @@ Validators.validateAge(DateTime(2000, 1, 15), 18); // DateTime also accepted
 Validators.validateAge(
   '2010-06-01',
   18,
+  requiredError: 'Please enter your birth date',
   invalidError: 'You must be at least 18 years old',
 );
 ```
@@ -247,14 +252,15 @@ Validators.validateTime('00:00:00');   // null – midnight
 ### Financial — Credit Card & IBAN
 
 ```dart
-// Credit card (Luhn Mod-10) — spaces and dashes stripped automatically
+// Credit card — 12–19 digits, then Luhn Mod-10
+// Spaces and dashes are stripped automatically.
 Validators.validateCreditCard('4111 1111 1111 1111'); // null (valid Visa test)
 Validators.validateCreditCard('1234 5678 9012 3456'); // error
 
 // Direct class usage
 FinancialValidators.validateCreditCard('4111111111111111');
 
-// IBAN (MOD-97) — spaces stripped, case-insensitive
+// IBAN — registered country/length plus MOD-97; spaces are ignored
 Validators.validateIBAN('GB82 WEST 1234 5698 7654 32'); // null (valid)
 Validators.validateIBAN('INVALID');                      // error
 
@@ -375,15 +381,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
 |--------|-------------|
 | `validateEmail(value)` | Standard email format |
 | `validateUrl(value, {...})` | HTTP/HTTPS URL with scheme and host checks |
-| `validatePhone(value, isoCode)` | 52 countries, auto-normalizes local formats |
+| `validatePhone(value, isoCode)` | 52 countries, formatting cleanup and supported local normalization |
 | `normalizePhone(value, isoCode)` | Convert local to international format |
 | `validatePassword(value, {...})` | Configurable password rules |
 | `validateName(value)` | Unicode-aware name validation |
 | `validateAge(value, minimumAge)` | Minimum age from birth date |
 | `validateDate(value)` | Parseable date string |
 | `validateTime(value)` | Strict HH:mm or HH:mm:ss |
-| `validateCreditCard(value)` | Luhn algorithm (Mod-10) |
-| `validateIBAN(value)` | ISO 13616 MOD-97 |
+| `validateCreditCard(value)` | 12–19 digits plus Luhn algorithm (Mod-10) |
+| `validateIBAN(value)` | Registered country length plus ISO 13616 MOD-97 |
 | `setLocale(locale)` | Set global error message language |
 
 ### `PasswordValidator`
@@ -410,8 +416,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
 | Method | Description |
 |--------|-------------|
-| `validateCreditCard(value)` | Luhn check, strips spaces/dashes |
-| `validateIBAN(value)` | MOD-97 check, strips spaces |
+| `validateCreditCard(value)` | 12–19 digits, Luhn check, strips spaces/dashes |
+| `validateIBAN(value)` | Country-length and MOD-97 checks, strips spaces |
 
 ### `MultiValidator`
 

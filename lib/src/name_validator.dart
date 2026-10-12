@@ -24,26 +24,12 @@ import 'i18n/form_localizations.dart';
 /// - Multiple consecutive spaces
 /// - Other punctuation / symbols
 class NameValidator {
-  // Matches a single "name token" — one or more allowed script characters,
-  // optionally joined internally by a hyphen or apostrophe.
-  // Allowed scripts:
-  //   \p{L}  — any Unicode letter  (requires Dart's full Unicode support)
-  //   \u0600–\u06FF  — Arabic / Urdu block
-  //   \u0900–\u097F  — Devanagari block
-  //   \u4E00–\u9FFF  — CJK Unified Ideographs
-  //   \uAC00–\uD7A3  — Hangul syllables
-  //   \u3040–\u309F  — Hiragana
-  //   \u30A0–\u30FF  — Katakana
-  //
-  // Dart's RegExp uses the ECMAScript engine which does NOT support \p{L},
-  // so we enumerate the character classes explicitly.
+  // Matches any Unicode letter plus combining marks, with apostrophes or
+  // hyphens allowed only inside a token. Unicode property escapes keep this
+  // correct for scripts such as Cyrillic, Greek, Thai, Arabic, CJK, and more.
   static final RegExp _tokenRegex = RegExp(
-    r"^[A-Za-zÀ-ÖØ-öø-ÿ\u0600-\u06FF\u0750-\u077F\u0900-\u097F"
-    r"\u4E00-\u9FFF\uAC00-\uD7A3\u3040-\u309F\u30A0-\u30FF]"
-    r"(?:[A-Za-zÀ-ÖØ-öø-ÿ\u0600-\u06FF\u0750-\u077F\u0900-\u097F"
-    r"\u4E00-\u9FFF\uAC00-\uD7A3\u3040-\u309F\u30A0-\u30FF'\-]*"
-    r"[A-Za-zÀ-ÖØ-öø-ÿ\u0600-\u06FF\u0750-\u077F\u0900-\u097F"
-    r"\u4E00-\u9FFF\uAC00-\uD7A3\u3040-\u309F\u30A0-\u30FF])?$",
+    r"^\p{L}[\p{L}\p{M}]*(?:['’-]\p{L}[\p{L}\p{M}]*)*$",
+    unicode: true,
   );
 
   /// Validates a name string.

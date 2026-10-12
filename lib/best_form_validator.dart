@@ -22,7 +22,7 @@
 /// | [Validators] | Convenience façade — email, url, phone, password, name, age, date, time |
 /// | [EmailValidator] | — delegated by `Validators.validateEmail` |
 /// | [UrlValidator] | HTTP/HTTPS URL validation |
-/// | [PhoneValidator] | Phone numbers for 52 countries, auto-normalizes local formats |
+/// | [PhoneValidator] | Phone numbers for 52 countries with local-format normalization |
 /// | [PasswordValidator] | Password rules + `getPasswordStrength()` (score 0–5) |
 /// | [NameValidator] | Unicode-aware name validation |
 /// | [AgeValidator] | Minimum age from birth date |

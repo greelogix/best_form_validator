@@ -20,7 +20,7 @@ import 'package:intl/intl.dart';
 /// ## Available validators
 /// - [validateEmail] — standard email format
 /// - [validateUrl] — HTTP/HTTPS URL format
-/// - [validatePhone] — 52 countries, auto-normalizes local formats
+/// - [validatePhone] — 52 countries, with local-format normalization
 /// - [validatePassword] — configurable strength rules
 /// - [validateName] — Unicode-aware name validation
 /// - [validateAge] — minimum age from birth date
@@ -138,9 +138,10 @@ class Validators {
   /// Returns `null` if the phone number is valid for the given country,
   /// otherwise returns a localized error message.
   ///
-  /// Both international format (`+923001234567`) and local/national format
-  /// (`03001234567`) are accepted — local numbers are automatically normalized
-  /// to international format before validation. No custom conversion code needed.
+  /// International format (`+923001234567`), common display formatting, and
+  /// supported local/national formats (`03001234567`) are accepted. Local
+  /// normalization rules cover common numbering plans, including US/CA and
+  /// countries that use a leading trunk zero.
   ///
   /// [isoCode] accepts both `'GB'` and `'UK'` for the United Kingdom.
   ///
