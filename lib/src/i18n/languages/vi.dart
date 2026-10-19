@@ -6,6 +6,10 @@ class ViFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Nhập email hợp lệ';
   @override
+  String get urlRequired => 'URL là bắt buộc';
+  @override
+  String get invalidUrl => 'Nhập URL hợp lệ';
+  @override
   String get phoneRequired => 'Số điện thoại là bắt buộc';
   @override
   String invalidPhone(String country) =>
@@ -41,4 +45,12 @@ class ViFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Thời gian là bắt buộc';
   @override
   String get invalidTime => 'Định dạng thời gian không hợp lệ';
+  @override
+  String get creditCardRequired => 'Số thẻ tín dụng là bắt buộc';
+  @override
+  String get invalidCreditCard => 'Số thẻ tín dụng không hợp lệ';
+  @override
+  String get ibanRequired => 'IBAN là bắt buộc';
+  @override
+  String get invalidIban => 'Số IBAN không hợp lệ';
 }

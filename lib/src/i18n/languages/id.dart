@@ -6,6 +6,10 @@ class IdFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Masukkan email yang valid';
   @override
+  String get urlRequired => 'URL wajib diisi';
+  @override
+  String get invalidUrl => 'Masukkan URL yang valid';
+  @override
   String get phoneRequired => 'Nomor telepon wajib diisi';
   @override
   String invalidPhone(String country) =>
@@ -45,4 +49,12 @@ class IdFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Waktu wajib diisi';
   @override
   String get invalidTime => 'Format waktu tidak valid';
+  @override
+  String get creditCardRequired => 'Nomor kartu kredit wajib diisi';
+  @override
+  String get invalidCreditCard => 'Nomor kartu kredit tidak valid';
+  @override
+  String get ibanRequired => 'IBAN wajib diisi';
+  @override
+  String get invalidIban => 'Nomor IBAN tidak valid';
 }

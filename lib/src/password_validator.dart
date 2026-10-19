@@ -1,4 +1,4 @@
-import 'package:best_form_validator/src/i18n/form_localizations.dart';
+import 'i18n/form_localizations.dart';
 
 /// Password validator with checking and strength rules.
 class PasswordValidator {

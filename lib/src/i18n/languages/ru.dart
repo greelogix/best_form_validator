@@ -6,6 +6,10 @@ class RuFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Введите действительный адрес электронной почты';
   @override
+  String get urlRequired => 'URL обязателен';
+  @override
+  String get invalidUrl => 'Введите действительный URL';
+  @override
   String get phoneRequired => 'Номер телефона обязателен';
   @override
   String invalidPhone(String country) =>
@@ -44,4 +48,12 @@ class RuFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Время обязательно';
   @override
   String get invalidTime => 'Неверный формат времени';
+  @override
+  String get creditCardRequired => 'Номер кредитной карты обязателен';
+  @override
+  String get invalidCreditCard => 'Неверный номер кредитной карты';
+  @override
+  String get ibanRequired => 'IBAN обязателен';
+  @override
+  String get invalidIban => 'Неверный номер IBAN';
 }

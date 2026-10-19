@@ -6,6 +6,10 @@ class DeFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Geben Sie eine gültige E-Mail ein';
   @override
+  String get urlRequired => 'URL ist erforderlich';
+  @override
+  String get invalidUrl => 'Geben Sie eine gültige URL ein';
+  @override
   String get phoneRequired => 'Telefonnummer ist erforderlich';
   @override
   String invalidPhone(String country) =>
@@ -45,4 +49,12 @@ class DeFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Zeit ist erforderlich';
   @override
   String get invalidTime => 'Ungültiges Zeitformat';
+  @override
+  String get creditCardRequired => 'Kreditkartennummer ist erforderlich';
+  @override
+  String get invalidCreditCard => 'Ungültige Kreditkartennummer';
+  @override
+  String get ibanRequired => 'IBAN ist erforderlich';
+  @override
+  String get invalidIban => 'Ungültige IBAN-Nummer';
 }

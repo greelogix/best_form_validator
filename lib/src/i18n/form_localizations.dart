@@ -107,6 +107,10 @@ abstract class FormLocalizations {
   String get emailRequired;
   String get invalidEmail;
 
+  /// URL validation messages
+  String get urlRequired;
+  String get invalidUrl;
+
   /// Phone validation messages
   String get phoneRequired;
   String invalidPhone(String country);
@@ -133,6 +137,12 @@ abstract class FormLocalizations {
   /// Time validation messages
   String get timeRequired;
   String get invalidTime;
+
+  /// Financial validation messages
+  String get creditCardRequired;
+  String get invalidCreditCard;
+  String get ibanRequired;
+  String get invalidIban;
 }
 
 class _FormLocalizationsDelegate

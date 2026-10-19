@@ -6,6 +6,10 @@ class NlFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Voer een geldig e-mailadres in';
   @override
+  String get urlRequired => 'URL is verplicht';
+  @override
+  String get invalidUrl => 'Voer een geldige URL in';
+  @override
   String get phoneRequired => 'Telefoonnummer is verplicht';
   @override
   String invalidPhone(String country) =>
@@ -42,4 +46,12 @@ class NlFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Tijd is verplicht';
   @override
   String get invalidTime => 'Ongeldige tijdsindeling';
+  @override
+  String get creditCardRequired => 'Creditcardnummer is verplicht';
+  @override
+  String get invalidCreditCard => 'Ongeldig creditcardnummer';
+  @override
+  String get ibanRequired => 'IBAN is verplicht';
+  @override
+  String get invalidIban => 'Ongeldig IBAN-nummer';
 }

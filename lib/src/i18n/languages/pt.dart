@@ -6,6 +6,10 @@ class PtFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Digite um e-mail válido';
   @override
+  String get urlRequired => 'URL é obrigatória';
+  @override
+  String get invalidUrl => 'Digite uma URL válida';
+  @override
   String get phoneRequired => 'Número de telefone é obrigatório';
   @override
   String invalidPhone(String country) =>
@@ -42,4 +46,12 @@ class PtFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Hora é obrigatória';
   @override
   String get invalidTime => 'Formato de hora inválido';
+  @override
+  String get creditCardRequired => 'Número do cartão de crédito é obrigatório';
+  @override
+  String get invalidCreditCard => 'Número de cartão de crédito inválido';
+  @override
+  String get ibanRequired => 'IBAN é obrigatório';
+  @override
+  String get invalidIban => 'Número IBAN inválido';
 }

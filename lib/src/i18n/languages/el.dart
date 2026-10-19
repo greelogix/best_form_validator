@@ -6,6 +6,10 @@ class ElFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Εισάγετε έγκυρο email';
   @override
+  String get urlRequired => 'Απαιτείται URL';
+  @override
+  String get invalidUrl => 'Εισάγετε έγκυρο URL';
+  @override
   String get phoneRequired => 'Απαιτείται αριθμός τηλεφώνου';
   @override
   String invalidPhone(String country) => 'Εισάγετε έγκυρο αριθμό για $country';
@@ -44,4 +48,12 @@ class ElFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Απαιτείται ώρα';
   @override
   String get invalidTime => 'Μη έγκυρη μορφή ώρας';
+  @override
+  String get creditCardRequired => 'Απαιτείται αριθμός πιστωτικής κάρτας';
+  @override
+  String get invalidCreditCard => 'Μη έγκυρος αριθμός πιστωτικής κάρτας';
+  @override
+  String get ibanRequired => 'Απαιτείται IBAN';
+  @override
+  String get invalidIban => 'Μη έγκυρος αριθμός IBAN';
 }

@@ -6,6 +6,10 @@ class ZhFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => '请输入有效的电子邮件';
   @override
+  String get urlRequired => '需要 URL';
+  @override
+  String get invalidUrl => '请输入有效的 URL';
+  @override
   String get phoneRequired => '需要电话号码';
   @override
   String invalidPhone(String country) => '请输入有效的 $country 电话号码';
@@ -39,4 +43,12 @@ class ZhFormLocalizations extends FormLocalizations {
   String get timeRequired => '需要时间';
   @override
   String get invalidTime => '无效的时间格式';
+  @override
+  String get creditCardRequired => '需要信用卡号码';
+  @override
+  String get invalidCreditCard => '无效的信用卡号码';
+  @override
+  String get ibanRequired => '需要IBAN';
+  @override
+  String get invalidIban => '无效的IBAN号码';
 }

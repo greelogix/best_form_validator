@@ -7,6 +7,10 @@ class EnFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Enter a valid email';
   @override
+  String get urlRequired => 'URL is required';
+  @override
+  String get invalidUrl => 'Enter a valid URL';
+  @override
   String get phoneRequired => 'Phone number is required';
   @override
   String invalidPhone(String country) =>
@@ -46,4 +50,12 @@ class EnFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Time is required';
   @override
   String get invalidTime => 'Invalid time format';
+  @override
+  String get creditCardRequired => 'Credit card number is required';
+  @override
+  String get invalidCreditCard => 'Invalid credit card number';
+  @override
+  String get ibanRequired => 'IBAN is required';
+  @override
+  String get invalidIban => 'Invalid IBAN number';
 }

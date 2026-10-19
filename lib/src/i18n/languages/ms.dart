@@ -6,6 +6,10 @@ class MsFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Masukkan emel yang sah';
   @override
+  String get urlRequired => 'URL diperlukan';
+  @override
+  String get invalidUrl => 'Masukkan URL yang sah';
+  @override
   String get phoneRequired => 'Nombor telefon diperlukan';
   @override
   String invalidPhone(String country) =>
@@ -45,4 +49,12 @@ class MsFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Masa diperlukan';
   @override
   String get invalidTime => 'Format masa tidak sah';
+  @override
+  String get creditCardRequired => 'Nombor kad kredit diperlukan';
+  @override
+  String get invalidCreditCard => 'Nombor kad kredit tidak sah';
+  @override
+  String get ibanRequired => 'IBAN diperlukan';
+  @override
+  String get invalidIban => 'Nombor IBAN tidak sah';
 }

@@ -6,6 +6,10 @@ class EsFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Ingrese un correo electrónico válido';
   @override
+  String get urlRequired => 'La URL es obligatoria';
+  @override
+  String get invalidUrl => 'Ingrese una URL válida';
+  @override
   String get phoneRequired => 'El número de teléfono es obligatorio';
   @override
   String invalidPhone(String country) =>
@@ -43,4 +47,13 @@ class EsFormLocalizations extends FormLocalizations {
   String get timeRequired => 'La hora es obligatoria';
   @override
   String get invalidTime => 'Formato de hora inválido';
+  @override
+  String get creditCardRequired =>
+      'El número de tarjeta de crédito es obligatorio';
+  @override
+  String get invalidCreditCard => 'Número de tarjeta de crédito inválido';
+  @override
+  String get ibanRequired => 'El IBAN es obligatorio';
+  @override
+  String get invalidIban => 'Número de IBAN inválido';
 }

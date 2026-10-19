@@ -6,6 +6,10 @@ class HiFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'एक मान्य ईमेल दर्ज करें';
   @override
+  String get urlRequired => 'URL आवश्यक है';
+  @override
+  String get invalidUrl => 'एक मान्य URL दर्ज करें';
+  @override
   String get phoneRequired => 'फ़ोन नंबर आवश्यक है';
   @override
   String invalidPhone(String country) =>
@@ -42,4 +46,12 @@ class HiFormLocalizations extends FormLocalizations {
   String get timeRequired => 'समय आवश्यक है';
   @override
   String get invalidTime => 'अमान्य समय प्रारूप';
+  @override
+  String get creditCardRequired => 'क्रेडिट कार्ड नंबर आवश्यक है';
+  @override
+  String get invalidCreditCard => 'अमान्य क्रेडिट कार्ड नंबर';
+  @override
+  String get ibanRequired => 'IBAN आवश्यक है';
+  @override
+  String get invalidIban => 'अमान्य IBAN नंबर';
 }

@@ -6,6 +6,10 @@ class TrFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Geçerli bir e-posta girin';
   @override
+  String get urlRequired => 'URL gereklidir';
+  @override
+  String get invalidUrl => 'Geçerli bir URL girin';
+  @override
   String get phoneRequired => 'Telefon numarası gereklidir';
   @override
   String invalidPhone(String country) =>
@@ -42,4 +46,12 @@ class TrFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Zaman gereklidir';
   @override
   String get invalidTime => 'Geçersiz zaman formatı';
+  @override
+  String get creditCardRequired => 'Kredi kartı numarası gereklidir';
+  @override
+  String get invalidCreditCard => 'Geçersiz kredi kartı numarası';
+  @override
+  String get ibanRequired => 'IBAN gereklidir';
+  @override
+  String get invalidIban => 'Geçersiz IBAN numarası';
 }

@@ -6,6 +6,10 @@ class JaFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => '有効なメールアドレスを入力してください';
   @override
+  String get urlRequired => 'URLは必須です';
+  @override
+  String get invalidUrl => '有効なURLを入力してください';
+  @override
   String get phoneRequired => '電話番号は必須です';
   @override
   String invalidPhone(String country) => '$country の有効な電話番号を入力してください';
@@ -39,4 +43,12 @@ class JaFormLocalizations extends FormLocalizations {
   String get timeRequired => '時間は必須です';
   @override
   String get invalidTime => '無効な時間形式';
+  @override
+  String get creditCardRequired => 'クレジットカード番号は必須です';
+  @override
+  String get invalidCreditCard => '無効なクレジットカード番号';
+  @override
+  String get ibanRequired => 'IBANは必須です';
+  @override
+  String get invalidIban => '無効なIBAN番号';
 }

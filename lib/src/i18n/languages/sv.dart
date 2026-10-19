@@ -6,6 +6,10 @@ class SvFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Ange en giltig e-postadress';
   @override
+  String get urlRequired => 'URL krävs';
+  @override
+  String get invalidUrl => 'Ange en giltig URL';
+  @override
   String get phoneRequired => 'Telefonnummer krävs';
   @override
   String invalidPhone(String country) => 'Ange ett giltigt nummer för $country';
@@ -41,4 +45,12 @@ class SvFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Tid krävs';
   @override
   String get invalidTime => 'Ogiltigt tidsformat';
+  @override
+  String get creditCardRequired => 'Kreditkortsnummer krävs';
+  @override
+  String get invalidCreditCard => 'Ogiltigt kreditkortsnummer';
+  @override
+  String get ibanRequired => 'IBAN krävs';
+  @override
+  String get invalidIban => 'Ogiltigt IBAN-nummer';
 }

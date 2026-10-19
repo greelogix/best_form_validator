@@ -6,6 +6,10 @@ class UrFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'درست ای میل درج کریں';
   @override
+  String get urlRequired => 'URL درکار ہے';
+  @override
+  String get invalidUrl => 'درست URL درج کریں';
+  @override
   String get phoneRequired => 'فون نمبر درکار ہے';
   @override
   String invalidPhone(String country) =>
@@ -42,4 +46,12 @@ class UrFormLocalizations extends FormLocalizations {
   String get timeRequired => 'وقت درکار ہے';
   @override
   String get invalidTime => 'غلط وقت کا فارمیٹ';
+  @override
+  String get creditCardRequired => 'کریڈٹ کارڈ نمبر درکار ہے';
+  @override
+  String get invalidCreditCard => 'غلط کریڈٹ کارڈ نمبر';
+  @override
+  String get ibanRequired => 'IBAN درکار ہے';
+  @override
+  String get invalidIban => 'غلط IBAN نمبر';
 }

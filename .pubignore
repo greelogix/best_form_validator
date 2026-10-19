@@ -1,0 +1,23 @@
+.dart_tool/
+.git/
+.github/
+.idea/
+build/
+coverage/
+*.iml
+pubspec.lock
+RELEASING.md
+
+# Keep the runnable Dart example while excluding generated platform scaffolding
+# and the demo GIF already hosted remotely for the README.
+example/.dart_tool/
+example/.metadata
+example/build/
+example/pubspec.lock
+example/assets/video/
+example/android/
+example/ios/
+example/linux/
+example/macos/
+example/web/
+example/windows/

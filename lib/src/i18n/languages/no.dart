@@ -6,6 +6,10 @@ class NoFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Skriv inn en gyldig e-postadresse';
   @override
+  String get urlRequired => 'URL er påkrevd';
+  @override
+  String get invalidUrl => 'Skriv inn en gyldig URL';
+  @override
   String get phoneRequired => 'Telefonnummer er påkrevd';
   @override
   String invalidPhone(String country) =>
@@ -42,4 +46,12 @@ class NoFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Tid er påkrevd';
   @override
   String get invalidTime => 'Ugyldig tidsformat';
+  @override
+  String get creditCardRequired => 'Kredittkortnummer er påkrevd';
+  @override
+  String get invalidCreditCard => 'Ugyldig kredittkortnummer';
+  @override
+  String get ibanRequired => 'IBAN er påkrevd';
+  @override
+  String get invalidIban => 'Ugyldig IBAN-nummer';
 }

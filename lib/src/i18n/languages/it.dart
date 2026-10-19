@@ -6,6 +6,10 @@ class ItFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Inserisci un\'email valida';
   @override
+  String get urlRequired => 'L\'URL è richiesto';
+  @override
+  String get invalidUrl => 'Inserisci un URL valido';
+  @override
   String get phoneRequired => 'Il numero di telefono è richiesto';
   @override
   String invalidPhone(String country) =>
@@ -43,4 +47,12 @@ class ItFormLocalizations extends FormLocalizations {
   String get timeRequired => 'L\'ora è richiesta';
   @override
   String get invalidTime => 'Formato ora non valido';
+  @override
+  String get creditCardRequired => 'Il numero di carta di credito è richiesto';
+  @override
+  String get invalidCreditCard => 'Numero di carta di credito non valido';
+  @override
+  String get ibanRequired => 'L\'IBAN è richiesto';
+  @override
+  String get invalidIban => 'Numero IBAN non valido';
 }

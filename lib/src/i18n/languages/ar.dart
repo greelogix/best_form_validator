@@ -6,6 +6,10 @@ class ArFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'أدخل بريداً إلكترونياً صالحاً';
   @override
+  String get urlRequired => 'الرابط مطلوب';
+  @override
+  String get invalidUrl => 'أدخل رابطاً صالحاً';
+  @override
   String get phoneRequired => 'رقم الهاتف مطلوب';
   @override
   String invalidPhone(String country) => 'أدخل رقم هاتف صالح لـ $country';
@@ -41,4 +45,12 @@ class ArFormLocalizations extends FormLocalizations {
   String get timeRequired => 'الوقت مطلوب';
   @override
   String get invalidTime => 'تنسيق الوقت غير صالح';
+  @override
+  String get creditCardRequired => 'رقم بطاقة الائتمان مطلوب';
+  @override
+  String get invalidCreditCard => 'رقم بطاقة الائتمان غير صالح';
+  @override
+  String get ibanRequired => 'رقم IBAN مطلوب';
+  @override
+  String get invalidIban => 'رقم IBAN غير صالح';
 }

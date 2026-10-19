@@ -6,6 +6,10 @@ class FiFormLocalizations extends FormLocalizations {
   @override
   String get invalidEmail => 'Anna kelvollinen sähköpostiosoite';
   @override
+  String get urlRequired => 'URL vaaditaan';
+  @override
+  String get invalidUrl => 'Anna kelvollinen URL';
+  @override
   String get phoneRequired => 'Puhelinnumero vaaditaan';
   @override
   String invalidPhone(String country) =>
@@ -44,4 +48,12 @@ class FiFormLocalizations extends FormLocalizations {
   String get timeRequired => 'Aika vaaditaan';
   @override
   String get invalidTime => 'Virheellinen aikamuoto';
+  @override
+  String get creditCardRequired => 'Luottokortin numero vaaditaan';
+  @override
+  String get invalidCreditCard => 'Virheellinen luottokortin numero';
+  @override
+  String get ibanRequired => 'IBAN vaaditaan';
+  @override
+  String get invalidIban => 'Virheellinen IBAN-numero';
 }
