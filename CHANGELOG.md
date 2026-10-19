@@ -12,6 +12,7 @@
 - Added regression tests for all fixes.
 - Added `.pubignore` to remove IDE metadata, generated platform scaffolding, and the duplicate demo GIF from the published archive.
 - Added the generated `build/` exclusion to static analysis configuration.
+- Added pull-request CI, Dependabot updates, and approval-gated OIDC publishing from version tags.
 
 ## 1.4.0
 
