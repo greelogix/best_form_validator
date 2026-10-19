@@ -7,6 +7,7 @@ coverage/
 *.iml
 pubspec.lock
 RELEASING.md
+release-please-config.json
 
 # Keep the runnable Dart example while excluding generated platform scaffolding
 # and the demo GIF already hosted remotely for the README.

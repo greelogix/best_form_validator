@@ -50,7 +50,7 @@ Drop validators directly into `TextFormField.validator` — no `BuildContext`, n
 
 ```yaml
 dependencies:
-  best_form_validator: ^1.4.1
+  best_form_validator: ^1.4.2
 ```
 
 ```bash

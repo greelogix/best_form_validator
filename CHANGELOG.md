@@ -1,3 +1,9 @@
+## 1.4.2
+
+### Maintenance
+- Added automated release preparation with synchronized package versions, changelog updates, GitHub releases, and version tags.
+- Documented the automated pub.dev release process and conventional commit versioning rules.
+
 ## 1.4.1
 
 ### Bug Fixes
